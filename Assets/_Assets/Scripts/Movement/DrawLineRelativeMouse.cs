@@ -34,11 +34,17 @@ namespace DonBosco.Character
 
         private void Update()
         {
-            Debug.Log(isAiming);
             if (isAiming)
             {
+                //Move targetPosition to the mouse position by maxDistance
+                aimPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                aimPosition.z = 0;
+                aimPosition = Vector3.ClampMagnitude(aimPosition - startingLineTransform.position, maxDistance) + startingLineTransform.position;
+                targetTransform.position = aimPosition;
+
+
                 //Check first whether the mouse is hovering on a Targetable layer
-                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, maxDistance, targetableLayerMask);
+                RaycastHit2D hit = Physics2D.Raycast(aimPosition, Vector2.zero, maxDistance, targetableLayerMask);
 
                 if(hit.collider != null)
                 {
@@ -47,12 +53,10 @@ namespace DonBosco.Character
                 }
                 else
                 {
-                    aimPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    aimPosition.z = 0;
                     UpdateLine(aimPosition);
                 }
 
-                targetTransform.position = aimPosition;
+                
             }
         }
         #endregion
