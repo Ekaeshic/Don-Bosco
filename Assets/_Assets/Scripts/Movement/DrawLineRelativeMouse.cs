@@ -15,7 +15,8 @@ namespace DonBosco.Character
         [SerializeField] private Transform startingLineTransform;
         [SerializeField] private Transform targetTransform;
         [Header("Settings")]
-        [SerializeField] private LayerMask targetableLayerMask;
+        [SerializeField] private LayerMask targetableAimLayerMask;
+        [SerializeField] private LayerMask collisionAimLayerMask;
         [SerializeField] private float maxDistance = 10f;
 
         private LineRenderer lineRenderer;
@@ -36,20 +37,39 @@ namespace DonBosco.Character
         {
             if (isAiming)
             {
-                //Move targetPosition to the mouse position by maxDistance
                 aimPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 aimPosition.z = 0;
-                aimPosition = Vector3.ClampMagnitude(aimPosition - startingLineTransform.position, maxDistance) + startingLineTransform.position;
+                // Vector2 mouseMovement = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+                // aimPosition += (Vector3)mouseMovement * rotationSpeed * Time.deltaTime;
+
+                //process the aimPosition to be within the maxDistance
+                Vector2 direction = (aimPosition - startingLineTransform.position).normalized;
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+                //limit the targetTransform position to the maxDistance
+                if(Vector2.Distance(startingLineTransform.position, aimPosition) > maxDistance)
+                {
+                    aimPosition = startingLineTransform.position + (Vector3)direction * maxDistance;
+                }
+                aimPosition.z = 0;
                 targetTransform.position = aimPosition;
 
 
                 //Check first whether the mouse is hovering on a Targetable layer
-                RaycastHit2D hit = Physics2D.Raycast(aimPosition, Vector2.zero, maxDistance, targetableLayerMask);
+                float distance = Vector2.Distance(startingLineTransform.position, aimPosition);
+                RaycastHit2D hit = Physics2D.Raycast(startingLineTransform.position, direction, distance, targetableAimLayerMask | collisionAimLayerMask);
 
-                if(hit.collider != null)
+                //Check the hit collider is not null and the hit layer is on the targetable layer
+                if(hit.collider != null && targetableAimLayerMask == (targetableAimLayerMask | (1 << hit.collider.gameObject.layer)))
                 {
                     aimPosition = hit.collider.transform.position;
                     UpdateLine(hit.collider.transform.position);
+                }
+                //Else if it hit a collider that is on collision layer
+                else if(hit.collider != null && collisionAimLayerMask == (collisionAimLayerMask | (1 << hit.collider.gameObject.layer)))
+                {
+                    aimPosition = hit.point;
+                    UpdateLine(hit.point);
                 }
                 else
                 {
@@ -78,12 +98,18 @@ namespace DonBosco.Character
         /// </summary>
         public void DrawLine()
         {
+            aimPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            aimPosition.z = 0;
+            targetTransform.position = aimPosition;
+            
             lineRenderer.enabled = true;
             isAiming = true;
         }
 
         public void RemoveLine()
         {
+            targetTransform.localPosition = Vector3.zero;
+
             lineRenderer.enabled = false;
             isAiming = false;
             lineRenderer.SetPosition(0, Vector3.zero);

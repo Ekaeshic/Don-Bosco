@@ -64,12 +64,7 @@ namespace DonBosco.Character
 
         public void OnAim(InputValue value)
         {
-            movementState = value.isPressed ? MovementState.Aiming : MovementState.Walking;
-            
-            //Hide the cursor when pressed, show it when released
-            Cursor.visible = !value.isPressed;
-
-            //Then draw the aim line to the mouse position
+            //Draw the aim line to the mouse position (Top priority)
             switch(value.isPressed)
             {
                 case true:
@@ -83,6 +78,17 @@ namespace DonBosco.Character
                     Cursor.lockState = CursorLockMode.None;
                     break;
             }
+
+            movementState = value.isPressed ? MovementState.Aiming : MovementState.Walking;
+            
+            //Hide the cursor when pressed, show it when released
+            //Cursor.visible = !value.isPressed;
+
+            
+        }
+
+        public void OnMouse(InputValue value)
+        {
         }
         #endregion
     }

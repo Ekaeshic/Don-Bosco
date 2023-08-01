@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using DG.Tweening;
 
 namespace DonBosco.Character
 {
@@ -11,17 +12,19 @@ namespace DonBosco.Character
     [RequireComponent(typeof(PlayerController))]
     public class PlayerMovement : MonoBehaviour 
     {
+        [Header("References")]
+        [SerializeField] private Transform visionTransform;
         [Header("Settings")]
         [SerializeField] private float walkSpeed = 5f;
         [SerializeField] private float aimWalkSpeed = 2f;
-        [SerializeField] private float rotationSpeed = 1f;
         
         private Animator anim;
         private Rigidbody2D rb;
         private PlayerController playerController;
 
         private Vector2 movementDirection;
-        private Vector2 lookDirection; 
+        private Vector2 facingDirection; 
+        float facingAngle;
         private bool isAiming = false;
 
 
@@ -43,6 +46,9 @@ namespace DonBosco.Character
             else
             {
                 rb.MovePosition(rb.position + movementDirection * walkSpeed * Time.fixedDeltaTime);
+
+                //Rotate the vision transform when moving and not aiming
+                RotateVision();
             }
         }
         #endregion
@@ -52,6 +58,7 @@ namespace DonBosco.Character
         public void WalkState()
         {
             isAiming = false;
+            visionTransform.GetComponent<FaceTowardGameObject>().startFacingTarget = false;
             anim.SetFloat("Speed", movementDirection.normalized.magnitude);
             anim.SetBool("Aiming", false);
         }
@@ -59,17 +66,36 @@ namespace DonBosco.Character
         public void AimState(Vector2 aimPosition)
         {
             isAiming = true;
-            lookDirection = aimPosition - rb.position;
-            float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
+            visionTransform.GetComponent<FaceTowardGameObject>().startFacingTarget = true;
             anim.SetFloat("Speed", movementDirection.normalized.magnitude);
             anim.SetBool("Aiming", true);
         }
 
+        /// <summary>
+        /// Rotates the vision transform to face the direction of the movement
+        /// </summary>
+        private void RotateVision()
+        {
+            if(movementDirection != Vector2.zero)
+            {
+                facingDirection = movementDirection;
+                facingAngle = Mathf.Atan2(facingDirection.y, facingDirection.x) * Mathf.Rad2Deg;
+            }
+            Debug.Log(facingAngle);
+            visionTransform.DOLocalRotate(new Vector3(0, 0, facingAngle), 0.1f);
+        }
+
+        /// <summary>
+        /// Called once by InputSystem OnMove event trigger
+        /// </summary>
         public void Move(Vector2 value)
         {
             movementDirection = value.normalized;
         }
 
+        /// <summary>
+        /// Called once by InputSystem OnAim event trigger
+        /// </summary>
         public void Aim(bool pressed)
         {
             anim.SetBool("Aiming", pressed);
