@@ -81,7 +81,6 @@ namespace DonBosco.Character
                 facingDirection = movementDirection;
                 facingAngle = Mathf.Atan2(facingDirection.y, facingDirection.x) * Mathf.Rad2Deg;
             }
-            Debug.Log(facingAngle);
             visionTransform.DOLocalRotate(new Vector3(0, 0, facingAngle), 0.1f);
         }
 

@@ -12,6 +12,7 @@ namespace DonBosco.Character
     [RequireComponent(typeof(PlayerInput))]
     public class PlayerController : MonoBehaviour
     {
+        private InputActionMap movementActionMap;
         private PlayerInput playerInput;
         private PlayerMovement playerMovement;
         private DrawLineRelativeMouse drawLine;
@@ -33,6 +34,7 @@ namespace DonBosco.Character
             playerInput = GetComponent<PlayerInput>(); 
             playerMovement = GetComponent<PlayerMovement>();
             drawLine = GetComponentInChildren<DrawLineRelativeMouse>();
+            movementActionMap = playerInput.actions.FindActionMap("Movement");
         }
 
         private void FixedUpdate() {
@@ -86,10 +88,22 @@ namespace DonBosco.Character
 
             
         }
-
-        public void OnMouse(InputValue value)
-        {
-        }
         #endregion
+
+
+        /// <summary>
+        /// Enables the movement action map
+        /// </summary>
+        public void EnableMovement()
+        {
+            movementActionMap.Enable();
+        }
+
+        /// <summary>
+        /// Disables the movement action map
+        public void DisableMovement()
+        {
+            movementActionMap.Disable();
+        }
     }
 }
