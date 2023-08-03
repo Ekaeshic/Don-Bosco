@@ -8,6 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class NPCDialogue : MonoBehaviour, IInteractable
 {
+    public bool IsInteractable { get; set; } = true;
     // ScriptableObject Dialogue;
     public void Interact()
     {

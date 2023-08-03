@@ -78,28 +78,49 @@ namespace DonBosco.Character
             //Find all colliders within the interaction radius
             int count = Physics2D.OverlapCircleNonAlloc(transform.position, interactionRadius, hit, interactionLayer);
 
+            GameObject nearestObject = null;
+            float nearestDistance = Mathf.Infinity;
+
             //Loop through all colliders
             for(int i = 0; i < count; i++)
             {
                 //If the collider has an IInteractable component
                 if(hit[i].GetComponent<IInteractable>() != null)
                 {
-                    //Set the selected object to the collider
-                    selectedObject = hit[i].gameObject;
-                    
-                    //Spawn the hint prefab above the object
-                    if(spawnedHint == null && hintPrefab != null)
+                    //Check if the object is not interactable then skip it
+                    if(!hit[i].GetComponent<IInteractable>().IsInteractable)
                     {
-                        float yOffset = (selectedObject.GetComponent<Collider2D>().bounds.size.y / 2f) + 1f;
-                        spawnedHint = Instantiate(hintPrefab, selectedObject.transform.position + Vector3.up * yOffset, Quaternion.identity);
+                        break;
                     }
-                    return;
+                    
+                    //Search for the nearest object
+                    float thisDistance = Vector2.Distance(transform.position, hit[i].transform.position);
+                    if(thisDistance < nearestDistance)
+                    {
+                        nearestObject = hit[i].gameObject;
+                        nearestDistance = thisDistance;
+                    }
                 }
             }
 
-            //If no interactable object was found, set the selected object to null
-            selectedObject = null;
-            DestroyHint();
+            if(nearestObject != null)
+            {
+                //Spawn the hint prefab above the object
+                if(spawnedHint == null || nearestObject != selectedObject && hintPrefab != null )
+                {
+                    DestroyHint();
+                    float yOffset = (nearestObject.GetComponent<Collider2D>().bounds.size.y / 2f) + 1f;
+                    spawnedHint = Instantiate(hintPrefab, nearestObject.transform.position + Vector3.up * yOffset, Quaternion.identity);
+                }
+            }
+            
+            //Set the selected object
+            selectedObject = nearestObject;
+
+            if(selectedObject == null)
+            {
+                DestroyHint();
+            }
         }
 
         private void DestroyHint()

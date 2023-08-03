@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public interface IInteractable
 {
+    bool IsInteractable { get; set; }
+    
     /// <summary>
     /// Interact with the object
     /// </summary>
