@@ -17,7 +17,7 @@ namespace DonBosco.Character
         [Header("Settings")]
         [SerializeField] private float interactionRadius = 3f;
         [SerializeField] private LayerMask interactionLayer = ~0;
-        [SerializeField] private KeyCode interactKey = KeyCode.E;
+        //[SerializeField] private KeyCode interactKey = KeyCode.E;
 
         private Collider2D[] hit = new Collider2D[10]; //You can change the size of this array if you need to
         private GameObject selectedObject;
@@ -33,6 +33,18 @@ namespace DonBosco.Character
 
 
         #region MonoBehaviour
+        private async void OnEnable()
+        {
+            await InputManager.GetInstance().ContinueWith((task) => {
+                task.Result.OnInteractPressed += OnInteractPressed;
+            });
+        }
+
+        private void OnDisable() 
+        {
+            InputManager.Instance.OnInteractPressed -= OnInteractPressed;
+        }
+
         private void Update() 
         {
             //If you use legacy input, uncomment this and set the interactKey to the key you want to use
@@ -53,7 +65,7 @@ namespace DonBosco.Character
         /// <summary>
         /// Listens for the interact input by Input System
         /// </summary>
-        public void OnInteract(InputValue value)
+        public void OnInteractPressed()
         {
             //If the selected object is not null
             if(selectedObject != null)
@@ -134,19 +146,19 @@ namespace DonBosco.Character
         /// <summary>
         /// Legacy input handler, use this if you are not using the new input system
         /// </summary>
-        private void LegacyInput()
-        {
-            if(Input.GetKeyDown(interactKey))
-            {
-                if(selectedObject != null)
-                {
-                    selectedObject.GetComponent<IInteractable>().Interact();
-                    DestroyHint();
+        // private void LegacyInput()
+        // {
+        //     if(Input.GetKeyDown(interactKey))
+        //     {
+        //         if(selectedObject != null)
+        //         {
+        //             selectedObject.GetComponent<IInteractable>().Interact();
+        //             DestroyHint();
 
-                    OnInteractEvent?.Invoke();
-                }
-            }
-        }
+        //             OnInteractEvent?.Invoke();
+        //         }
+        //     }
+        // }
 
 
 

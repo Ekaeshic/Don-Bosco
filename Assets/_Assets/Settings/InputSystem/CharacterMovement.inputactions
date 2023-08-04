@@ -2,7 +2,7 @@
     "name": "CharacterMovement",
     "maps": [
         {
-            "name": "MovementInput",
+            "name": "Movement",
             "id": "17e4c341-bd42-41a7-960a-9c296b8381be",
             "actions": [
                 {
@@ -190,6 +190,54 @@
                     "processors": "",
                     "groups": "",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "a550e346-47a8-4af8-8ca7-0bdb111aa5e4",
+            "actions": [
+                {
+                    "name": "Submit",
+                    "type": "Button",
+                    "id": "1195165d-041b-473a-b0bd-9b217e169853",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Back",
+                    "type": "Button",
+                    "id": "946752c2-eb04-492f-8979-05ad69a245a8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fc359290-4d7f-446d-8df2-e299dd7a9884",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "94d1f7ec-c6a0-486f-8f3c-2c3d006a0aff",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Back",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

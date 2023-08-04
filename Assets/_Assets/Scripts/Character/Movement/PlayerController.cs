@@ -7,13 +7,10 @@ using UnityEngine.InputSystem;
 namespace DonBosco.Character
 {
     /// <summary>
-    /// Handles the player movement
+    /// Handles Player state and variables
     /// </summary>
-    [RequireComponent(typeof(PlayerInput))]
     public class PlayerController : MonoBehaviour
     {
-        private InputActionMap movementActionMap;
-        private PlayerInput playerInput;
         private PlayerMovement playerMovement;
         private DrawLineRelativeMouse drawLine;
 
@@ -31,10 +28,18 @@ namespace DonBosco.Character
         #region MonoBehaviour
         private void Awake() 
         {
-            playerInput = GetComponent<PlayerInput>(); 
             playerMovement = GetComponent<PlayerMovement>();
             drawLine = GetComponentInChildren<DrawLineRelativeMouse>();
-            movementActionMap = playerInput.actions.FindActionMap("Movement");
+        }
+
+        private async void OnEnable() {
+            await InputManager.GetInstance().ContinueWith((task) => {
+                task.Result.OnAimPressed += OnAimPressed;
+            });
+        }
+
+        private void OnDisable() {
+            InputManager.Instance.OnAimPressed -= OnAimPressed;
         }
 
         private void FixedUpdate() {
@@ -58,16 +63,12 @@ namespace DonBosco.Character
 
 
         #region Input
-        public void OnMove(InputValue value)
+        public void OnAimPressed()
         {
-            input = value.Get<Vector2>();
-            playerMovement.Move(input);
-        }
-
-        public void OnAim(InputValue value)
-        {
+            Debug.Log("Aim Pressed");
+            bool value = InputManager.Instance.GetAimPressed();
             //Draw the aim line to the mouse position (Top priority)
-            switch(value.isPressed)
+            switch(value)
             {
                 case true:
                     drawLine.DrawLine();
@@ -81,29 +82,11 @@ namespace DonBosco.Character
                     break;
             }
 
-            movementState = value.isPressed ? MovementState.Aiming : MovementState.Walking;
+            movementState = value ? MovementState.Aiming : MovementState.Walking;
             
             //Hide the cursor when pressed, show it when released
             //Cursor.visible = !value.isPressed;
-
-            
         }
         #endregion
-
-
-        /// <summary>
-        /// Enables the movement action map
-        /// </summary>
-        public void EnableMovement()
-        {
-            movementActionMap.Enable();
-        }
-
-        /// <summary>
-        /// Disables the movement action map
-        public void DisableMovement()
-        {
-            movementActionMap.Disable();
-        }
     }
 }

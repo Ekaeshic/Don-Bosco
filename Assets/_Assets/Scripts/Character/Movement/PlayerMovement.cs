@@ -14,11 +14,12 @@ namespace DonBosco.Character
     {
         [Header("References")]
         [SerializeField] private Transform visionTransform;
+        [SerializeField] private Animator anim;
         [Header("Settings")]
         [SerializeField] private float walkSpeed = 5f;
         [SerializeField] private float aimWalkSpeed = 2f;
         
-        private Animator anim;
+        
         private Rigidbody2D rb;
         private PlayerController playerController;
 
@@ -32,24 +33,13 @@ namespace DonBosco.Character
         #region MonoBehaviour
         private void Awake() 
         {
-            anim = GetComponent<Animator>();
             rb = GetComponent<Rigidbody2D>();
             playerController = GetComponent<PlayerController>();
         }
 
         void FixedUpdate() 
         {
-            if(isAiming)
-            {
-                rb.MovePosition(rb.position + movementDirection * aimWalkSpeed * Time.fixedDeltaTime);
-            }
-            else
-            {
-                rb.MovePosition(rb.position + movementDirection * walkSpeed * Time.fixedDeltaTime);
-
-                //Rotate the vision transform when moving and not aiming
-                RotateVision();
-            }
+            Move();
         }
         #endregion
 
@@ -87,9 +77,21 @@ namespace DonBosco.Character
         /// <summary>
         /// Called once by InputSystem OnMove event trigger
         /// </summary>
-        public void Move(Vector2 value)
+        public void Move()
         {
-            movementDirection = value.normalized;
+            movementDirection = InputManager.Instance.GetMoveValue().normalized;
+            
+            if(isAiming)
+            {
+                rb.MovePosition(rb.position + movementDirection * aimWalkSpeed * Time.fixedDeltaTime);
+            }
+            else
+            {
+                rb.MovePosition(rb.position + movementDirection * walkSpeed * Time.fixedDeltaTime);
+
+                //Rotate the vision transform when moving and not aiming
+                RotateVision();
+            }
         }
 
         /// <summary>
