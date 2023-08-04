@@ -250,7 +250,7 @@ namespace InkDialogue
             int frequencyLevel = currentAudioInfo.frequencyLevel;
             float minPitch = currentAudioInfo.minPitch;
             float maxPitch = currentAudioInfo.maxPitch;
-            bool stopAudioSource = currentAudioInfo.stopAudioSource;
+            bool stopAudioSource = currentAudioInfo.stopAudioSourceInstantly;
 
             // play the sound based on the config
             if (currentDisplayedCharacterCount % frequencyLevel == 0)

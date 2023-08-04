@@ -2623,7 +2623,7 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 4.7328653
+  m_PointLightInnerRadius: 11.38
   m_PointLightOuterRadius: 25.641273
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
@@ -4255,7 +4255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98d7f911178cdb647a59ef4b2449e29f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typingSpeed: 0.04
+  typingSpeed: 0.035
   loadGlobalsJSON: {fileID: 4900000, guid: 6f50f68f8a0142349a2d422a90d6f6e7, type: 3}
   dialoguePanel: {fileID: 1144627677}
   continueIcon: {fileID: 916144585}
@@ -4277,7 +4277,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 40155f59ebfe76d4dae3f973254e6ee0, type: 2}
   - {fileID: 11400000, guid: 7ec5b480d4f4a904aa776d23b49f742b, type: 2}
   - {fileID: 11400000, guid: af0e5bb7705944941a6d7cc9dc38de17, type: 2}
-  makePredictable: 1
+  - {fileID: 11400000, guid: fa202652012856a46a9b4fff1072106b, type: 2}
+  - {fileID: 11400000, guid: 34005c42be6d87a418c5a8b9bfb0fced, type: 2}
+  - {fileID: 11400000, guid: 7876813c4a6a9d4488f9d2340a5988dc, type: 2}
+  - {fileID: 11400000, guid: e1e47983a2c208b4ca97839c6c3450eb, type: 2}
 --- !u!1 &1484585921
 GameObject:
   m_ObjectHideFlags: 0

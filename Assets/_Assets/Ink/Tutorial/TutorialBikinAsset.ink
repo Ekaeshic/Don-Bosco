@@ -19,11 +19,11 @@ INCLUDE tutorialData.ink
 
 // Menghilangkan speaker dan portrait akan memberikan kesan narator
 #speaker:null 
-#portrait:null audio:null
+#portrait:null audio:alphabet
 Pria itu terlihat sangat asyik bermain dengan kucing yang ada di sebelahnya
 
 #speaker:{MC_name}
-#portrait:null #audio:animal_crossing_low
+#portrait:null #audio:alphabet
 Halo mas, lagi ngapain? hehe..
 // Jika orang yang sama masih berbicara, bisa langsung tanpa tulis tag
 Oh, perkenalin mas, namaku <color=\#FFD258>{MC_name}</color>.
@@ -31,7 +31,7 @@ Oh, perkenalin mas, namaku <color=\#FFD258>{MC_name}</color>.
 Kucingnya lucu ya mas.
 
 #speaker:Adit 
-#portrait:null #audio:animal_crossing_high
+#portrait:null #audio:adit
 Lucu banget mas!
 
 -> END

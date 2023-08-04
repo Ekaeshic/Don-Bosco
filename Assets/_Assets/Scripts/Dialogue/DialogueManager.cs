@@ -37,7 +37,6 @@ namespace DonBosco.Dialogue
         [Header("Audio")]
         [SerializeField] private DialogueAudioInfoSO defaultAudioInfo;
         [SerializeField] private DialogueAudioInfoSO[] audioInfos;
-        [SerializeField] private bool makePredictable;
         private DialogueAudioInfoSO currentAudioInfo;
         private Dictionary<string, DialogueAudioInfoSO> audioInfoDictionary;
         private AudioSource audioSource;
@@ -289,13 +288,32 @@ namespace DonBosco.Dialogue
             {
                 return;
             }
+            //filter out the character that is not a letter or number
+            if(!Char.IsLetterOrDigit(currentCharacter) && !currentAudioInfo.readPunctuation)
+            {
+                return;
+            }
+            if(currentAudioInfo.readWaitForAudioBefore && audioSource.isPlaying)
+            {
+                return;
+            }
 
             // set variables for the below based on our config
-            AudioClip[] dialogueTypingSoundClips = currentAudioInfo.dialogueTypingSoundClips;
+            AudioClip[] dialogueTypingSoundClips = null;
+            if(currentAudioInfo.dialogueAudioType == DialogueAudioType.EasyTyping)
+            {
+                dialogueTypingSoundClips = currentAudioInfo.dialogueTypingSoundClips;
+            }
+            else if(currentAudioInfo.dialogueAudioType == DialogueAudioType.AlphabetTyping)
+            {
+                dialogueTypingSoundClips = currentAudioInfo.dialogueAlphabetSoundClips;
+            }
+            
             int frequencyLevel = currentAudioInfo.frequencyLevel;
             float minPitch = currentAudioInfo.minPitch;
             float maxPitch = currentAudioInfo.maxPitch;
-            bool stopAudioSource = currentAudioInfo.stopAudioSource;
+            bool stopAudioSource = currentAudioInfo.stopAudioSourceInstantly;
+            int hashCode = currentCharacter.GetHashCode();
 
             // play the sound based on the config
             if (currentDisplayedCharacterCount % frequencyLevel == 0)
@@ -305,28 +323,20 @@ namespace DonBosco.Dialogue
                     audioSource.Stop();
                 }
                 AudioClip soundClip = null;
+                
                 // create predictable audio from hashing
-                if (makePredictable) 
+                if (currentAudioInfo.makePredictable && currentAudioInfo.dialogueAudioType == DialogueAudioType.EasyTyping) 
                 {
-                    int hashCode = currentCharacter.GetHashCode();
                     // sound clip
                     int predictableIndex = hashCode % dialogueTypingSoundClips.Length;
                     soundClip = dialogueTypingSoundClips[predictableIndex];
-                    // pitch
-                    int minPitchInt = (int) (minPitch * 100);
-                    int maxPitchInt = (int) (maxPitch * 100);
-                    int pitchRangeInt = maxPitchInt - minPitchInt;
-                    // cannot divide by 0, so if there is no range then skip the selection
-                    if (pitchRangeInt != 0) 
-                    {
-                        int predictablePitchInt = (hashCode % pitchRangeInt) + minPitchInt;
-                        float predictablePitch = predictablePitchInt / 100f;
-                        audioSource.pitch = predictablePitch;
-                    }
-                    else 
-                    {
-                        audioSource.pitch = minPitch;
-                    }
+                }
+                else if(currentAudioInfo.dialogueAudioType == DialogueAudioType.AlphabetTyping)
+                {
+                    // sound clip
+                    // convert alphabet order (from a-z) to index (from 0-25)
+                    int index = char.ToUpper(currentCharacter) - 65;
+                    soundClip = dialogueTypingSoundClips[index];
                 }
                 // otherwise, randomize the audio
                 else 
@@ -334,8 +344,33 @@ namespace DonBosco.Dialogue
                     // sound clip
                     int randomIndex = UnityEngine.Random.Range(0, dialogueTypingSoundClips.Length);
                     soundClip = dialogueTypingSoundClips[randomIndex];
-                    // pitch
-                    audioSource.pitch = UnityEngine.Random.Range(minPitch, maxPitch);
+                }
+
+                // pitch
+                switch(currentAudioInfo.predictPitch)
+                {
+                    case DialoguePitchType.Predictable:
+                        int minPitchInt = (int) (minPitch * 100);
+                        int maxPitchInt = (int) (maxPitch * 100);
+                        int pitchRangeInt = maxPitchInt - minPitchInt;
+                        // cannot divide by 0, so if there is no range then skip the selection
+                        if (pitchRangeInt != 0) 
+                        {
+                            int predictablePitchInt = (hashCode % pitchRangeInt) + minPitchInt;
+                            float predictablePitch = predictablePitchInt / 100f;
+                            audioSource.pitch = predictablePitch;
+                        }
+                        else 
+                        {
+                            audioSource.pitch = minPitch;
+                        }
+                        break;
+                    case DialoguePitchType.Random:
+                        audioSource.pitch = UnityEngine.Random.Range(minPitch, maxPitch);
+                        break;
+                    case DialoguePitchType.Median:
+                        audioSource.pitch = (minPitch + maxPitch) / 2f;
+                        break;
                 }
                 
                 // play sound
