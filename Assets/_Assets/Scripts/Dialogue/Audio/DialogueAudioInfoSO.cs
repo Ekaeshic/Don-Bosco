@@ -10,7 +10,7 @@ using UnityEditor;
 public class DialogueAudioInfoSO : ScriptableObject
 {
     public string id;
-    [HideInInspector] public DialogueAudioType dialogueAudioType = DialogueAudioType.EasyTyping;
+    [HideInInspector] public DialogueAudioType dialogueAudioType = DialogueAudioType.SimpleTyping;
     [HideInInspector] public AudioClip[] dialogueTypingSoundClips;
     [HideInInspector] public AudioClip[] dialogueAlphabetSoundClips;
     [Range(1, 5)]
@@ -23,7 +23,7 @@ public class DialogueAudioInfoSO : ScriptableObject
     public bool readWaitForAudioBefore = false;
     public bool readPunctuation = false;
     
-    [HideInInspector] public bool makePredictable = true;
+    [HideInInspector] public bool hashcodeIndexing = true;
     [HideInInspector] public DialoguePitchType predictPitch = DialoguePitchType.Predictable;
 
     #region Editor
@@ -45,16 +45,21 @@ public class DialogueAudioInfoSO : ScriptableObject
             EditorGUILayout.Space(15);
             EditorGUILayout.LabelField("Predictable Pitch", EditorStyles.boldLabel);
             // Show the Predictable Pitch
-            if(dialogueAudioInfoSO.dialogueAudioType == DialogueAudioType.EasyTyping)
+            if(dialogueAudioInfoSO.dialogueAudioType == DialogueAudioType.SimpleTyping)
             {
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("makePredictable"), true);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("hashcodeIndexing"), true);
+            }
+            if(dialogueAudioInfoSO.hashcodeIndexing == false)
+            {
+                // Show tips
+                EditorGUILayout.HelpBox("If true, the chosen audio clip index will be predicted by their hashcode. Otherwise, the voice will be chosen randomly.", MessageType.Info);
             }
             EditorGUILayout.PropertyField(serializedObject.FindProperty("predictPitch"), true);
 
             // Show the Dialogue Audio Type
             EditorGUILayout.Space(15);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("dialogueAudioType"), true);
-            if(dialogueAudioInfoSO.dialogueAudioType == DialogueAudioType.EasyTyping)
+            if(dialogueAudioInfoSO.dialogueAudioType == DialogueAudioType.SimpleTyping)
             {
                 // Only show the Easy Typing Sound Clips
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("dialogueTypingSoundClips"), true);
@@ -75,7 +80,7 @@ public class DialogueAudioInfoSO : ScriptableObject
 
 public enum DialogueAudioType
 {
-    EasyTyping,
+    SimpleTyping,
     AlphabetTyping
 }
 

@@ -300,7 +300,7 @@ namespace DonBosco.Dialogue
 
             // set variables for the below based on our config
             AudioClip[] dialogueTypingSoundClips = null;
-            if(currentAudioInfo.dialogueAudioType == DialogueAudioType.EasyTyping)
+            if(currentAudioInfo.dialogueAudioType == DialogueAudioType.SimpleTyping)
             {
                 dialogueTypingSoundClips = currentAudioInfo.dialogueTypingSoundClips;
             }
@@ -325,7 +325,7 @@ namespace DonBosco.Dialogue
                 AudioClip soundClip = null;
                 
                 // create predictable audio from hashing
-                if (currentAudioInfo.makePredictable && currentAudioInfo.dialogueAudioType == DialogueAudioType.EasyTyping) 
+                if (currentAudioInfo.hashcodeIndexing && currentAudioInfo.dialogueAudioType == DialogueAudioType.SimpleTyping) 
                 {
                     // sound clip
                     int predictableIndex = hashCode % dialogueTypingSoundClips.Length;
