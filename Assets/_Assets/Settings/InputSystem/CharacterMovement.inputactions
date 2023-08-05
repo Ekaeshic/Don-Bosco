@@ -232,6 +232,17 @@
                 },
                 {
                     "name": "",
+                    "id": "8e9ea47c-c18a-4913-8540-b7b41c584657",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "94d1f7ec-c6a0-486f-8f3c-2c3d006a0aff",
                     "path": "<Keyboard>/escape",
                     "interactions": "",

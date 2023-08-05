@@ -21,6 +21,9 @@ namespace DonBosco.Dialogue
             //     string jsonState = PlayerPrefs.GetString(saveVariablesKey);
             //     globalVariablesStory.state.LoadJson(jsonState);
             // }
+            
+            /// Load using format of binary file
+            // LoadVariables();
 
             // initialize the dictionary
             variables = new Dictionary<string, Ink.Runtime.Object>();
@@ -32,6 +35,19 @@ namespace DonBosco.Dialogue
             }
         }
 
+        private void LoadVariables()
+        {
+            string path = Application.persistentDataPath + "/save.dat";
+            if(System.IO.File.Exists(path))
+            {
+                System.Runtime.Serialization.Formatters.Binary.BinaryFormatter formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                System.IO.FileStream file = System.IO.File.Open(path, System.IO.FileMode.Open);
+                string jsonState = (string)formatter.Deserialize(file);
+                file.Close();
+                globalVariablesStory.state.LoadJson(jsonState);
+            }
+        }
+
         public void SaveVariables() 
         {
             if (globalVariablesStory != null) 
@@ -40,7 +56,23 @@ namespace DonBosco.Dialogue
                 VariablesToStory(globalVariablesStory);
                 // NOTE: eventually, you'd want to replace this with an actual save/load method
                 // rather than using PlayerPrefs.
-                PlayerPrefs.SetString(saveVariablesKey, globalVariablesStory.state.ToJson());
+                //PlayerPrefs.SetString(saveVariablesKey, globalVariablesStory.state.ToJson());
+
+                /// Save using format of binary file
+                //Save to unity persistent data path
+                string path = Application.persistentDataPath + "/save.dat";
+
+                //Create a binary formatter which can read binary files
+                System.Runtime.Serialization.Formatters.Binary.BinaryFormatter formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                
+                //JSON String into binary
+                if(System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+                System.IO.FileStream file = System.IO.File.Create(path);
+                formatter.Serialize(file, globalVariablesStory.state.ToJson());
+                file.Close();
             }
         }
 

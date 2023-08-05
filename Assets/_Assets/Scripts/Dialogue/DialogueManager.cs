@@ -490,6 +490,10 @@ namespace DonBosco.Dialogue
                 Debug.LogError("More choices were given than the UI can support. Number of choices given: " 
                     + currentChoices.Count);
             }
+            else if (currentChoices.Count > 0) 
+            {
+                continueIcon.SetActive(false);
+            }
 
             int index = 0;
             // enable and initialize the choices up to the amount of choices for this line of dialogue
@@ -505,7 +509,7 @@ namespace DonBosco.Dialogue
                 choices[i].gameObject.SetActive(false);
             }
 
-            StartCoroutine(SelectFirstChoice());
+            //StartCoroutine(SelectFirstChoice());
         }
 
         private IEnumerator SelectFirstChoice() 
