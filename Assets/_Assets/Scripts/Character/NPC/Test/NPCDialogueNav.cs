@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using DonBosco.Dialogue;
+using DonBosco.ItemSystem;
 
-namespace DonBosco.Character.NPC
+namespace DonBosco.Character.NPC.Test
 {
     /// <summary>
     /// NPC Script that can be interacted with
@@ -29,6 +30,18 @@ namespace DonBosco.Character.NPC
         
         public void Interact()
         {
+            Talk();
+        }
+
+        public void Interact(Item item)
+        {
+            Talk();
+        }
+
+
+
+        private void Talk()
+        {
             DialogueManager.GetInstance().BindExternalFunction("PindahScene", (sceneName) => PindahScene(sceneName));
             DialogueManager.GetInstance().BindExternalFunction("TidakMauInteraksi", (interactable) => {
                 IsInteractable = false;
@@ -40,7 +53,6 @@ namespace DonBosco.Character.NPC
                 // You can do something here when the dialogue is done
             });
         }
-
 
         public void PindahScene(string sceneName)
         {

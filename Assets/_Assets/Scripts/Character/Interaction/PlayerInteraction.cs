@@ -33,11 +33,9 @@ namespace DonBosco.Character
 
 
         #region MonoBehaviour
-        private async void OnEnable()
+        private void OnEnable()
         {
-            await InputManager.GetInstance().ContinueWith((task) => {
-                task.Result.OnInteractPressed += OnInteractPressed;
-            });
+            InputManager.Instance.OnInteractPressed += OnInteractPressed;
         }
 
         private void OnDisable() 
@@ -73,9 +71,9 @@ namespace DonBosco.Character
                 //If the selected object has an IInteractable component
                 if(selectedObject.GetComponent<IInteractable>() != null)
                 {
+                    DestroyHint();
                     //Interact with the object
                     selectedObject.GetComponent<IInteractable>().Interact();
-                    DestroyHint();
 
                     OnInteractEvent?.Invoke();
                 }
@@ -102,7 +100,7 @@ namespace DonBosco.Character
                     //Check if the object is not interactable then skip it
                     if(!hit[i].GetComponent<IInteractable>().IsInteractable)
                     {
-                        break;
+                        continue;
                     }
                     
                     //Search for the nearest object

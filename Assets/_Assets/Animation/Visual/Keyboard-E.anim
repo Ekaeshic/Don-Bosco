@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Keyboard
+  m_Name: Keyboard-E
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,9 +21,9 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -1774218461, guid: 0934e27bf05b8894398d08ad74513a2b, type: 3}
+      value: {fileID: 1999603543, guid: 0934e27bf05b8894398d08ad74513a2b, type: 3}
     - time: 0.083333336
-      value: {fileID: -613458696, guid: 0934e27bf05b8894398d08ad74513a2b, type: 3}
+      value: {fileID: -373773743, guid: 0934e27bf05b8894398d08ad74513a2b, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,8 +46,8 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -1774218461, guid: 0934e27bf05b8894398d08ad74513a2b, type: 3}
-    - {fileID: -613458696, guid: 0934e27bf05b8894398d08ad74513a2b, type: 3}
+    - {fileID: 1999603543, guid: 0934e27bf05b8894398d08ad74513a2b, type: 3}
+    - {fileID: -373773743, guid: 0934e27bf05b8894398d08ad74513a2b, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

@@ -20,14 +20,12 @@ namespace DonBosco.Dialogue
         
         private void OnEnable()
         {
-            if(DialogueManager.GetInstance() != null)
-                DialogueManager.GetInstance().OnDialogueLineDisplay += UpdateBorderWidth;
+            DialogueManager.GetInstance().OnDialogueLineDisplay += UpdateBorderWidth;
         }
 
         private void OnDisable() 
         {
-            if(DialogueManager.GetInstance() != null)
-                DialogueManager.GetInstance().OnDialogueLineDisplay -= UpdateBorderWidth;
+            DialogueManager.GetInstance().OnDialogueLineDisplay -= UpdateBorderWidth;
         }
 
         private void UpdateBorderWidth()

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using DonBosco.Dialogue;
+using DonBosco.ItemSystem;
 
-namespace DonBosco.Character.NPC
+namespace DonBosco.Character.NPC.Test
 {
     /// <summary>
     /// NPC Script that can be interacted with
@@ -15,7 +16,12 @@ namespace DonBosco.Character.NPC
         public bool IsInteractable { get; set; } = true;
         [SerializeField] private TextAsset dialogue;
         // ScriptableObject Dialogue;
-        public void Interact()
+        public virtual void Interact()
+        {
+            DialogueManager.GetInstance().EnterDialogueMode(dialogue);
+        }
+
+        public virtual void Interact(Item item)
         {
             DialogueManager.GetInstance().EnterDialogueMode(dialogue);
         }

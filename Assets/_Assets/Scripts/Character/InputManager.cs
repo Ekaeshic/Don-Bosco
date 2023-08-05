@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Threading.Tasks;
 
-namespace DonBosco.Character
+namespace DonBosco
 {
     /// <summary>
     /// Handles input
@@ -22,6 +22,9 @@ namespace DonBosco.Character
         private bool interactPressed = false;
         private bool pausePressed = false;
         private bool attackPressed = false;
+        private bool pickupPressed = false;
+        private bool dropPressed = false;
+        private int numkeysPressed = 0;
 
         private bool submitPressed = false;
         private bool backPressed = false;
@@ -49,7 +52,7 @@ namespace DonBosco.Character
             UIactionMap = playerInput.actions.FindActionMap("UI");
         }
 
-        public static async Task<InputManager> GetInstance()
+        public static async Task<InputManager> GetInstanceOnEnable()
         {
             int waitFrame = 10;
             while(instance == null && waitFrame > 0)
@@ -89,6 +92,21 @@ namespace DonBosco.Character
         {
             attackPressed = value.isPressed;
             OnAttackPressed?.Invoke();
+        }
+
+        public void OnPickup(InputValue value)
+        {
+            pickupPressed = value.isPressed;
+        }
+
+        public void OnDrop(InputValue value)
+        {
+            dropPressed = value.isPressed;
+        }
+
+        public void OnNumKeys(InputValue value)
+        {
+            int.TryParse(value.Get().ToString(), out numkeysPressed);
         }
         #endregion
 
@@ -142,6 +160,27 @@ namespace DonBosco.Character
         {
             bool temp = pausePressed;
             pausePressed = false;
+            return temp;
+        }
+
+        public bool GetPickupPressed()
+        {
+            bool temp = pickupPressed;
+            pickupPressed = false;
+            return temp;
+        }
+
+        public bool GetDropPressed()
+        {
+            bool temp = dropPressed;
+            dropPressed = false;
+            return temp;
+        }
+
+        public int GetNumKeysPressed()
+        {
+            int temp = numkeysPressed;
+            numkeysPressed = 0;
             return temp;
         }
 

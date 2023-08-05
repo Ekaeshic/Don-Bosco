@@ -5,6 +5,7 @@ using TMPro;
 using Ink.Runtime;
 using UnityEngine.EventSystems;
 using System;
+using System.Threading.Tasks;
 
 namespace DonBosco.Dialogue
 {
@@ -87,6 +88,17 @@ namespace DonBosco.Dialogue
             return instance;
         }
 
+        public static async Task<DialogueManager> GetInstanceOnEnable()
+        {
+            int waitFrame = 10;
+            while(instance == null && waitFrame > 0)
+            {
+                await Task.Delay(100);
+                waitFrame--;
+            }
+            return instance;
+        }
+
         private void Start() 
         {
             dialogueIsPlaying = false;
@@ -143,7 +155,7 @@ namespace DonBosco.Dialogue
             // NOTE: The 'currentStory.currentChoiecs.Count == 0' part was to fix a bug after the Youtube video was made
             if (canContinueToNextLine 
                 && currentStory.currentChoices.Count == 0 
-                && Character.InputManager.Instance.GetSubmitPressed())
+                && DonBosco.InputManager.Instance.GetSubmitPressed())
             {
                 ContinueStory();
             }
@@ -286,7 +298,7 @@ namespace DonBosco.Dialogue
             foreach (char letter in line.ToCharArray())
             {
                 // if the submit button is pressed, finish up displaying the line right away
-                if (Character.InputManager.Instance.GetSubmitPressed()) 
+                if (DonBosco.InputManager.Instance.GetSubmitPressed()) 
                 {
                     if(hasChosenChoice)
                     {
@@ -571,7 +583,7 @@ namespace DonBosco.Dialogue
             {
                 currentStory.ChooseChoiceIndex(choiceIndex);
                 // NOTE: The below two lines were added to fix a bug after the Youtube video was made
-                Character.InputManager.Instance.RegisterSubmitPressed(); // this is specific to my InputManager script
+                DonBosco.InputManager.Instance.RegisterSubmitPressed(); // this is specific to my InputManager script
                 hasChosenChoice = true;
                 ContinueStory();
             }
@@ -602,14 +614,14 @@ namespace DonBosco.Dialogue
             if(isStarting)
             {
                 GameManager.PauseGame();
-                Character.InputManager.Instance.SetMovementActionMap(false);
-                Character.InputManager.Instance.SetUIActionMap(true);
+                DonBosco.InputManager.Instance.SetMovementActionMap(false);
+                DonBosco.InputManager.Instance.SetUIActionMap(true);
             }
             else
             {
                 GameManager.ResumeGame();
-                Character.InputManager.Instance.SetMovementActionMap(true);
-                Character.InputManager.Instance.SetUIActionMap(false);
+                DonBosco.InputManager.Instance.SetMovementActionMap(true);
+                DonBosco.InputManager.Instance.SetUIActionMap(false);
             }
         }
 

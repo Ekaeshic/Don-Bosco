@@ -32,10 +32,8 @@ namespace DonBosco.Character
             drawLine = GetComponentInChildren<DrawLineRelativeMouse>();
         }
 
-        private async void OnEnable() {
-            await InputManager.GetInstance().ContinueWith((task) => {
-                task.Result.OnAimPressed += OnAimPressed;
-            });
+        private void OnEnable() {
+            InputManager.Instance.OnAimPressed += OnAimPressed;
         }
 
         private void OnDisable() {
