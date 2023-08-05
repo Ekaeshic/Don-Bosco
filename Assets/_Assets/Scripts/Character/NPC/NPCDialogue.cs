@@ -4,7 +4,7 @@ using UnityEngine;
 
 using DonBosco.Dialogue;
 
-namespace DonBosco.Character
+namespace DonBosco.Character.NPC
 {
     /// <summary>
     /// NPC Script that can be interacted with

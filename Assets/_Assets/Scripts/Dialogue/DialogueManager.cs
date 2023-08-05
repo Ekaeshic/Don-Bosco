@@ -65,6 +65,8 @@ namespace DonBosco.Dialogue
         public event Action OnDialogueLineDisplay;
         public event Action OnDialogueEnded;
 
+        private Dictionary<string, Action<string>> externalFunctions = new Dictionary<string, Action<string>>();
+
         private void Awake() 
         {
             if (instance != null)
@@ -147,12 +149,12 @@ namespace DonBosco.Dialogue
             }
         }
 
-        public void EnterDialogueMode(TextAsset inkJSON, Animator emoteAnimator = null) 
+        public DialogueManager EnterDialogueMode(TextAsset inkJSON, Animator emoteAnimator = null) 
         {
             if(dialogueIsPlaying || inkJSON == null)
             {
                 Debug.LogWarning("Dialogue is already playing or inkJSON is null");
-                return;
+                return null;
             }
             // Prepare for dialogue (Punyaku, bisa dihapus kalau gak pake)
             PrepareForDialogue(true);
@@ -166,6 +168,10 @@ namespace DonBosco.Dialogue
             {
                 inkExternalFunctions.Bind(currentStory, emoteAnimator);
             }
+            foreach(var externalFunction in externalFunctions)
+            {
+                currentStory.BindExternalFunction(externalFunction.Key, externalFunction.Value);
+            }
 
             // reset portrait, layout, and speaker as default
             displayNameText.text = "???";
@@ -177,6 +183,31 @@ namespace DonBosco.Dialogue
             OnDialogueStarted?.Invoke();
 
             ContinueStory();
+
+            return instance;
+        }
+
+        /// <summary>
+        /// Register external function to be used in ink
+        /// Call this function before calling EnterDialogueMode
+        /// </summary>
+        /// <returns>Chainable DialogueManager</returns>
+        public DialogueManager BindExternalFunction(string functionName, Action<string> function)
+        {
+            if(function != null)
+            {
+                externalFunctions.Add(functionName, function);
+            }
+            return instance;
+        }
+
+        public DialogueManager OnDialogueDone(Action<DialogueVariables> callback)
+        {
+            if(callback != null)
+            {
+                OnDialogueEnded += () => callback(dialogueVariables);
+            }
+            return instance;
         }
 
         private IEnumerator ExitDialogueMode() 
@@ -185,6 +216,15 @@ namespace DonBosco.Dialogue
 
             dialogueVariables.StopListening(currentStory);
             inkExternalFunctions.Unbind(currentStory);
+
+            foreach(var externalFunction in externalFunctions)
+            {
+                if(currentStory.TryGetExternalFunction(externalFunction.Key, out var ext))
+                {
+                    currentStory.UnbindExternalFunction(externalFunction.Key);
+                }
+            }
+            externalFunctions.Clear();
 
             dialogueIsPlaying = false;
             dialoguePanel.SetActive(false);
@@ -501,6 +541,9 @@ namespace DonBosco.Dialogue
             {
                 choices[index].gameObject.SetActive(true);
                 choicesText[index].text = choice.text;
+                // Rescale width to fit the text
+                choices[index].GetComponent<RectTransform>().sizeDelta = new Vector2(choicesText[index].preferredWidth + 100, choices[index].GetComponent<RectTransform>().sizeDelta.y);
+
                 index++;
             }
             // go through the remaining choices the UI supports and make sure they're hidden
@@ -509,6 +552,7 @@ namespace DonBosco.Dialogue
                 choices[i].gameObject.SetActive(false);
             }
 
+            EventSystem.current.SetSelectedGameObject(null);
             //StartCoroutine(SelectFirstChoice());
         }
 

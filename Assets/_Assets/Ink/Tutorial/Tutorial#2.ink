@@ -13,7 +13,6 @@ INCLUDE tutorialData.ink
     - else: -> main
 }
 
-
 === main ===
 #speaker:Pak Karto 
 #portrait:null audio:pak_karto

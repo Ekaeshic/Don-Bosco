@@ -19,7 +19,7 @@ INCLUDE tutorialData.ink
 
 // Menghilangkan speaker dan portrait akan memberikan kesan narator
 #speaker:null 
-#portrait:null audio:alphabet
+#portrait:null audio:none
 Pria itu terlihat sangat asyik bermain dengan kucing yang ada di sebelahnya
 
 #speaker:{MC_name}

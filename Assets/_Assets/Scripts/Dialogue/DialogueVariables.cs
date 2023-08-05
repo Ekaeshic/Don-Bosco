@@ -23,7 +23,7 @@ namespace DonBosco.Dialogue
             // }
             
             /// Load using format of binary file
-            // LoadVariables();
+            /// LoadVariables();
 
             // initialize the dictionary
             variables = new Dictionary<string, Ink.Runtime.Object>();
@@ -31,7 +31,7 @@ namespace DonBosco.Dialogue
             {
                 Ink.Runtime.Object value = globalVariablesStory.variablesState.GetVariableWithName(name);
                 variables.Add(name, value);
-                //Debug.Log("Initialized global dialogue variable: " + name + " = " + value);
+                //Debug.Log("Initialized global dialogue variable: " + name + " = " + value +" type: "+value.GetType());
             }
         }
 
