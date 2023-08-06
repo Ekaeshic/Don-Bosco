@@ -68,7 +68,7 @@ namespace DonBosco.ItemSystem
             itemSlot[index] = itemSlot[target];
             itemSlot[target] = temp;
 
-            OnSelectedItemSwitched?.Invoke();
+            OnItemSlotChange?.Invoke();
         }
         
         private void Drop()
