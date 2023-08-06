@@ -7,14 +7,15 @@ namespace DonBosco.ItemSystem
 {
     public class Inventory : MonoBehaviour
     {
+        [Header("References")]
+        [SerializeField] private Transform playerTransform;
         private static Inventory instance;
         public static Inventory Instance => instance;
 
         private Item[] itemSlot = new Item[5];
         public Item[] ItemSlot => itemSlot;
-        [SerializeField] private Transform itemHolder;
 
-        private Item selectedItem;
+        private Item selectedItem = null;
         private int selectedSlot = 0;
 
 
@@ -80,7 +81,7 @@ namespace DonBosco.ItemSystem
             }
 
             selectedItem = itemSlot[selectedSlot];
-            selectedItem.transform.position = transform.position;
+            selectedItem.transform.position = playerTransform.position;
             selectedItem.Drop();
 
             //Remove the item from the inventory
@@ -103,10 +104,15 @@ namespace DonBosco.ItemSystem
                 if(itemSlot[i] == null)
                 {
                     itemSlot[i] = item;
-                    item.transform.SetParent(itemHolder);
                     item.transform.localPosition = Vector3.zero;
                     item.Pickup();
                     OnItemSlotChange?.Invoke();
+
+                    //Refresh the selected item
+                    if(selectedSlot == i)
+                    {
+                        selectedItem = item;
+                    }
                     return true;
                 }
             }
@@ -130,6 +136,19 @@ namespace DonBosco.ItemSystem
             return false;
         }
 
+        internal void Remove<T>(T item) where T : Item
+        {
+            for(int i = 0; i < itemSlot.Length; i++)
+            {
+                if(itemSlot[i] == item)
+                {
+                    itemSlot[i] = null;
+                    OnItemSlotChange?.Invoke();
+                    return;
+                }
+            }
+        }
+
         /// <summary>
         /// Get currently selected item
         /// </summary>
@@ -139,6 +158,51 @@ namespace DonBosco.ItemSystem
             selectedItem = itemSlot[selectedSlot];
             return selectedItem;
         }
+
+        #region Visuals
+        [Header("Visuals")]
+        [SerializeField] private Transform itemSelectedVisualPos;
+        private string itemSelectedSortingLayer;
+
+
+        // private void ShowSelectedItem()
+        // {
+        //     if(ItemSlot[selectedSlot])
+        //     {
+        //         if(!ItemSlot[selectedSlot].ShowSelectedItem)
+        //         {
+        //             return;
+        //         }
+
+        //         selectedItem.transform.position = itemSelectedVisualPos.position;
+        //         selectedItem.transform.parent = itemSelectedVisualPos;
+        //         selectedItem.gameObject.SetActive(true);
+        //         selectedItem.GetComponent<Collider>().enabled = false;
+        //         itemSelectedSortingLayer = selectedItem.GetComponent<SpriteRenderer>().sortingLayerName;
+        //         selectedItem.GetComponent<SpriteRenderer>().sortingLayerName = "AboveGround";
+        //     }
+        // }
+
+        // private void HideSelectedItem()
+        // {
+        //     if(ItemSlot[selectedSlot])
+        //     {
+        //         if(!ItemSlot[selectedSlot].ShowSelectedItem)
+        //         {
+        //             return;
+        //         }
+
+        //         selectedItem.transform.parent = null;
+        //         selectedItem.GetComponent<Collider>().enabled = true;
+        //         selectedItem.gameObject.SetActive(false);
+        //         if(itemSelectedSortingLayer != null)
+        //         {
+        //             selectedItem.GetComponent<SpriteRenderer>().sortingLayerName = itemSelectedSortingLayer;
+        //             itemSelectedSortingLayer = null;
+        //         }
+        //     }
+        // }
+        #endregion
 
 
         #region Debug

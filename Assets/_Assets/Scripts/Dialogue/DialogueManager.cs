@@ -53,6 +53,7 @@ namespace DonBosco.Dialogue
         private Coroutine displayLineCoroutine;
 
         private static DialogueManager instance;
+        public static DialogueManager Instance => instance;
 
         private const string SPEAKER_TAG = "speaker";
         private const string PORTRAIT_TAG = "portrait";
@@ -85,17 +86,6 @@ namespace DonBosco.Dialogue
 
         public static DialogueManager GetInstance() 
         {
-            return instance;
-        }
-
-        public static async Task<DialogueManager> GetInstanceOnEnable()
-        {
-            int waitFrame = 10;
-            while(instance == null && waitFrame > 0)
-            {
-                await Task.Delay(100);
-                waitFrame--;
-            }
             return instance;
         }
 
@@ -160,7 +150,13 @@ namespace DonBosco.Dialogue
                 ContinueStory();
             }
         }
-
+        
+        /// <summary>
+        /// Enter dialogue mode with the given inkJSON and start the dialogue immediately
+        /// </summary>
+        /// <param name="inkJSON"></param>
+        /// <param name="emoteAnimator"></param>
+        /// <returns></returns>
         public DialogueManager EnterDialogueMode(TextAsset inkJSON, Animator emoteAnimator = null) 
         {
             if(dialogueIsPlaying || inkJSON == null)
@@ -196,6 +192,68 @@ namespace DonBosco.Dialogue
 
             ContinueStory();
 
+            return instance;
+        }
+
+        /// <summary>
+        /// Initialize dialogue mode with the given inkJSON but don't start the dialogue yet.<br />
+        /// Useful for when you want to control how the dialogue starts <br />
+        /// (e.g. when you want to check if the player brings an important item when interacting)<br /> <br />
+        /// Call StartDialogue to start the dialogue.
+        /// </summary>
+        /// <param name="inkJSON"></param>
+        /// <param name="emoteAnimator"></param>
+        /// <returns></returns>
+        public DialogueManager EnterDialogueModeManually(TextAsset inkJSON, Animator emoteAnimator = null)
+        {
+            if(dialogueIsPlaying || inkJSON == null)
+            {
+                Debug.LogWarning("Dialogue is already playing or inkJSON is null");
+                return null;
+            }
+            // Prepare for dialogue (Punyaku, bisa dihapus kalau gak pake)
+            PrepareForDialogue(true);
+            
+            currentStory = new Story(inkJSON.text);
+            dialogueIsPlaying = true;
+            dialoguePanel.SetActive(true);
+
+            dialogueVariables.StartListening(currentStory);
+            if(emoteAnimator != null)
+            {
+                inkExternalFunctions.Bind(currentStory, emoteAnimator);
+            }
+            foreach(var externalFunction in externalFunctions)
+            {
+                currentStory.BindExternalFunction(externalFunction.Key, externalFunction.Value);
+            }
+
+            // reset portrait, layout, and speaker as default
+            displayNameText.text = "???";
+            //portraitAnimator.Play("default");
+            portraitAnimator.transform.parent.gameObject.SetActive(true);
+
+            layoutAnimator.Play("default");
+            
+            OnDialogueStarted?.Invoke();
+
+            return instance;
+        }
+
+
+        /// <summary>
+        /// Explicitly call this function to start the dialogue after calling EnterDialogueModeManually<br />
+        /// (Example: DialogueManager.GetInstance().EnterDialogueModeManually(inkJSON).StartDialogue();<br />
+        /// </summary>
+        /// <returns></returns>
+        public DialogueManager StartDialogue()
+        {
+            if(currentStory == null)
+            {
+                Debug.LogWarning("Cannot start dialogue because currentStory is null");
+                return null;
+            }
+            ContinueStory();
             return instance;
         }
 
@@ -589,6 +647,14 @@ namespace DonBosco.Dialogue
             }
         }
 
+        /// <summary>
+        /// Get the current state of a variable in ink<br/>
+        /// Useful for checking a variable before preparing for dialogue
+        /// </summary>
+        /// <param name="variableName">The name of the variable to get</param>
+        /// <returns>A variable from ink story. <br/>
+        /// To compare the value, use ToInt(), ToFloat(), ToString(), or ToBool() <br/>
+        /// </returns>
         public Ink.Runtime.Object GetVariableState(string variableName) 
         {
             Ink.Runtime.Object variableValue = null;
@@ -598,6 +664,16 @@ namespace DonBosco.Dialogue
                 Debug.LogWarning("Ink Variable was found to be null: " + variableName);
             }
             return variableValue;
+        }
+
+        /// <summary>
+        /// Set the a variable state of a variable in ink <br />
+        /// Usage: GetInstance().SetVariableState()["variableName"] = value;
+        /// </summary>
+        /// <returns>VariableState, This function cant be chained</returns>
+        public VariablesState SetVariableState() 
+        {
+            return currentStory.state.variablesState;
         }
 
         // This method will get called anytime the application exits.

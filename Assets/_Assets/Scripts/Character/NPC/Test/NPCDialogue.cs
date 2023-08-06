@@ -14,7 +14,7 @@ namespace DonBosco.Character.NPC.Test
     public class NPCDialogue : MonoBehaviour, IInteractable
     {
         public bool IsInteractable { get; set; } = true;
-        [SerializeField] private TextAsset dialogue;
+        [SerializeField] protected TextAsset dialogue;
         // ScriptableObject Dialogue;
         public virtual void Interact()
         {
