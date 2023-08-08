@@ -33,20 +33,14 @@ namespace DonBosco.Character
 
 
         #region MonoBehaviour
-        private void OnEnable()
-        {
-            InputManager.Instance.OnInteractPressed += OnInteractPressed;
-        }
-
-        private void OnDisable() 
-        {
-            InputManager.Instance.OnInteractPressed -= OnInteractPressed;
-        }
-
         private void Update() 
         {
             //If you use legacy input, uncomment this and set the interactKey to the key you want to use
             //LegacyInput();
+            if(InputManager.Instance.GetInteractPressed())
+            {
+                OnInteractPressed();
+            }
         }
 
         private void FixedUpdate() 

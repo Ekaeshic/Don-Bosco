@@ -32,12 +32,11 @@ namespace DonBosco.Character
             drawLine = GetComponentInChildren<DrawLineRelativeMouse>();
         }
 
-        private void OnEnable() {
-            InputManager.Instance.OnAimPressed += OnAimPressed;
-        }
-
-        private void OnDisable() {
-            InputManager.Instance.OnAimPressed -= OnAimPressed;
+        private void Update() {
+            if(InputManager.Instance.GetAimPressed())
+            {
+                OnAimPressed();
+            }
         }
 
         private void FixedUpdate() {
@@ -63,7 +62,6 @@ namespace DonBosco.Character
         #region Input
         public void OnAimPressed()
         {
-            Debug.Log("Aim Pressed");
             bool value = InputManager.Instance.GetAimPressed();
             //Draw the aim line to the mouse position (Top priority)
             switch(value)
