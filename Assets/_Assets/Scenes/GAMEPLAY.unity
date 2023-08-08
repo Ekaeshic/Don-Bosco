@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 58197406}
   - component: {fileID: 58197405}
   m_Layer: 0
-  m_Name: DIALOGUE_TEST_WORLD
+  m_Name: TEST_TIMELINE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3366,7 +3366,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1144627678
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4136,6 +4136,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7876813c4a6a9d4488f9d2340a5988dc, type: 2}
   - {fileID: 11400000, guid: e1e47983a2c208b4ca97839c6c3450eb, type: 2}
   - {fileID: 11400000, guid: faa8e49850db461449310a4911fab9a3, type: 2}
+  isTimelineControlled: 0
 --- !u!1 &1484585921
 GameObject:
   m_ObjectHideFlags: 0
@@ -4620,8 +4621,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 399208831
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: -5177388603050735206, guid: 8884154dfe85442a3a3578be807dbcdf, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.68235296}

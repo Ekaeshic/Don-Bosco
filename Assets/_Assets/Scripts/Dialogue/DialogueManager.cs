@@ -302,11 +302,18 @@ namespace DonBosco.Dialogue
 
             OnDialogueEnded?.Invoke();
 
+            if(isTimelineControlled)
+            {
+                isTimelineControlled = false;
+            }
+            else
+            {
+                // Reverse the changes made in EnterDialogueMode
+                PrepareForDialogue(false);
+            }
+
             // go back to default audio
             SetCurrentAudioInfo(defaultAudioInfo.id);
-
-            // Reverse the changes made in EnterDialogueMode
-            PrepareForDialogue(false);
         }
 
         private void ContinueStory() 
@@ -701,6 +708,59 @@ namespace DonBosco.Dialogue
             }
         }
 
+
+
+        #region Timeline Tracks
+        [HideInInspector] public bool isTimelineControlled = false;
+        //private bool isNeedInput = false;
+        #endregion
+        public void EnterDialogueModeFromTimeline(TextAsset inkJSON, string knotPath = null, Animator emoteAnimator = null)
+        {
+            isTimelineControlled = true;
+
+            if(dialogueIsPlaying || inkJSON == null)
+            {
+                Debug.LogWarning("Dialogue is already playing or inkJSON is null");
+                return;
+            }
+            // Prepare for dialogue (Punyaku, bisa dihapus kalau gak pake)
+            //PrepareForDialogue(true);
+            
+            currentStory = new Story(inkJSON.text);
+            dialogueIsPlaying = true;
+            dialoguePanel.SetActive(true);
+
+            dialogueVariables.StartListening(currentStory);
+            if(emoteAnimator != null)
+            {
+                inkExternalFunctions.Bind(currentStory, emoteAnimator);
+            }
+            foreach(var externalFunction in externalFunctions)
+            {
+                currentStory.BindExternalFunction(externalFunction.Key, externalFunction.Value);
+            }
+
+            // reset portrait, layout, and speaker as default
+            displayNameText.text = "???";
+            //portraitAnimator.Play("default");
+            portraitAnimator.transform.parent.gameObject.SetActive(true);
+
+            layoutAnimator.Play("default");
+            
+            OnDialogueStarted?.Invoke();
+
+            if(!string.IsNullOrEmpty(knotPath))
+            {
+                currentStory.ChoosePathString(knotPath);
+            }
+
+            ContinueStory();
+        }
+
+        internal void SetDialogueVisibleFromTimeline(bool value)
+        {
+            dialoguePanel.SetActive(value);
+        }
     }
 
 }

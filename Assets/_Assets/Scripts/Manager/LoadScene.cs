@@ -44,13 +44,38 @@ namespace DonBosco
             additionalLoadOperations?.Invoke(asyncLoad);   
 
             //Show loading screen
-            LoadingManager.ShowLoadingScreen(asyncLoad, true, () => {
-                if(transitionOutOnLoadDone)
-                {
-                    Transition.FadeOut();
-                }
-                OnLoadDone?.Invoke();
+            Transition.FadeIn(() => {
+                LoadingManager.ShowLoadingScreen(asyncLoad, true, () => {
+                    if(transitionOutOnLoadDone)
+                    {
+                        Transition.FadeOut(() => {
+                            OnLoadDone?.Invoke();
+                            return;
+                        });
+                    }
+                    OnLoadDone?.Invoke();
+                });
             });
+        }
+
+        public void Unload(List<AsyncOperation> ops)
+        {
+            string sceneName = gameObject.name;
+
+            bool sceneFound = false;
+            //Check if current scene is already loaded
+            for(int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                if(SceneManager.GetSceneAt(i).name == sceneName)
+                {
+                    ops.Add(SceneManager.UnloadSceneAsync(gameObject.name));
+                    sceneFound = true;
+                }
+            }
+            if(!sceneFound)
+            {
+                Debug.LogWarning("Trying to unload a scene that is not loaded");
+            }
         }
     }
 
