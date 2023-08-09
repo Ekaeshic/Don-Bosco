@@ -12,17 +12,15 @@ namespace DonBosco
     /// </summary>
     public class LoadScene : MonoBehaviour
     {
-        List<AsyncOperation> asyncLoad;
+        static List<AsyncOperation> asyncLoad = new List<AsyncOperation>();
         [SerializeField] private bool transitionOutOnLoadDone = true;
 
-        [SerializeField] private UnityEvent<List<AsyncOperation>> additionalLoadOperations;
         [SerializeField] private UnityEvent OnLoadDone;
 
 
-        public void Load()
+        public void AddToLoad(string scene = null)
         {
-            string sceneName = gameObject.name;
-            asyncLoad = new List<AsyncOperation>();
+            string sceneName = string.IsNullOrEmpty(scene) ? gameObject.name : scene;
 
             bool sceneFound = false;
             //Check if current scene is already loaded
@@ -39,13 +37,13 @@ namespace DonBosco
                 //Load scene
                 asyncLoad.Add(SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive));
             }
+        }
 
-            //Invoke additional load operations list to be added into the asyncLoad list
-            additionalLoadOperations?.Invoke(asyncLoad);   
-
+        public void ExecuteLoadScene()
+        {
             //Show loading screen
             Transition.FadeIn(() => {
-                LoadingManager.ShowLoadingScreen(asyncLoad, true, () => {
+                LoadingScreen.ShowLoadingScreen(true,asyncLoad, () => {
                     if(transitionOutOnLoadDone)
                     {
                         Transition.FadeOut(() => {
@@ -54,13 +52,14 @@ namespace DonBosco
                         });
                     }
                     OnLoadDone?.Invoke();
+                    asyncLoad.Clear();
                 });
             });
         }
 
-        public void Unload(List<AsyncOperation> ops)
+        public void AddToUnload(string scene = null)
         {
-            string sceneName = gameObject.name;
+            string sceneName = string.IsNullOrEmpty(scene) ? gameObject.name : scene;
 
             bool sceneFound = false;
             //Check if current scene is already loaded
@@ -68,7 +67,7 @@ namespace DonBosco
             {
                 if(SceneManager.GetSceneAt(i).name == sceneName)
                 {
-                    ops.Add(SceneManager.UnloadSceneAsync(gameObject.name));
+                    asyncLoad.Add(SceneManager.UnloadSceneAsync(sceneName));
                     sceneFound = true;
                 }
             }

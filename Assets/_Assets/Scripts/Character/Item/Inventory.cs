@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using DonBosco.SaveSystem;
+using System.Threading.Tasks;
+
 namespace DonBosco.ItemSystem
 {
-    public class Inventory : MonoBehaviour
+    public class Inventory : MonoBehaviour, ISaveLoad
     {
         [Header("References")]
         [SerializeField] private Transform playerTransform;
@@ -33,6 +36,16 @@ namespace DonBosco.ItemSystem
                 Debug.LogError("Found more than one Inventory in the scene.");
             }
             instance = this;
+        }
+
+        private void OnEnable() 
+        {
+            SaveManager.Instance.Subscribe(this);
+        }
+
+        private void OnDisable() 
+        {
+            SaveManager.Instance.Unsubscribe(this);
         }
 
         private void Update() 
@@ -202,6 +215,42 @@ namespace DonBosco.ItemSystem
         //         }
         //     }
         // }
+        #endregion
+
+
+        #region Save/Load
+        public async Task Save(SaveData saveData)
+        {
+            //Save the selected slot
+            saveData.playerInventory = new Item[itemSlot.Length];
+
+            //Save the items
+            for(int i = 0; i < itemSlot.Length; i++)
+            {
+                if(itemSlot[i] != null)
+                {
+                    saveData.playerInventory[i] = itemSlot[i];
+                }
+            }
+            await Task.CompletedTask;
+        }
+
+        public async Task Load(SaveData saveData)
+        {
+            if(saveData == null)
+                return;
+            Debug.Log("Loading inventory");
+
+            //Load the items
+            for(int i = 0; i < saveData.playerInventory.Length; i++)
+            {
+                if(saveData.playerInventory[i] != null)
+                {
+                    itemSlot[i] = saveData.playerInventory[i];
+                }
+            }
+            await Task.CompletedTask;
+        }
         #endregion
 
 

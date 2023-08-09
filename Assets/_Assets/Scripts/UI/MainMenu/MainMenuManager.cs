@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DonBosco
 {
@@ -8,24 +9,23 @@ namespace DonBosco
     {
         [Header("References")]
         [SerializeField] private GameObject mainMenuCanvas;
-        [SerializeField] private Camera mainMenuCamera;
+        [SerializeField] private Button continueGameButton;
 
         private void OnEnable() 
         {
-            
+            bool hasSaveData = SaveSystem.SaveManager.Instance.HasSaveData;
+            continueGameButton.interactable = hasSaveData;
         }
 
 
         
         public void PlayGame()
         {
-            mainMenuCamera.gameObject.SetActive(false);
             mainMenuCanvas.SetActive(false);
         }
 
         public void InitMainMenu()
         {
-            mainMenuCamera.gameObject.SetActive(true);
             mainMenuCanvas.SetActive(true);
         }
     }

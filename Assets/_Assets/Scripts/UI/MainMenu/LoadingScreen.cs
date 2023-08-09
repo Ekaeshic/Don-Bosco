@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 namespace DonBosco
 {
-    public class LoadingManager : MonoBehaviour
+    public class LoadingScreen : MonoBehaviour
     {
-        private static LoadingManager instance;
-        public static LoadingManager Instance { get { return instance; } }
+        private static LoadingScreen instance;
+        public static LoadingScreen Instance { get { return instance; } }
         
         [Header("References")]
         [SerializeField] private GameObject loadingScreen;
@@ -30,11 +30,11 @@ namespace DonBosco
         /// <summary>
         /// Shows the loading screen and runs the given operations
         /// </summary>
-        /// <param name="operations">The operations to run</param>
         /// <param name="hideLoadingScreenOnFinish">Should the loading screen be hidden when the operations are done?</param>
+        /// <param name="operations">The operations to run</param>
         /// <param name="OnLoadDone">The action to run when the operations are done</param>
         /// <returns></returns>
-        public static LoadingManager ShowLoadingScreen(List<AsyncOperation> operations, bool hideLoadingScreenOnFinish, Action OnLoadDone = null)
+        public static LoadingScreen ShowLoadingScreen(bool hideLoadingScreenOnFinish, List<AsyncOperation> operations = null, Action OnLoadDone = null)
         {
             if(OnLoadDone != null)
                 instance.OnLoadDone += OnLoadDone;
@@ -46,7 +46,7 @@ namespace DonBosco
 
         private IEnumerator LoadAsynchronously(List<AsyncOperation> operations, bool hideLoadingScreenOnFinish = true)
         {
-            if(operations.Count > 0)
+            if(operations != null)
             {
                 for(int i=0; i<operations.Count;i++)
                 {
@@ -70,7 +70,7 @@ namespace DonBosco
                 HideLoadingScreen();
         }
 
-        public static LoadingManager HideLoadingScreen()
+        public static LoadingScreen HideLoadingScreen()
         {
             instance.loadingScreen.SetActive(false);
             return instance;

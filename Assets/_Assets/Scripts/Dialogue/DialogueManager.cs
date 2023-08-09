@@ -696,15 +696,11 @@ namespace DonBosco.Dialogue
         {
             if(isStarting)
             {
-                GameManager.PauseGame();
-                DonBosco.InputManager.Instance.SetMovementActionMap(false);
-                DonBosco.InputManager.Instance.SetUIActionMap(true);
+                GameManager.SetDialogueState();
             }
             else
             {
                 GameManager.ResumeGame();
-                DonBosco.InputManager.Instance.SetMovementActionMap(true);
-                DonBosco.InputManager.Instance.SetUIActionMap(false);
             }
         }
 

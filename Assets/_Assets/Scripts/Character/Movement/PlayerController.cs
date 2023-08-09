@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +10,7 @@ namespace DonBosco.Character
     /// <summary>
     /// Handles Player state and variables
     /// </summary>
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, ISaveLoad
     {
         private PlayerMovement playerMovement;
         private DrawLineRelativeMouse drawLine;
@@ -82,6 +83,25 @@ namespace DonBosco.Character
             
             //Hide the cursor when pressed, show it when released
             //Cursor.visible = !value.isPressed;
+        }
+        #endregion
+
+
+
+        #region SaveLoad
+        public async Task Save(SaveData saveData)
+        {
+            saveData.playerPosition = transform.position;
+            await Task.CompletedTask;
+        }
+
+        public async Task Load(SaveData saveData)
+        {
+            if(saveData == null)
+                return;
+            
+            transform.position = saveData.playerPosition;
+            await Task.CompletedTask;
         }
         #endregion
     }

@@ -4,47 +4,70 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class GameManager
+namespace DonBosco
 {
-    private static GameState gameState;
-    public static GameState GameState => gameState;
-    
-    #region Events
-    public static event Action OnGamePause;
-    public static event Action OnGamePlay;
-    #endregion
-
-    
-    /// <summary>
-    /// Pause the game and freeze the time
-    /// </summary>
-    public static void PauseGame()
+    public class GameManager
     {
-        gameState = GameState.Pause;
-        Time.timeScale = 0;
-        OnGamePause?.Invoke();
+        private static GameState gameState = GameState.Pause;
+        public static GameState GameState => gameState;
+        
+        #region Events
+        public static event Action OnGamePause;
+        public static event Action OnGamePlay;
+        #endregion
+
+        
+        /// <summary>
+        /// Pause the game and freeze the time
+        /// </summary>
+        public static void PauseGame()
+        {
+            gameState = GameState.Pause;
+            Time.timeScale = 0;
+            OnGamePause?.Invoke();
+            InputManager.Instance.SetMovementActionMap(false);
+            InputManager.Instance.SetUIActionMap(true);
+        }
+
+        /// <summary>
+        /// Resume the game and unfreeze the time
+        /// </summary>
+        public static void ResumeGame()
+        {
+            gameState = GameState.Play;
+            Time.timeScale = 1;
+            OnGamePlay?.Invoke();
+            InputManager.Instance.SetMovementActionMap(true);
+            InputManager.Instance.SetUIActionMap(false);
+        }
+
+        /// <summary>
+        /// Set the game state to dialogue
+        /// </summary>
+        public static void SetDialogueState()
+        {
+            gameState = GameState.Dialogue;
+            DonBosco.InputManager.Instance.SetMovementActionMap(false);
+            DonBosco.InputManager.Instance.SetUIActionMap(true);
+        }
+
+        /// <summary>
+        /// Set the game state to cutscene
+        /// </summary>
+        public static void SetCutsceneState()
+        {
+            gameState = GameState.Cutscene;
+            DonBosco.InputManager.Instance.SetMovementActionMap(false);
+            DonBosco.InputManager.Instance.SetUIActionMap(true);
+        }
     }
 
-    /// <summary>
-    /// Resume the game and unfreeze the time
-    /// </summary>
-    public static void ResumeGame()
+
+    public enum GameState
     {
-        gameState = GameState.Play;
-        Time.timeScale = 1;
-        OnGamePlay?.Invoke();
+        Play,
+        Pause,
+        Dialogue,
+        Cutscene
     }
-
-    /// <summary>
-    /// Set the game state to dialogue
-    /// </summary>
-}
-
-
-public enum GameState
-{
-    Play,
-    Pause,
-    Dialogue,
-    Cutscene
 }
