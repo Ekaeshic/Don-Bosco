@@ -13,7 +13,7 @@ namespace DonBosco
         [SerializeField] private CanvasGroup transitionScreen;
 
         [SerializeField] float duration = 0.5f;
-        [SerializeField] bool isFaded = true;
+        //[SerializeField] bool isFaded = true;
 
 
 
@@ -26,7 +26,7 @@ namespace DonBosco
             instance.transitionScreen.blocksRaycasts = true;
             instance.transitionScreen.DOFade(1, instance.duration).OnComplete(() => {
                 OnComplete?.Invoke();
-                instance.isFaded = true;
+                // instance.isFaded = true;
             });
         }
 
@@ -35,7 +35,7 @@ namespace DonBosco
             instance.transitionScreen.DOFade(0, instance.duration).OnComplete(() => {
                 OnComplete?.Invoke();
                 instance.transitionScreen.blocksRaycasts = false;
-                instance.isFaded = false;
+                // instance.isFaded = false;
             });
         }
     }

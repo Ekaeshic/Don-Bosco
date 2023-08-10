@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace DonBosco
 {
@@ -8,6 +9,8 @@ namespace DonBosco
     {
         [SerializeField] private List<string> scenesToLoad;
         [SerializeField] private List<string> scenesToUnload;
+
+        [SerializeField] private bool resumeGameOnLoadDone = true;
 
 
         public void ExecuteLoadScene()
@@ -26,7 +29,10 @@ namespace DonBosco
                     SceneLoader.Instance.AddToLoad(scenesToLoad[i]);
                 }
             }
-            SceneLoader.Instance.ExecuteLoadScene();
+            SceneLoader.Instance.ExecuteLoadScene(() => {
+                if(resumeGameOnLoadDone)
+                    GameManager.ResumeGame();
+            });
         }
     }
 }

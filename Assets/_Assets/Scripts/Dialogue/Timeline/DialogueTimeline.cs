@@ -35,13 +35,13 @@ namespace DonBosco.Dialogue
 
         public void StartTimeLine()
         {
-            InputManager.Instance.SetMovementActionMap(false);
+            GameManager.SetCutsceneState();
             currentPlayableDirector.Play();
         }
 
         public void StopTimeline()
         {
-            InputManager.Instance.SetMovementActionMap(true);
+            GameManager.ResumeGame();
             currentPlayableDirector.Stop();
         }
 

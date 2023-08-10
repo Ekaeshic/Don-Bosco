@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -57,9 +58,9 @@ namespace DonBosco
             loadScene.AddToUnload(sceneName);
         }
 
-        public void ExecuteLoadScene()
+        public void ExecuteLoadScene(Action callback = null)
         {
-            loadScene.ExecuteLoadScene();
+            loadScene.ExecuteLoadScene(callback);
         }
 
 
@@ -74,7 +75,7 @@ namespace DonBosco
         {
             if(saveData == null)
                 return;
-                
+
             currentScene = saveData.currentScene;
             await Task.CompletedTask;
         }

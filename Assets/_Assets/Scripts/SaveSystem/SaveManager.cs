@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEngine.SceneManagement;
+#endif
+
 namespace DonBosco.SaveSystem
 {
     public class SaveManager : MonoBehaviour
@@ -27,6 +31,18 @@ namespace DonBosco.SaveSystem
 
             //Try to load the game in the beginning
             HasSaveData = ReadSaveDataLocal();
+
+            #if UNITY_EDITOR
+            for(int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                Scene scene = SceneManager.GetSceneAt(i);
+                if(scene.name == "GAMEPLAY")
+                {
+                    loadData.ExecuteLoadScene();
+                    return;
+                }
+            }
+            #endif
             loadData.AddToLoad();
             loadData.ExecuteLoadScene();
         }
