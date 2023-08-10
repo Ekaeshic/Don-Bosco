@@ -15,24 +15,29 @@ namespace DonBosco
 
         public void ExecuteLoadScene()
         {
-            if(scenesToUnload != null)
-            {
-                for(int i=0; i<scenesToUnload.Count; i++)
+            
+            SceneLoader.Instance.ExecuteLoadScene
+            (
+                () => {
+                if(scenesToUnload != null)
                 {
-                    SceneLoader.Instance.AddToUnload(scenesToUnload[i]);
+                    for(int i=0; i<scenesToUnload.Count; i++)
+                    {
+                        SceneLoader.Instance.AddToUnload(scenesToUnload[i]);
+                    }
                 }
-            }
-            if(scenesToLoad != null)
-            {
-                for(int i=0; i<scenesToLoad.Count; i++)
+                if(scenesToLoad != null)
                 {
-                    SceneLoader.Instance.AddToLoad(scenesToLoad[i]);
+                    for(int i=0; i<scenesToLoad.Count; i++)
+                    {
+                        SceneLoader.Instance.AddToLoad(scenesToLoad[i]);
+                    }
                 }
-            }
-            SceneLoader.Instance.ExecuteLoadScene(() => {
-                if(resumeGameOnLoadDone)
-                    GameManager.ResumeGame();
-            });
+                }, () => {
+                    if(resumeGameOnLoadDone)
+                        GameManager.ResumeGame();
+                }
+            );
         }
     }
 }

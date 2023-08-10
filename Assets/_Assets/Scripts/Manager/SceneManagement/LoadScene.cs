@@ -39,11 +39,12 @@ namespace DonBosco
             }
         }
 
-        public void ExecuteLoadScene(Action OnDone = null)
+        public void ExecuteLoadScene(Action ProcessAction = null, Action OnDone = null)
         {
             //Show loading screen
             Transition.FadeIn(() => {
                 LoadingScreen.ShowLoadingScreen(true,asyncLoad, () => {
+                    ProcessAction?.Invoke();
                     if(transitionOutOnLoadDone)
                     {
                         Transition.FadeOut(() => {

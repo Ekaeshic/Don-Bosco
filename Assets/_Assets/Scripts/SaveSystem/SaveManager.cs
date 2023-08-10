@@ -43,8 +43,7 @@ namespace DonBosco.SaveSystem
                 }
             }
             #endif
-            loadData.AddToLoad();
-            loadData.ExecuteLoadScene();
+            loadData.ExecuteLoadScene(() => loadData.AddToLoad());
         }
 
 

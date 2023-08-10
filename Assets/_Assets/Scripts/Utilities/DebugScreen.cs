@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
+using DonBosco;
 
 /// <summary>
 /// Handles debug screen
@@ -50,6 +51,7 @@ public class DebugScreen : MonoBehaviour
         {
             debugText.text = "FPS: " + (1f / Time.unscaledDeltaTime).ToString("000");
         }
+        debugText.text += $"\n\nGame State: {GameManager.GameState}";
 
         //Write the global log
         debugText.text += "\n\n" + log;

@@ -44,8 +44,7 @@ namespace DonBosco
             {
                 currentScene = startingScene;
             }
-            AddToLoad(currentScene);
-            ExecuteLoadScene();
+            ExecuteLoadScene(() => AddToLoad(currentScene));
         }
 
         public void AddToLoad(string sceneName)
@@ -58,9 +57,9 @@ namespace DonBosco
             loadScene.AddToUnload(sceneName);
         }
 
-        public void ExecuteLoadScene(Action callback = null)
+        public void ExecuteLoadScene(Action processAction = null, Action OnDone = null)
         {
-            loadScene.ExecuteLoadScene(callback);
+            loadScene.ExecuteLoadScene(processAction, OnDone);
         }
 
 
