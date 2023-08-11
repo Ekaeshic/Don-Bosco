@@ -1214,7 +1214,7 @@ Transform:
   m_GameObject: {fileID: 717899870}
   serializedVersion: 2
   m_LocalRotation: {x: 1e-45, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.373827, y: -0.7706305, z: -10}
+  m_LocalPosition: {x: -17.373827, y: -0.7706305, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1867,7 +1867,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1579959110}
   - component: {fileID: 1579959109}
-  - component: {fileID: 1579959111}
+  - component: {fileID: 1579959112}
   m_Layer: 0
   m_Name: Timeline
   m_TagString: Untagged
@@ -1891,17 +1891,22 @@ PlayableDirector:
   m_InitialTime: 0
   m_SceneBindings:
   - key: {fileID: 1709650631664722902, guid: dc80d369ba5a40e449cb37015560e3d2, type: 2}
-    value: {fileID: 1700143154}
+    value: {fileID: 1579959112}
   - key: {fileID: 7752897256771019328, guid: dc80d369ba5a40e449cb37015560e3d2, type: 2}
     value: {fileID: 181822728}
   - key: {fileID: -861811004924035868, guid: dc80d369ba5a40e449cb37015560e3d2, type: 2}
     value: {fileID: 717899871}
+  - key: {fileID: 3454737268435853124, guid: dc80d369ba5a40e449cb37015560e3d2, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 3920523259660901542, guid: dc80d369ba5a40e449cb37015560e3d2, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References:
     - 5f31a0afa1b055749a925a84ba256a33: {fileID: 717899870}
     - 93b150ae11e4f7346a3dbc09477c869b: {fileID: 1579959108}
     - 37d863c29514a014fb161d816f986cb1: {fileID: 717899872}
     - c0de45f75a7849141a2138adc70402bb: {fileID: 717899872}
+    - 8ef4f6451caf92a459517942cdc926d5: {fileID: 0}
     - d3b485bbcc3c8914eb38e3806a56bec0: {fileID: 181822724}
     - 2056bcad83ef39c4db9c39c008e1c1ac: {fileID: 717899870}
 --- !u!4 &1579959110
@@ -1919,7 +1924,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1579959111
+--- !u!114 &1579959112
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1928,91 +1933,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1579959108}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Events:
-    m_Signals:
-    - {fileID: 11400000, guid: 9332d318b6d394d4e88c24804b7dceb5, type: 2}
-    m_Events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 850230509}
-          m_TargetAssemblyTypeName: DonBosco.SceneLoaderAgent, Assembly-CSharp
-          m_MethodName: ExecuteLoadScene
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: DIALOGUE_TEST_WORLD
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!1 &1700143153
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1700143155}
-  - component: {fileID: 1700143154}
-  - component: {fileID: 1700143157}
-  m_Layer: 0
-  m_Name: TIMELINE_Testing
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1700143154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700143153}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b305de0eed57ae439e22755e99b9d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentPlayableDirector: {fileID: 1579959109}
---- !u!4 &1700143155
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700143153}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.476984, y: 5.0347524, z: 0.83013296}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1700143157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700143153}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff01606efd7e1cd489b70519433741d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  awakeEvent:
+  startTimelineOnStart: 1
+  needPlayerAnimator: 1
+  needTransition: 0
+  onDialogueEnded:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1700143154}
-        m_TargetAssemblyTypeName: DonBosco.Dialogue.DialogueTimeline, Assembly-CSharp
-        m_MethodName: StartTimeLine
+      - m_Target: {fileID: 850230509}
+        m_TargetAssemblyTypeName: DonBosco.SceneLoaderAgent, Assembly-CSharp
+        m_MethodName: ExecuteLoadScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2373,6 +2306,5 @@ SceneRoots:
   - {fileID: 472083005}
   - {fileID: 1451613049}
   - {fileID: 1579959110}
-  - {fileID: 1700143155}
   - {fileID: 850230508}
   - {fileID: 717899873}

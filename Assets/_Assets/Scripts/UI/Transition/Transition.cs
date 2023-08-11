@@ -21,7 +21,7 @@ namespace DonBosco
             instance = this;
         }
 
-        public static void FadeIn(Action OnComplete = null)
+        public static void FadeOut(Action OnComplete = null)
         {
             instance.transitionScreen.blocksRaycasts = true;
             instance.transitionScreen.DOFade(1, instance.duration).OnComplete(() => {
@@ -30,7 +30,7 @@ namespace DonBosco
             });
         }
 
-        public static void FadeOut(Action OnComplete = null)
+        public static void FadeIn(Action OnComplete = null)
         {
             instance.transitionScreen.DOFade(0, instance.duration).OnComplete(() => {
                 OnComplete?.Invoke();

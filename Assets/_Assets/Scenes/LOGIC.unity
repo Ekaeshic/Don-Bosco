@@ -240,7 +240,7 @@ MonoBehaviour:
   m_UpdateMethod: 2
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
-    m_Style: 1
+    m_Style: 0
     m_Time: 2
     m_CustomCurve:
       serializedVersion: 2
@@ -367,7 +367,7 @@ Transform:
   m_GameObject: {fileID: 45158542}
   serializedVersion: 2
   m_LocalRotation: {x: 1e-45, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1538283, y: 5.83937, z: -10}
+  m_LocalPosition: {x: -17.373827, y: -0.7706305, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1057,9 +1057,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitionOutOnLoadDone: 1
-  additionalLoadOperations:
-    m_PersistentCalls:
-      m_Calls: []
   OnLoadDone:
     m_PersistentCalls:
       m_Calls: []
@@ -1262,7 +1259,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionScreen: {fileID: 2113224757}
   duration: 1
-  isFaded: 1
 --- !u!4 &2049026492
 Transform:
   m_ObjectHideFlags: 0

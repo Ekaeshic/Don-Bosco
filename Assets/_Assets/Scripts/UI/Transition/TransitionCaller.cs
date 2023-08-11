@@ -7,21 +7,21 @@ namespace DonBosco
 {
     public class TransitionCaller : MonoBehaviour
     {
-        public UnityEvent OnTransitionIn;
-        public UnityEvent OnTransitionOut;
+        public UnityEvent OnTransitionFadeOut;
+        public UnityEvent OnTransitionFadeIn;
 
 
-        public void TransitionIn()
+        public void TransitionFadeOut()
         {
-            Transition.FadeIn(() => {
-                OnTransitionIn?.Invoke();
+            Transition.FadeOut(() => {
+                OnTransitionFadeOut?.Invoke();
             });
         }
 
-        public void TransitionOut()
+        public void TransitionFadeIn()
         {
             Transition.FadeOut(() => {
-                OnTransitionOut?.Invoke();
+                OnTransitionFadeIn?.Invoke();
             });
         } 
     }

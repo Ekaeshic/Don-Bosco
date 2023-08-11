@@ -175,34 +175,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5526900043ad6bf4b8b591b0da9ac41c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnTransitionIn:
+  OnTransitionFadeOut:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1791306346}
-        m_TargetAssemblyTypeName: DonBosco.LoadScene, Assembly-CSharp
-        m_MethodName: Load
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2136222964}
-        m_TargetAssemblyTypeName: DonBosco.MainMenuManager, Assembly-CSharp
-        m_MethodName: PlayGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnTransitionOut:
+      m_Calls: []
+  OnTransitionFadeIn:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &315874084
@@ -642,34 +618,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5526900043ad6bf4b8b591b0da9ac41c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnTransitionIn:
+  OnTransitionFadeOut:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1791306346}
-        m_TargetAssemblyTypeName: DonBosco.LoadScene, Assembly-CSharp
-        m_MethodName: Load
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2136222964}
-        m_TargetAssemblyTypeName: DonBosco.MainMenuManager, Assembly-CSharp
-        m_MethodName: PlayGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnTransitionOut:
+      m_Calls: []
+  OnTransitionFadeIn:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &756306064
@@ -1451,7 +1403,19 @@ MonoBehaviour:
   transitionOutOnLoadDone: 0
   OnLoadDone:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2136222964}
+        m_TargetAssemblyTypeName: DonBosco.MainMenuManager, Assembly-CSharp
+        m_MethodName: PlayGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &1791306348
 Transform:
   m_ObjectHideFlags: 0
@@ -1553,7 +1517,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2009177863}
         m_TargetAssemblyTypeName: DonBosco.TransitionCaller, Assembly-CSharp
-        m_MethodName: TransitionIn
+        m_MethodName: TransitionFadeOut
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1613,7 +1577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5526900043ad6bf4b8b591b0da9ac41c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnTransitionIn:
+  OnTransitionFadeOut:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1791306346}
@@ -1640,19 +1604,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2136222964}
-        m_TargetAssemblyTypeName: DonBosco.MainMenuManager, Assembly-CSharp
-        m_MethodName: PlayGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnTransitionOut:
+  OnTransitionFadeIn:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &2130922026
@@ -1707,34 +1659,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5526900043ad6bf4b8b591b0da9ac41c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnTransitionIn:
+  OnTransitionFadeOut:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1791306346}
-        m_TargetAssemblyTypeName: DonBosco.LoadScene, Assembly-CSharp
-        m_MethodName: Load
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2136222964}
-        m_TargetAssemblyTypeName: DonBosco.MainMenuManager, Assembly-CSharp
-        m_MethodName: PlayGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnTransitionOut:
+      m_Calls: []
+  OnTransitionFadeIn:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &2130922029

@@ -42,12 +42,12 @@ namespace DonBosco
         public void ExecuteLoadScene(Action ProcessAction = null, Action OnDone = null)
         {
             //Show loading screen
-            Transition.FadeIn(() => {
+            Transition.FadeOut(() => {
                 LoadingScreen.ShowLoadingScreen(true,asyncLoad, () => {
                     ProcessAction?.Invoke();
                     if(transitionOutOnLoadDone)
                     {
-                        Transition.FadeOut(() => {
+                        Transition.FadeIn(() => {
                             OnLoadDone?.Invoke();
                             asyncLoad.Clear();
                             OnDone?.Invoke();
@@ -59,6 +59,11 @@ namespace DonBosco
                     OnDone?.Invoke();
                 });
             });
+        }
+
+        public void ExecuteLoadScene()
+        {
+            ExecuteLoadScene(null, null);
         }
 
         public void AddToUnload(string scene = null)
