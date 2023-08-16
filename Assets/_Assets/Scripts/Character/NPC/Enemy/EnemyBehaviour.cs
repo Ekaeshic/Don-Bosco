@@ -6,13 +6,25 @@ using UnityEngine;
 namespace DonBosco.Character
 {
     [RequireComponent(typeof(NPCAttack))]
-    public class EnemyBehaviour : MonoBehaviour
+    public class EnemyBehaviour : MonoBehaviour, IDamageable
     {
         [SerializeField] private EnemyState startState = EnemyState.Alert;
+        [SerializeField] private CharacterHealthSO healthSetting = null;
+
+        private CharacterHealthSO healthSO;
 
         private EnemyState currentState;
 
+        void OnEnable()
+        {
+            healthSO = Instantiate(healthSetting);
+            healthSO.OnDeath += OnDeath;
+        }
 
+        void OnDisable()
+        {
+            healthSO.OnDeath -= OnDeath;
+        }
 
         private void Start() 
         {
@@ -40,6 +52,11 @@ namespace DonBosco.Character
             }
         }
 
+        private void OnDeath()
+        {
+            Destroy(gameObject);
+        }
+
         private void Dead()
         {
             gameObject.GetComponent<NPCAttack>().SetAlert(false);
@@ -65,6 +82,11 @@ namespace DonBosco.Character
         public void SetState(EnemyState state)
         {
             currentState = state;
+        }
+
+        public void TakeDamage(float damage)
+        {
+            healthSO.TakeDamage(damage);
         }
     }
 

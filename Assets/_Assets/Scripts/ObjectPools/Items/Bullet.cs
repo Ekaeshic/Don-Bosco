@@ -51,7 +51,11 @@ namespace DonBosco
 
             if(damageMask == (damageMask | (1 << other.gameObject.layer)))
             {
-                //other.gameObject.GetComponent<Health>().TakeDamage(damage);
+                IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
+                if(damageable != null)
+                {
+                    damageable.TakeDamage(damage);
+                }
             }
             Pooling.Instance.ReturnBullet(this);
         }

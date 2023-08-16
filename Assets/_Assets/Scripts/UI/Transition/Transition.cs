@@ -14,6 +14,7 @@ namespace DonBosco
 
         [SerializeField] float duration = 0.5f;
         //[SerializeField] bool isFaded = true;
+        public static bool IsAnimating = false;
 
 
 
@@ -23,18 +24,32 @@ namespace DonBosco
 
         public static void FadeOut(Action OnComplete = null)
         {
+            if(instance.transitionScreen.alpha == 1)
+            {
+                OnComplete?.Invoke();
+                return;
+            }
+            IsAnimating = true;
             instance.transitionScreen.blocksRaycasts = true;
             instance.transitionScreen.DOFade(1, instance.duration).OnComplete(() => {
                 OnComplete?.Invoke();
+                IsAnimating = false;
                 // instance.isFaded = true;
             });
         }
 
         public static void FadeIn(Action OnComplete = null)
         {
+            if(instance.transitionScreen.alpha == 0)
+            {
+                OnComplete?.Invoke();
+                return;
+            }
+            IsAnimating = true;
             instance.transitionScreen.DOFade(0, instance.duration).OnComplete(() => {
                 OnComplete?.Invoke();
                 instance.transitionScreen.blocksRaycasts = false;
+                IsAnimating = false;
                 // instance.isFaded = false;
             });
         }

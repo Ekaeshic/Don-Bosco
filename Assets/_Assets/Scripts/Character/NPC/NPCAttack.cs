@@ -11,6 +11,7 @@ namespace DonBosco.Character
     {
         [SerializeField] private LayerMask attackLayer = ~0;
         [SerializeField] private LayerMask rayLayer = ~0;
+        [SerializeField] private Transform firePoint = null;
         [Header("Settings")]
         [SerializeField] private float scanRange = 1f;
         [SerializeField] private float fireRange = 2f;
@@ -21,6 +22,7 @@ namespace DonBosco.Character
         private bool isAlert = false;
         private bool isEngaging = false;
         private bool isAiming = false;
+        private Vector3 startingPosition;
         private Collider2D[] hit = new Collider2D[10]; //You can change the size of this array if you need to
         private RaycastHit2D[] rayHit = new RaycastHit2D[10];
         private Transform target;
@@ -36,6 +38,7 @@ namespace DonBosco.Character
 
         private void Update() 
         {
+            startingPosition = firePoint.position;
             if(isAlert)
             {
                 Attack();
@@ -75,49 +78,51 @@ namespace DonBosco.Character
 
         private void Aim()
         {
+            if(target == null)
+            {
+                isAiming = false;
+                isEngaging = false;
+                return;
+            }
+
             agent.isStopped = true;
             //Rotate towards the target
-            Vector2 direction = target.position - transform.position;
+            Vector2 direction = target.position - startingPosition;
             float angle = Vector2.SignedAngle(Vector2.up, direction);
             
             aimTimer += Time.deltaTime;
             if(aimTimer >= aimDelay)
             {
                 //Check if the target is within fire range
-                float distance = Vector2.Distance(transform.position, target.position);
+                float distance = Vector2.Distance(startingPosition, target.position);
                 if(distance <= fireRange)
                 {
-                    GetComponent<CharacterAttack>().Attack(angle, transform.position);
+                    GetComponent<CharacterAttack>().Attack(angle, startingPosition);
                 }
-                else
-                {
-                    isAiming = false;
-                    isEngaging = false;
-                    aimTimer = 0f;
-                }
+                aimTimer = 0f;
+                isAiming = false;
             }
         }
 
         private void Engage()
         {
-            float distance = Vector2.Distance(transform.position, target.position);
+            float distance = Vector2.Distance(startingPosition, target.position);
             if(distance >= fireRange)
             {
                 FollowTarget();
                 return;
             }
-            //Check if the target is clear from obstacles and visible to aim
-            int numHits = Physics2D.RaycastNonAlloc(transform.position, target.position, rayHit ,distance, rayLayer);
             
-            for(int i = 0; i < numHits; i++)
+            bool isClear = IsRayToTargetClear();
+            if(isClear)
             {
-                if(rayHit[i].transform != target)
-                {
-                    FollowTarget();
-                    return;
-                }
+                isAiming = true;
+                aimTimer = 0f;
             }
-            isAiming = true;
+            else
+            {
+                FollowTarget();
+            }
         }
 
         private void FollowTarget()
@@ -129,7 +134,7 @@ namespace DonBosco.Character
 
         private void FindAttackable()
         {
-            int numHits = Physics2D.OverlapCircleNonAlloc(transform.position, scanRange, hit, attackLayer);
+            int numHits = Physics2D.OverlapCircleNonAlloc(startingPosition, scanRange, hit, attackLayer);
             GameObject nearestObject = null;
             float nearestDistance = Mathf.Infinity;
 
@@ -137,7 +142,7 @@ namespace DonBosco.Character
             {
                 for(int i = 0; i < numHits; i++)
                 {
-                    float distance = Vector2.Distance(transform.position, hit[i].transform.position);
+                    float distance = Vector2.Distance(startingPosition, hit[i].transform.position);
                     if(distance < nearestDistance)
                     {
                         nearestDistance = distance;
@@ -148,6 +153,24 @@ namespace DonBosco.Character
 
             target = nearestObject != null ? nearestObject.transform : null;
             isEngaging = target != null;
+        }
+
+        private bool IsRayToTargetClear()
+        {
+            float distance = Vector2.Distance(startingPosition, target.position);
+            Vector2 direction = target.position - startingPosition;
+            //Check if the target is clear from obstacles and visible to aim
+            int numHits = Physics2D.RaycastNonAlloc(startingPosition, direction, rayHit , distance, rayLayer);
+            for(int i = 0; i < numHits; i++)
+            {
+                if(rayHit[i].transform != target)
+                {
+                    System.Array.Clear(rayHit, 0, rayHit.Length);
+                    return false;
+                }
+            }
+            System.Array.Clear(rayHit, 0, rayHit.Length);
+            return true;
         }
 
 

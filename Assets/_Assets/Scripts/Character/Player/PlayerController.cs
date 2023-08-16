@@ -86,6 +86,8 @@ namespace DonBosco.Character
             {
                 case true:
                     drawLine.DrawLine();
+
+                    Cursor.lockState = CursorLockMode.Confined;
                     break;
                 case false:
                     drawLine.RemoveLine();
@@ -99,7 +101,7 @@ namespace DonBosco.Character
             movementState = value ? MovementState.Aiming : MovementState.Walking;
             
             //Hide the cursor when pressed, show it when released
-            //Cursor.visible = !value.isPressed;
+            Cursor.visible = !value;
             previousAimPressed = value;
         }
         #endregion

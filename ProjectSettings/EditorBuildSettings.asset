@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Assets/Scenes/World Scene/TEST_TIMELINE.unity
     guid: ab92ab039815def4f9181feb7546c41e
+  - enabled: 1
+    path: Assets/_Assets/Scenes/World Scene/MAP_JALAN/MAP_JALAN.unity
+    guid: c200c152c10897241b976b8705e1c42d
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 2ea68e328b9896345b249167d5c7c22b, type: 2}

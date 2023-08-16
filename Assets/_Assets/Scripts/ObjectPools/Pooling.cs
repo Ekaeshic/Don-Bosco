@@ -38,6 +38,16 @@ namespace DonBosco
             }, bullet => {
                 Destroy(bullet.gameObject);
             }, false, defaultSize, maxSize);
+
+            Bullet[] bullets = new Bullet[defaultSize];
+            for(int i = 0; i < defaultSize; i++)
+            {
+                bullets[i] = Instantiate(bulletPrefab);
+            }
+            for(int i = 0; i < defaultSize; i++)
+            {
+                pool.Release(bullets[i]);
+            }
         }
 
 

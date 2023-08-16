@@ -10,7 +10,7 @@ namespace DonBosco
     {
         private async void Start() 
         {
-            LoadingScreen.ShowLoadingScreen(false);
+            LoadingScreen.ShowLoadingScreen();
             GameManager.PauseGame();
             try
             {
@@ -31,7 +31,9 @@ namespace DonBosco
             finally
             {
                 SceneLoader.Instance.LoadCurrentScene();
+                LoadingScreen.HideLoadingScreen();
                 GameManager.ResumeGame();
+                Transition.FadeIn();
             }
         }
     }

@@ -34,7 +34,7 @@
                 },
                 {
                     "name": "Pause",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "203caac1-6f93-4787-8a24-77c775b0c748",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -369,6 +369,17 @@
                     "name": "",
                     "id": "94d1f7ec-c6a0-486f-8f3c-2c3d006a0aff",
                     "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "858d595e-753e-4aec-9c28-e10b575e6339",
+                    "path": "*/{Back}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

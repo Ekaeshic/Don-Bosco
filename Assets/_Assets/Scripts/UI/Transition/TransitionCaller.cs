@@ -24,5 +24,16 @@ namespace DonBosco
                 OnTransitionFadeIn?.Invoke();
             });
         } 
+
+
+        public void ShowLoadingScreen()
+        {
+            LoadingScreen.ShowLoadingScreen();
+        }
+
+        public void HideLoadingScreen()
+        {
+            LoadingScreen.HideLoadingScreen();
+        }
     }
 }

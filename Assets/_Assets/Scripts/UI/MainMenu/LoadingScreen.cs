@@ -17,6 +17,8 @@ namespace DonBosco
         
         float totalProgress = 0;
 
+        Coroutine loadingCoroutine;
+
 
         #region Events
         private event Action OnLoadDone;
@@ -39,8 +41,16 @@ namespace DonBosco
             if(OnLoadDone != null)
                 instance.OnLoadDone += OnLoadDone;
             instance.loadingScreen.SetActive(true);
-            instance.StartCoroutine(instance.LoadAsynchronously(operations, hideLoadingScreenOnFinish));
+            
+            if(instance.loadingCoroutine != null)
+                instance.StopCoroutine(instance.loadingCoroutine);
+            instance.loadingCoroutine = instance.StartCoroutine(instance.LoadAsynchronously(operations, hideLoadingScreenOnFinish));
             return instance;
+        }
+
+        public static void ShowLoadingScreen()
+        {
+            instance.loadingScreen.SetActive(true);
         }
 
 
@@ -50,6 +60,7 @@ namespace DonBosco
             {
                 for(int i=0; i<operations.Count;i++)
                 {
+                    if(operations[i] == null) continue;
                     while(!operations[i].isDone)
                     {
                         totalProgress = 0;
@@ -66,6 +77,7 @@ namespace DonBosco
                 }
             }
             OnLoadDone?.Invoke();
+            OnLoadDone = null;
             if(hideLoadingScreenOnFinish)
                 HideLoadingScreen();
         }

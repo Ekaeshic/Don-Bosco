@@ -37,9 +37,12 @@ namespace DonBosco.UI
             Inventory.Instance.OnSelectedItemSwitched -= UpdateSelectedUI;
         }
 
-        private void UpdateSelectedUI()
+        private void UpdateSelectedUI(int index)
         {
-            throw new NotImplementedException();
+            for(int i = 0; i < inventorySlotUIs.Length; i++)
+            {
+                inventorySlotUIs[i].UpdateSelectedUI(i == index);
+            }
         }
 
         private void UpdateUI()

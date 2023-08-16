@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DonBosco.SaveSystem;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace DonBosco
 {
@@ -45,6 +46,11 @@ namespace DonBosco
                 currentScene = startingScene;
             }
             ExecuteLoadScene(() => AddToLoad(currentScene));
+        }
+        
+        public void UnloadCurrentSceneInstantly()
+        {
+            SceneManager.UnloadSceneAsync(currentScene);
         }
 
         public void AddToLoad(string sceneName)

@@ -15,12 +15,17 @@ namespace DonBosco.UI
         [SerializeField] private Image itemImage;
         [SerializeField] private Canvas canvas;
         [HideInInspector] public int slotIndex;
+        private Image backgroundImage;
         private InventorySlotListener inventorySlotListener;
         private RectTransform draggedItem;
+
+        private const string SELECTED_COLOR = "#3D3D3D";
+        private const string UNSELECTED_COLOR = "#909090";
 
         private void Awake() 
         {
             inventorySlotListener = GetComponentInParent<InventorySlotListener>();
+            backgroundImage = GetComponent<Image>();
         }
         
         public void UpdateUI(Item item)
@@ -35,6 +40,18 @@ namespace DonBosco.UI
             {
                 itemImage.sprite = null;
                 itemImage.color = Color.white;
+            }
+        }
+
+        public void UpdateSelectedUI(bool isSelected)
+        {
+            if(isSelected)
+            {
+                backgroundImage.color = ColorUtility.TryParseHtmlString(SELECTED_COLOR, out Color color) ? color : Color.white;
+            }
+            else
+            {
+                backgroundImage.color = ColorUtility.TryParseHtmlString(UNSELECTED_COLOR, out Color color) ? color : Color.white;
             }
         }
 
@@ -71,13 +88,15 @@ namespace DonBosco.UI
         public void OnPointerEnter(PointerEventData eventData)
         {
             //Tween the scale of the item
-            itemImage.rectTransform.DOScale(1.2f, 0.2f);
+            if(itemImage != null)
+                itemImage.rectTransform.DOScale(1.2f, 0.2f);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             //Tween the scale of the item
-            itemImage.rectTransform.DOScale(1f, 0.2f);
+            if(itemImage != null)
+                itemImage.rectTransform.DOScale(1f, 0.2f);
         }
         #endregion
     }

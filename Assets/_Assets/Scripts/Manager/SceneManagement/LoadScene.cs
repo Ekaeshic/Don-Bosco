@@ -28,7 +28,7 @@ namespace DonBosco
             {
                 if(SceneManager.GetSceneAt(i).name == sceneName)
                 {
-                    Debug.Log("Scene is already loaded");
+                    Debug.Log($"Scene {sceneName} is already loaded");
                     sceneFound = true;
                 }
             }

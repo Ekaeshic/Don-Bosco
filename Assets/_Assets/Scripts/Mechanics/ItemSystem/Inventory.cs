@@ -24,7 +24,7 @@ namespace DonBosco.ItemSystem
 
         #region Events
         public event System.Action OnItemSlotChange;
-        public event System.Action OnSelectedItemSwitched;
+        public event System.Action<int> OnSelectedItemSwitched;
         #endregion
         
 
@@ -72,7 +72,7 @@ namespace DonBosco.ItemSystem
             selectedItem = itemSlot[index];
             selectedSlot = index;
 
-            OnSelectedItemSwitched?.Invoke();
+            OnSelectedItemSwitched?.Invoke(selectedSlot);
         }
 
         public void SwapItemSlot(int index, int target)
