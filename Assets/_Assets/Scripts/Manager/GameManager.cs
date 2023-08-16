@@ -14,6 +14,8 @@ namespace DonBosco
         #region Events
         public static event Action OnGamePause;
         public static event Action OnGamePlay;
+        public static event Action OnEnterDialogue;
+        public static event Action OnEnterCutscene;
         #endregion
 
         
@@ -49,6 +51,7 @@ namespace DonBosco
             gameState = GameState.Dialogue;
             DonBosco.InputManager.Instance.SetMovementActionMap(false);
             DonBosco.InputManager.Instance.SetUIActionMap(true);
+            OnEnterDialogue?.Invoke();
         }
 
         /// <summary>
@@ -59,6 +62,7 @@ namespace DonBosco
             gameState = GameState.Cutscene;
             DonBosco.InputManager.Instance.SetMovementActionMap(false);
             DonBosco.InputManager.Instance.SetUIActionMap(true);
+            OnEnterCutscene?.Invoke();
         }
     }
 

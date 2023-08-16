@@ -25,6 +25,7 @@ namespace DonBosco
         private bool pickupPressed = false;
         private bool dropPressed = false;
         private int numkeysPressed = 0;
+        private float scrollWheelValue = 0f;
 
         private bool submitPressed = false;
         private bool backPressed = false;
@@ -108,6 +109,12 @@ namespace DonBosco
         {
             int.TryParse(value.Get().ToString(), out numkeysPressed);
         }
+
+        public void OnScrollWheel(InputValue value)
+        {
+            Vector2 temp = value.Get<Vector2>();
+            scrollWheelValue = temp.y;
+        }
         #endregion
 
 
@@ -136,6 +143,11 @@ namespace DonBosco
         public bool GetAttackValue()
         {
             return attackPressed;
+        }
+
+        public float GetScrollWheelValue()
+        {
+            return scrollWheelValue;
         }
 
 
