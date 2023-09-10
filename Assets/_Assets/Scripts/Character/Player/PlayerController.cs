@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DonBosco.SaveSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -39,11 +40,13 @@ namespace DonBosco.Character
         void OnEnable()
         {
             InputManager.Instance.OnAimPressed += OnAimPressed;
+            SaveManager.Instance.Subscribe(this);
         }
 
         void OnDisable()
         {
             InputManager.Instance.OnAimPressed -= OnAimPressed;
+            SaveManager.Instance.Unsubscribe(this);
         }
 
         void Update()

@@ -3,20 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using DonBosco.ItemSystem;
+using DonBosco.Quests;
 
 namespace DonBosco
 {
+    [System.Serializable]
     public class SaveData
     {
         #region Player Data
         public Vector3 playerPosition;
         public string currentScene;
         public int playerHealth;
-        public Item[] playerInventory;
+        public ItemData[] playerInventory;
         #endregion
 
 
         #region Game Data
+        public string dialogueVariables = null;
+        #endregion
+
+        #region Quest
+        
+        public QuestData[] questData;
         #endregion
 
 

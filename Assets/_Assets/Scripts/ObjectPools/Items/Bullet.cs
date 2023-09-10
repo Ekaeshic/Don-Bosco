@@ -71,6 +71,11 @@ namespace DonBosco
             transform.rotation = Quaternion.Euler(0, 0, angle);
         }
 
+        public void SetDamage(float damage)
+        {
+            this.damage = damage;
+        }
+
         public void SetStartPosition(Vector3 position)
         {
             transform.position = position;

@@ -24,6 +24,18 @@ namespace DonBosco.Character
         #endregion
 
         #region MonoBehaviour
+        void OnEnable()
+        {
+            GameEventsManager.Instance.playerEvents.onItemDrop += Drop;
+        }
+
+        void OnDisable()
+        {
+            GameEventsManager.Instance.playerEvents.onItemDrop -= Drop;
+
+            DestroyHint();
+        }
+        
         private void Update() 
         {
             if(InputManager.Instance.GetPickupPressed() && selectedObject != null)
@@ -111,6 +123,14 @@ namespace DonBosco.Character
                     selectedObject.GetComponent<IPickupable>().Pickup();
                     OnPickup?.Invoke();
                 }
+            }
+        }
+        
+        private void Drop(Item item)
+        {
+            if(item != null)
+            {
+                Instantiate(item, transform.position, Quaternion.identity);
             }
         }
     }

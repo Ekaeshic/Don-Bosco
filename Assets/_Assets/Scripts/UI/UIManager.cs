@@ -33,6 +33,7 @@ namespace DonBosco.UI
 
 
             GameManager.OnEnterDialogue += HideScreenUI;
+            GameManager.OnEnterCutscene += HideScreenUI;
         }
 
         void OnDisable()
@@ -41,6 +42,7 @@ namespace DonBosco.UI
 
 
             GameManager.OnEnterDialogue -= HideScreenUI;
+            GameManager.OnEnterCutscene -= HideScreenUI;
         }
 
         void Update()

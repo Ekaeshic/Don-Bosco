@@ -64,9 +64,10 @@ namespace DonBosco
                     while(!operations[i].isDone)
                     {
                         totalProgress = 0;
-                        foreach(AsyncOperation op in operations)
+                        for(int j=0; j<operations.Count;j++)
                         {
-                            totalProgress += op.progress;
+                            if(operations[j] == null) continue;
+                            totalProgress += operations[j].progress;
                         }
                         
                         totalProgress = Mathf.Clamp01(totalProgress/operations.Count);

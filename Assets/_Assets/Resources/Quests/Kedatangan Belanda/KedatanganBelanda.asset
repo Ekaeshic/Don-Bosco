@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24448c2fc36e1f145b23ca5cf8fe5c18, type: 3}
+  m_Name: KedatanganBelanda
+  m_EditorClassIdentifier: 
+  <id>k__BackingField: KedatanganBelanda
+  questName: Kedatangan Belanda
+  questDescription: Belanda menginjakkan kaki di tanah Indonesia untuk sekali lagi
+  initialState: 1
+  questSteps:
+  - {fileID: 3595192053681542951, guid: 7cbec1eac2c301a40af637c7ed5d34b2, type: 3}
+  - {fileID: 1967840160665085129, guid: 8f29253b7c1e6ef4abeb56c36e5db685, type: 3}
+  - {fileID: 3595192053681542951, guid: 3b376b2433b474b459d3017d7aeef71e, type: 3}
+  prequisiteQuests: []
+  itemRewards: []

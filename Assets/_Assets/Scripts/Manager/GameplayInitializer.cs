@@ -33,7 +33,6 @@ namespace DonBosco
                 SceneLoader.Instance.LoadCurrentScene();
                 LoadingScreen.HideLoadingScreen();
                 GameManager.ResumeGame();
-                Transition.FadeIn();
             }
         }
     }

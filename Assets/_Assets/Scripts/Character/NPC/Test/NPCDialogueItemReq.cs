@@ -12,19 +12,19 @@ namespace DonBosco.Character.NPC.Test
     {
         public override void Interact()
         {
-            if(Inventory.Instance.Contains<Item>(out Item item))
-            {
-                DialogueManager.GetInstance().EnterDialogueModeManually(dialogue)
-                .SetVariableState()["hasItem"] = true;
+            // if(Inventory.Instance.Contains<Item>(out Item item))
+            // {
+            //     DialogueManager.GetInstance().EnterDialogueModeManually(dialogue)
+            //     .SetVariableState()["hasItem"] = true;
 
-                DialogueManager.GetInstance().StartDialogue();
+            //     DialogueManager.GetInstance().StartDialogue();
 
-                Inventory.Instance.Remove<Item>(item);
-            }
-            else
-            {
-                DialogueManager.GetInstance().EnterDialogueMode(dialogue);
-            }
+            //     Inventory.Instance.Remove<Item>(item);
+            // }
+            // else
+            // {
+            //     DialogueManager.GetInstance().EnterDialogueMode(dialogue);
+            // }
         }
     }
 }

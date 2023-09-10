@@ -16,6 +16,7 @@ namespace DonBosco
         [SerializeField] private string startingScene;
 
         private string currentScene;
+        public string CurrentScene { get { return currentScene; } }
         private LoadScene loadScene;
 
 
@@ -50,12 +51,19 @@ namespace DonBosco
         
         public void UnloadCurrentSceneInstantly()
         {
+            GameplayPlayer.Instance.ResetConfiner();
             SceneManager.UnloadSceneAsync(currentScene);
         }
 
         public void AddToLoad(string sceneName)
         {
             loadScene.AddToLoad(sceneName);
+            SetCurrentScene(sceneName);
+        }
+
+        public void FireChangeScene()
+        {
+            GameEventsManager.Instance.playerEvents.ChangeScene(currentScene);
         }
 
         public void AddToUnload(string sceneName)
@@ -66,6 +74,19 @@ namespace DonBosco
         public void ExecuteLoadScene(Action processAction = null, Action OnDone = null)
         {
             loadScene.ExecuteLoadScene(processAction, OnDone);
+        }
+
+
+
+        public void SetCurrentScene(string sceneName)
+        {
+            currentScene = sceneName;
+        }
+
+        public string GetCurrentScene()
+        {
+            Debug.Log("Current Scene: " + currentScene);
+            return currentScene;
         }
 
 

@@ -36,7 +36,8 @@ namespace DonBosco
             }, bullet => {
                 bullet.gameObject.SetActive(false);
             }, bullet => {
-                Destroy(bullet.gameObject);
+                if(bullet)
+                    Destroy(bullet.gameObject);
             }, false, defaultSize, maxSize);
 
             Bullet[] bullets = new Bullet[defaultSize];
@@ -48,6 +49,11 @@ namespace DonBosco
             {
                 pool.Release(bullets[i]);
             }
+        }
+
+        void OnDestroy()
+        {
+            pool.Dispose();
         }
 
 

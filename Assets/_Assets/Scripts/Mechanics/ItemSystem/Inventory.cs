@@ -15,11 +15,13 @@ namespace DonBosco.ItemSystem
         private static Inventory instance;
         public static Inventory Instance => instance;
 
-        private Item[] itemSlot = new Item[5];
-        public Item[] ItemSlot => itemSlot;
+        private ItemSlot[] itemSlots = new ItemSlot[5];
+        public ItemSlot[] ItemSlots => itemSlots;
 
-        private Item selectedItem = null;
+        private ItemSlot selectedItem = null;
         private int selectedSlot = 0;
+
+        private Dictionary<int, ItemSO> itemSODictionary = new Dictionary<int, ItemSO>();
 
 
         #region Events
@@ -52,7 +54,7 @@ namespace DonBosco.ItemSystem
         {
             if(InputManager.Instance.GetDropPressed())
             {
-                Drop();
+                // Drop();
             }
             int numKeysPressed = InputManager.Instance.GetNumKeysPressed();
             if(numKeysPressed > 0)
@@ -61,49 +63,84 @@ namespace DonBosco.ItemSystem
             }
 
             #if UNITY_EDITOR
-            Debuging();
+            // Debuging();
             #endif    
         }
         #endregion
 
+        private void CreateItemDictionary()
+        {
+            ItemSO[] itemSOs = Resources.LoadAll<ItemSO>("Items");
+
+            for(int i = 0; i < itemSOs.Length; i++)
+            {
+                int key = Animator.StringToHash(itemSOs[i].itemName);
+
+                if(!itemSODictionary.ContainsKey(key))
+                {
+                    itemSODictionary.Add(key, itemSOs[i]);
+                }
+            }
+        }
+
         private void SwitchSelectedItem(int index)
         {
             //Switch the selected item
-            selectedItem = itemSlot[index];
-            selectedSlot = index;
+            if(itemSlots[index] == null)
+            {
+                selectedItem = null;
+                selectedSlot = index;
+            }
+            else
+            {
+                selectedItem = itemSlots[index];
+                selectedSlot = index;
+            }
 
             OnSelectedItemSwitched?.Invoke(selectedSlot);
         }
 
         public void SwapItemSlot(int index, int target)
         {
-            Item temp = itemSlot[index];
-            itemSlot[index] = itemSlot[target];
-            itemSlot[target] = temp;
+            if(itemSlots[index] == null)
+            {
+                return;
+            }
+            else if(itemSlots[target] == null)
+            {
+                itemSlots[target] = itemSlots[index];
+                itemSlots[index] = null;
+            }
+            else
+            {
+                ItemSlot temp = itemSlots[target];
+                itemSlots[target] = itemSlots[index];
+                itemSlots[index] = temp;
+            }
 
             OnItemSlotChange?.Invoke();
         }
         
-        private void Drop()
-        {   
-            //Drop the item
-            if(itemSlot[selectedSlot] == null)
-            {
-                Debug.LogWarning("Item is null");
-                return;
-            }
+        // private void Drop()
+        // {   
+        //     //Drop the item
+        //     if(itemSlots[selectedSlot] == null)
+        //     {
+        //         Debug.LogWarning("Item is null");
+        //         return;
+        //     }
 
-            selectedItem = itemSlot[selectedSlot];
-            selectedItem.transform.position = playerTransform.position;
-            selectedItem.Drop();
+        //     selectedItem = itemSlots[selectedSlot].item;
+        //     selectedItem.transform.position = playerTransform.position;
+        //     selectedItem.Drop();
 
-            //Remove the item from the inventory
-            itemSlot[selectedSlot] = null;
+        //     //Remove the item from the inventory
+        //     itemSlots[selectedSlot] = null;
 
-            //Clear the selected item
-            selectedItem = null;
-            OnItemSlotChange?.Invoke();
-        }
+        //     //Clear the selected item
+        //     selectedItem = null;
+        //     OnItemSlotChange?.Invoke();
+        // }
 
         /// <summary>
         /// Adds an item to the inventory
@@ -112,19 +149,19 @@ namespace DonBosco.ItemSystem
         /// <returns></returns>
         public bool TryAddItem(Item item)
         {
-            for(int i = 0; i < itemSlot.Length; i++)
+            for(int i = 0; i < itemSlots.Length; i++)
             {
-                if(itemSlot[i] == null)
+                if(itemSlots[i] == null)
                 {
-                    itemSlot[i] = item;
+                    ItemSlot itemSlot = new ItemSlot(item.ItemSO, 1);
+                    itemSlots[i] = itemSlot;
                     item.transform.localPosition = Vector3.zero;
-                    item.Pickup();
                     OnItemSlotChange?.Invoke();
 
                     //Refresh the selected item
                     if(selectedSlot == i)
                     {
-                        selectedItem = item;
+                        selectedItem = itemSlot;
                     }
                     return true;
                 }
@@ -135,27 +172,52 @@ namespace DonBosco.ItemSystem
         /// <summary>
         /// Returns true if the inventory contains the item
         /// </summary>
-        public bool Contains<T>(out T itemOut) where T : Item
+        // public bool Contains<T>(out T itemOut) where T : Item
+        // {
+        //     foreach(ItemSlot i in itemSlots)
+        //     {
+        //         if(i. is T)
+        //         {
+        //             itemOut = i.item as T;
+        //             return true;
+        //         }
+        //     }
+        //     itemOut = null;
+        //     return false;
+        // }
+
+        // internal void Remove<T>(T item) where T : Item
+        // {
+        //     for(int i = 0; i < itemSlots.Length; i++)
+        //     {
+        //         if(itemSlots[i].item == item)
+        //         {
+        //             itemSlots[i] = null;
+        //             OnItemSlotChange?.Invoke();
+        //             return;
+        //         }
+        //     }
+        // }
+
+        public bool Contains(string itemName)
         {
-            foreach(Item i in itemSlot)
+            foreach(ItemSlot itemSlot in itemSlots)
             {
-                if(i is T)
+                if(itemSlot != null && itemSlot.itemSO.itemName == itemName)
                 {
-                    itemOut = i as T;
                     return true;
                 }
             }
-            itemOut = null;
             return false;
         }
 
-        internal void Remove<T>(T item) where T : Item
+        public void Remove(string itemName)
         {
-            for(int i = 0; i < itemSlot.Length; i++)
+            for(int i = 0; i < itemSlots.Length; i++)
             {
-                if(itemSlot[i] == item)
+                if(itemSlots[i].itemSO.itemName == itemName)
                 {
-                    itemSlot[i] = null;
+                    itemSlots[i] = null;
                     OnItemSlotChange?.Invoke();
                     return;
                 }
@@ -166,10 +228,23 @@ namespace DonBosco.ItemSystem
         /// Get currently selected item
         /// </summary>
         /// <returns></returns>
-        public Item GetSelectedItem()
+        public ItemSlot GetSelectedItem()
         {
-            selectedItem = itemSlot[selectedSlot];
+            selectedItem = itemSlots[selectedSlot];
             return selectedItem;
+        }
+        
+        public int EmptySlotCount()
+        {
+            int count = 0;
+            for(int i = 0; i < itemSlots.Length; i++)
+            {
+                if(itemSlots[i] == null)
+                {
+                    count++;
+                }
+            }
+            return count;
         }
 
         #region Visuals
@@ -222,14 +297,14 @@ namespace DonBosco.ItemSystem
         public async Task Save(SaveData saveData)
         {
             //Save the selected slot
-            saveData.playerInventory = new Item[itemSlot.Length];
+            saveData.playerInventory = new ItemData[itemSlots.Length];
 
             //Save the items
-            for(int i = 0; i < itemSlot.Length; i++)
+            for(int i = 0; i < itemSlots.Length; i++)
             {
-                if(itemSlot[i] != null)
+                if(itemSlots[i] != null)
                 {
-                    saveData.playerInventory[i] = itemSlot[i];
+                    saveData.playerInventory[i] = itemSlots[i].GetItemData();
                 }
             }
             await Task.CompletedTask;
@@ -237,18 +312,25 @@ namespace DonBosco.ItemSystem
 
         public async Task Load(SaveData saveData)
         {
-            if(saveData == null)
-                return;
-            Debug.Log("Loading inventory");
+            CreateItemDictionary();
+            ItemSlot[] savedItems = new ItemSlot[5];
 
-            //Load the items
-            for(int i = 0; i < saveData.playerInventory.Length; i++)
+            if(saveData != null)
             {
-                if(saveData.playerInventory[i] != null)
+                itemSlots = savedItems;
+                //Load the items
+                for(int i = 0; i < saveData.playerInventory.Length; i++)
                 {
-                    itemSlot[i] = saveData.playerInventory[i];
+                    if(saveData.playerInventory[i] != null && saveData.playerInventory[i].itemHash != 0)
+                    {
+                        ItemSO itemSO = itemSODictionary[saveData.playerInventory[i].itemHash];
+                        savedItems[i] = new ItemSlot(itemSO, saveData.playerInventory[i].amount);
+                    }
                 }
             }
+
+            itemSlots = savedItems;
+            OnItemSlotChange?.Invoke();
             await Task.CompletedTask;
         }
         #endregion
@@ -259,18 +341,18 @@ namespace DonBosco.ItemSystem
         {
             DebugScreen.Log("<color=yellow>Inventory</color>");
             DebugScreen.Log("Item list:");
-            for(int i = 0; i < itemSlot.Length; i++)
+            for(int i = 0; i < itemSlots.Length; i++)
             {
-                if(itemSlot[i] != null)
+                if(itemSlots[i] != null)
                 {
-                    DebugScreen.Log($"<color=green>Slot {i}:</color> {itemSlot[i].name}");
+                    DebugScreen.Log($"<color=green>Slot {i}:</color> {itemSlots[i].itemSO.name}");
                 }
                 else
                 {
                     DebugScreen.Log($"<color=red>Slot {i}:</color> Empty");
                 }
             }
-            DebugScreen.Log($"<color=yellow>Selected Slot:</color> {selectedSlot}. {itemSlot[selectedSlot]?.name ?? "Empty"}");
+            DebugScreen.Log($"<color=yellow>Selected Slot:</color> {selectedSlot}. {itemSlots[selectedSlot]?.itemSO.name ?? "Empty"}");
             DebugScreen.Log($"<color=yellow>Numkeys pressed:</color> {InputManager.Instance.GetNumKeysPressed()}");
 
             DebugScreen.NewLine();

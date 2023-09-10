@@ -4,6 +4,7 @@ using UnityEngine;
 
 using DonBosco.Dialogue;
 using DonBosco.ItemSystem;
+using DonBosco.Quests;
 
 namespace DonBosco.Character.NPC.Test
 {
@@ -15,15 +16,83 @@ namespace DonBosco.Character.NPC.Test
     {
         public bool IsInteractable { get; set; } = true;
         [SerializeField] protected TextAsset dialogue;
+        [SerializeField] protected ConversationState[] conversationStates;
+
+        private ConversationState currentState;
+
         // ScriptableObject Dialogue;
         public virtual void Interact()
         {
-            DialogueManager.GetInstance().EnterDialogueMode(dialogue);
+            StartDialogue();
         }
 
         public virtual void Interact(Item item)
         {
-            DialogueManager.GetInstance().EnterDialogueMode(dialogue);
+            StartDialogue();
         }
+
+
+        private void StartDialogue()
+        {
+            if(dialogue == null)
+            {
+                Debug.LogError("No dialogue or knot path assigned to NPC");
+            }
+            else
+            {
+                GetCurrentState();
+
+                if(currentState.knotPath != null)
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(dialogue, currentState.knotPath);
+                }
+                else
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(dialogue);
+                }
+            }
+        }
+
+        private void GetCurrentState()
+        {
+            if(conversationStates == null || conversationStates?.Length == 0)
+            {
+                return;
+            }
+            // get current state
+            for(int i = 0; i < conversationStates.Length; i++)
+            {
+                ConversationState conversationState = conversationStates[i];
+                if(CheckQuestConditions(conversationState))
+                {
+                    currentState = conversationState;
+                    break;
+                }
+            }
+        }
+
+        private bool CheckQuestConditions(ConversationState conversationState)
+        {
+            bool requirementsMet = true;
+            for(int i = 0; i < conversationState.questConditions.Length; i++)
+            {
+                QuestCondition questCondition = conversationState.questConditions[i];
+                Quest quest = QuestManager.Instance.GetQuestById(questCondition.questInfo.id);
+                if(quest.state != questCondition.questState)
+                {
+                    requirementsMet = false;
+                    break;
+                }
+            }
+            return requirementsMet;
+        }
+    }
+
+
+    [System.Serializable]
+    public struct ConversationState
+    {
+        public QuestCondition[] questConditions;
+        public string knotPath;
     }
 }

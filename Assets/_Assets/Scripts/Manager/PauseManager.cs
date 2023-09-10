@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DonBosco.SaveSystem;
 using DonBosco.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -45,12 +46,13 @@ namespace DonBosco
             GameManager.ResumeGame();
         }
 
-        public void BackToMainMenu()
+        public async void BackToMainMenu()
         {
+            await Transition.FadeIn();
+            await SaveManager.Instance.SaveGame();
             SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("GAMEPLAY"));
             SceneLoader.Instance.UnloadCurrentSceneInstantly();
             MainMenuManager.Instance.InitMainMenu();
-            Transition.FadeIn();
         }
     }
 }

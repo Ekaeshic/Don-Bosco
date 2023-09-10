@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using System.Threading.Tasks;
 
 namespace DonBosco
 {
@@ -22,7 +23,7 @@ namespace DonBosco
             instance = this;
         }
 
-        public static void FadeOut(Action OnComplete = null)
+        public static async Task FadeOut(Action OnComplete = null)
         {
             if(instance.transitionScreen.alpha == 1)
             {
@@ -36,9 +37,10 @@ namespace DonBosco
                 IsAnimating = false;
                 // instance.isFaded = true;
             });
+            await Task.CompletedTask;
         }
 
-        public static void FadeIn(Action OnComplete = null)
+        public static async Task FadeIn(Action OnComplete = null)
         {
             if(instance.transitionScreen.alpha == 0)
             {
@@ -52,6 +54,7 @@ namespace DonBosco
                 IsAnimating = false;
                 // instance.isFaded = false;
             });
+            await Task.CompletedTask;
         }
     }
 

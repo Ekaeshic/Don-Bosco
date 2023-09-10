@@ -8,9 +8,13 @@ namespace DonBosco.Character
     {
         [SerializeField] private LayerMask enemyLayer;
         [Header("Settings")]
-        [SerializeField] private float fireDelay = 0.5f;
+        [SerializeField] public float fireDelay = 0.5f;
+        [SerializeField] private float bulletDamage = 1f;
 
         private bool readyToFire = true;
+        private float fireTimer = 0f;
+        public float FireTimer => fireTimer;
+
 
         
         public void Attack(float angle, Vector3 startPosition)
@@ -19,19 +23,31 @@ namespace DonBosco.Character
             Bullet bullet = Pooling.Instance.GetBullet();
             bullet.SetOwner(gameObject);
             bullet.SetAngle(angle);
+            bullet.SetDamage(bulletDamage);
             bullet.SetStartPosition(startPosition);
             bullet.SetDamageMask(enemyLayer);
 
             // Start the fireTimer
             readyToFire = false;
-            FireDelay();
+        }
+
+        void Update()
+        {
+            if(!readyToFire)
+            {
+                FireDelay();
+            }
         }
 
         // Countdown the fireTimer
-        private async void FireDelay()
+        private void FireDelay()
         {
-            await System.Threading.Tasks.Task.Delay((int)(fireDelay * 1000));
-            readyToFire = true;
+            fireTimer += Time.deltaTime;
+            if(fireTimer >= fireDelay)
+            {
+                fireTimer = 0f;
+                readyToFire = true;
+            }
         }
     }
 }

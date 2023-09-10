@@ -56,8 +56,8 @@ namespace DonBosco.SaveSystem
                 await listeners[i].Save(saveData);
             }
             string json = saveData.ToJson();
-            Debug.Log(json);
             WriteSaveDataLocal(json);
+            await Task.CompletedTask;
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace DonBosco.SaveSystem
         /// </summary>
         /// <returns>True if the save file exists</returns>
         public async Task<bool> LoadGame()
-        {
+        {   
             try
             {
                 for(int i = 0; i < listeners.Count; i++)
@@ -78,6 +78,18 @@ namespace DonBosco.SaveSystem
             {
                 Debug.LogError(e);
                 return false;
+            }
+        }
+
+
+        public void DeleteSaveData()
+        {
+            string path = Application.persistentDataPath + FILENAME;
+            if(System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+                HasSaveData = false;
+                saveData = null;
             }
         }
 
@@ -97,6 +109,7 @@ namespace DonBosco.SaveSystem
             System.IO.FileStream file = System.IO.File.Create(path);
             formatter.Serialize(file, json);
             file.Close();
+            HasSaveData = true;
         }
 
         private bool ReadSaveDataLocal()

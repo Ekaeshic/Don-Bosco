@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 68
+    m_Bits: 2116
   damage: 20
   speed: 15
   lifeTime: 1

@@ -23,7 +23,7 @@ namespace DonBosco.Dialogue
             // }
             
             /// Load using format of binary file
-            /// LoadVariables();
+            // LoadVariables();
 
             // initialize the dictionary
             variables = new Dictionary<string, Ink.Runtime.Object>();
@@ -35,7 +35,7 @@ namespace DonBosco.Dialogue
             }
         }
 
-        private void LoadVariables()
+        public void LoadVariables()
         {
             string path = Application.persistentDataPath + "/save.dat";
             if(System.IO.File.Exists(path))
@@ -46,6 +46,26 @@ namespace DonBosco.Dialogue
                 file.Close();
                 globalVariablesStory.state.LoadJson(jsonState);
             }
+        }
+
+        public void LoadVariableString(string jsonState)
+        {
+            globalVariablesStory.state.LoadJson(jsonState);
+
+            // initialize the dictionary
+            variables = new Dictionary<string, Ink.Runtime.Object>();
+            foreach (string name in globalVariablesStory.variablesState)
+            {
+                Ink.Runtime.Object value = globalVariablesStory.variablesState.GetVariableWithName(name);
+                variables.Add(name, value);
+                //Debug.Log("Initialized global dialogue variable: " + name + " = " + value +" type: "+value.GetType());
+            }
+        }
+
+        public string SaveVariableString()
+        {
+            VariablesToStory(globalVariablesStory);
+            return globalVariablesStory.state.ToJson();
         }
 
         public void SaveVariables() 

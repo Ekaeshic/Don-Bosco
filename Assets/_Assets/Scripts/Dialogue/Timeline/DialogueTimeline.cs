@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
@@ -14,11 +15,18 @@ namespace DonBosco.Dialogue
         [Header("Settings")]
         [SerializeField] private bool startTimelineOnStart = true;
         [SerializeField] private bool needPlayerAnimator = false;
-        [SerializeField] private bool needTransition = false;
+        [SerializeField] private bool needCinemachineBrain = true;
+        [SerializeField] private bool needTransitionOut = false;
 
         [SerializeField] private UnityEvent onDialogueEnded;
 
-
+        void Awake()
+        {
+            if(currentPlayableDirector == null)
+            {
+                currentPlayableDirector = GetComponent<PlayableDirector>();
+            }
+        }
         private void OnEnable() {
             currentPlayableDirector.stopped += (director) => {
                 onDialogueEnded?.Invoke();
@@ -61,7 +69,7 @@ namespace DonBosco.Dialogue
 
         public void StartTimeLine()
         {
-            if(needTransition)
+            if(needTransitionOut)
             {
                 Transition.FadeOut(Process);
             }
@@ -96,6 +104,23 @@ namespace DonBosco.Dialogue
                                     currentPlayableDirector.SetGenericBinding(t, spriteAnimator);
                                 }
                             }
+                            break;
+                        }
+                    }
+                }
+                
+                if(needCinemachineBrain)
+                {
+                    CinemachineBrain brain = Camera.main.GetComponent<CinemachineBrain>();
+                    TimelineAsset timelineAsset = currentPlayableDirector.playableAsset as TimelineAsset;
+
+                    foreach(var track in timelineAsset.GetRootTracks())
+                    {
+                        // Search for the player track group
+                        if(track.name == "Cinemachine Track")
+                        {
+                            // Set the player movement animator
+                            currentPlayableDirector.SetGenericBinding(track, brain);
                             break;
                         }
                     }

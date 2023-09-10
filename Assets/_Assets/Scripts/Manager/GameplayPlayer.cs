@@ -30,8 +30,19 @@ namespace DonBosco
 
         public void SetConfiner(PolygonCollider2D collider)
         {
+            // Nullify the current confiner
+            _confiner.m_BoundingShape2D = null;
+            
+            // Wait for a frame
+            //yield return new WaitForEndOfFrame();
+
             _confiner.m_BoundingShape2D = collider;
             _confiner.InvalidateCache();
+        }
+
+        public void ResetConfiner()
+        {
+            _confiner.m_BoundingShape2D = null;
         }
     }
 }

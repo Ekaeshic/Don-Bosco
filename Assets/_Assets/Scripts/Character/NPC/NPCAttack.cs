@@ -44,9 +44,27 @@ namespace DonBosco.Character
                 Attack();
             }
         }
+        
+        void OnDisable()
+        {
+            isAlert = false;
+            isEngaging = false;
+            isAiming = false;
+            target = null;
+            if(agent.isActiveAndEnabled)
+            {
+                agent.isStopped = false;
+                agent.ResetPath();
+            }
+        }
         #endregion
 
 
+        public void GetAttacked()
+        {
+            isAlert = true;
+            FindAttackable(fireRange);
+        }
 
         public void SetAlert(bool alert)
         {
@@ -57,7 +75,7 @@ namespace DonBosco.Character
         {
             if(!isEngaging)
             {
-                FindAttackable();
+                FindAttackable(scanRange);
 
                 //Clear the overlap alloc (this is important)
                 System.Array.Clear(hit, 0, hit.Length);
@@ -89,6 +107,7 @@ namespace DonBosco.Character
             //Rotate towards the target
             Vector2 direction = target.position - startingPosition;
             float angle = Vector2.SignedAngle(Vector2.up, direction);
+            GetComponent<NPCNavMovement>()?.ForceFaceIdle(direction.normalized);
             
             aimTimer += Time.deltaTime;
             if(aimTimer >= aimDelay)
@@ -101,6 +120,7 @@ namespace DonBosco.Character
                 }
                 aimTimer = 0f;
                 isAiming = false;
+                GetComponent<NPCNavMovement>()?.ReleaseControl();
             }
         }
 
@@ -132,9 +152,9 @@ namespace DonBosco.Character
             agent.isStopped = false;
         }
 
-        private void FindAttackable()
+        private void FindAttackable(float range)
         {
-            int numHits = Physics2D.OverlapCircleNonAlloc(startingPosition, scanRange, hit, attackLayer);
+            int numHits = Physics2D.OverlapCircleNonAlloc(startingPosition, range, hit, attackLayer);
             GameObject nearestObject = null;
             float nearestDistance = Mathf.Infinity;
 

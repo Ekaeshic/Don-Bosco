@@ -15,15 +15,17 @@ namespace DonBosco.Character
 
         private EnemyState currentState;
 
+        public event Action OnDeath;
+
         void OnEnable()
         {
             healthSO = Instantiate(healthSetting);
-            healthSO.OnDeath += OnDeath;
+            healthSO.OnDeath += Die;
         }
 
         void OnDisable()
         {
-            healthSO.OnDeath -= OnDeath;
+            healthSO.OnDeath -= Die;
         }
 
         private void Start() 
@@ -35,6 +37,8 @@ namespace DonBosco.Character
 
         private void Update() 
         {
+            if(GameManager.GameState != GameState.Play) return;
+            
             switch(currentState)
             {
                 case EnemyState.Idle:
@@ -52,8 +56,9 @@ namespace DonBosco.Character
             }
         }
 
-        private void OnDeath()
+        private void Die()
         {
+            OnDeath?.Invoke();
             Destroy(gameObject);
         }
 
@@ -87,6 +92,7 @@ namespace DonBosco.Character
         public void TakeDamage(float damage)
         {
             healthSO.TakeDamage(damage);
+            gameObject.GetComponent<NPCAttack>().GetAttacked();
         }
     }
 

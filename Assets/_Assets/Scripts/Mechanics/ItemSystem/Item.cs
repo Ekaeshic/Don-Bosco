@@ -8,9 +8,13 @@ using UnityEditor;
 
 namespace DonBosco.ItemSystem
 {
+    [System.Serializable]
     public class Item : MonoBehaviour, IPickupable
     {
         [Header("Item Settings")]
+        [SerializeField] private ItemSO itemSO;
+        public string ItemName => itemSO.itemName;
+        public ItemSO ItemSO => itemSO;
         [SerializeField] protected bool isPickupable = true;
         protected bool showSelectedItem = false;
         public bool ShowSelectedItem => showSelectedItem;
@@ -23,14 +27,14 @@ namespace DonBosco.ItemSystem
 
 
 
-        public virtual void Drop()
-        {
-            gameObject.SetActive(true);
-        }
+        // public virtual void Drop()
+        // {
+        //     GameEventsManager.Instance.playerEvents.ItemDrop(this);
+        // }
 
         public virtual void Pickup()
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }

@@ -29,6 +29,7 @@ namespace DonBosco
 
         private bool submitPressed = false;
         private bool backPressed = false;
+        private bool leftClickPressed = false;
 
         private static InputManager instance;
         public static InputManager Instance => instance;
@@ -129,6 +130,11 @@ namespace DonBosco
         {
             backPressed = value.isPressed;
         }
+
+        public void OnLeftClick(InputValue value)
+        {
+            leftClickPressed = value.isPressed;
+        }
         #endregion
         #endregion
 
@@ -209,6 +215,13 @@ namespace DonBosco
         {
             bool temp = backPressed;
             backPressed = false;
+            return temp;
+        }
+
+        public bool GetLeftClickPressed()
+        {
+            bool temp = leftClickPressed;
+            leftClickPressed = false;
             return temp;
         }
         #endregion

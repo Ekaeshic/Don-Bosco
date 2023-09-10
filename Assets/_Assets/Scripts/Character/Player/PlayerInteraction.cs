@@ -51,6 +51,11 @@ namespace DonBosco.Character
             //Clear the overlap alloc (this is important)
             System.Array.Clear(hit, 0, hit.Length);
         }
+
+        void OnDisable()
+        {
+            DestroyHint();
+        }
         #endregion
 
 
@@ -68,7 +73,7 @@ namespace DonBosco.Character
                     DestroyHint();
                     //Interact with the object
                     selectedObject.GetComponent<IInteractable>().Interact();
-
+                    GameEventsManager.Instance.playerEvents.Interact(selectedObject);
                     OnInteractEvent?.Invoke();
                 }
             }

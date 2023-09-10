@@ -18,7 +18,9 @@ namespace DonBosco.UI
         private Image backgroundImage;
         private InventorySlotListener inventorySlotListener;
         private RectTransform draggedItem;
-
+        private GameObject draggedItemGO;
+        private bool isEmpty = true;
+    
         private const string SELECTED_COLOR = "#3D3D3D";
         private const string UNSELECTED_COLOR = "#909090";
 
@@ -28,18 +30,17 @@ namespace DonBosco.UI
             backgroundImage = GetComponent<Image>();
         }
         
-        public void UpdateUI(Item item)
+        public void UpdateUI(ItemSO item)
         {
             if(item != null)
             {
-                SpriteRenderer itemSpriteRenderer = item.GetComponent<SpriteRenderer>();
-                itemImage.sprite = itemSpriteRenderer.sprite;
-                itemImage.color = itemSpriteRenderer.color;
+                isEmpty = false;
+                itemImage.sprite = item.sprite;
             }
             else
             {
+                isEmpty = true;
                 itemImage.sprite = null;
-                itemImage.color = Color.white;
             }
         }
 
@@ -58,8 +59,13 @@ namespace DonBosco.UI
         #region Events
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if(isEmpty)
+            {
+                return;
+            }
             inventorySlotListener.OnBeginDrag(slotIndex);
-            draggedItem = Instantiate(new GameObject(), eventData.position, Quaternion.identity, canvas.transform).AddComponent<RectTransform>();
+            draggedItemGO = Instantiate(new GameObject(), eventData.position, Quaternion.identity, canvas.transform);
+            draggedItem = draggedItemGO.AddComponent<RectTransform>();
             draggedItem.position = eventData.position;
             draggedItem.gameObject.AddComponent<Image>().sprite = itemImage.sprite;
             draggedItem.GetComponent<Image>().color = itemImage.color;
@@ -71,12 +77,18 @@ namespace DonBosco.UI
 
         public void OnDrag(PointerEventData eventData)
         {
+            if(isEmpty)
+            {
+                return;
+            }
+            inventorySlotListener.WakeUI();
             draggedItem.anchoredPosition += eventData.delta / canvas.scaleFactor;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            Destroy(draggedItem.gameObject);
+            Debug.Log("OnEndDrag draggedItem: " + draggedItem);
+            Destroy(draggedItemGO);
             itemImage.color = new Color(itemImage.color.r, itemImage.color.g, itemImage.color.b, 1f);
         }
 
@@ -87,6 +99,11 @@ namespace DonBosco.UI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            if(isEmpty)
+            {
+                return;
+            }
+            inventorySlotListener.WakeUI();
             //Tween the scale of the item
             if(itemImage != null)
                 itemImage.rectTransform.DOScale(1.2f, 0.2f);
@@ -94,6 +111,10 @@ namespace DonBosco.UI
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            if(isEmpty)
+            {
+                return;
+            }
             //Tween the scale of the item
             if(itemImage != null)
                 itemImage.rectTransform.DOScale(1f, 0.2f);

@@ -15,7 +15,7 @@ namespace DonBosco
 
         public void ExecuteLoadScene()
         {
-            
+            InputManager.Instance.SetMovementActionMap(false);
             SceneLoader.Instance.ExecuteLoadScene
             (
                 () => {
@@ -38,6 +38,13 @@ namespace DonBosco
                         GameManager.ResumeGame();
                 }
             );
+        }
+
+
+
+        public void BackToMainMenu()
+        {
+            PauseManager.Instance.BackToMainMenu();
         }
     }
 }

@@ -12,6 +12,6 @@ namespace DonBosco.ItemSystem
         /// </summary>
         void Pickup();
         
-        void Drop();
+        // void Drop();
     }
 }

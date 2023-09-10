@@ -14,7 +14,7 @@ namespace DonBosco.Dialogue
     /// </summary>
     /// NOTE: SCRIPT INI HASIL MODIFIKASI SCRIPT DARI Sample\Ink\YTSample\Scripts\Dialogue\DialogueManager.cs,
     /// Kalau mau comot, comot script yg ini aja tapi script2 yang lain pada folder Dialogue juga di comot
-    public class DialogueManager : MonoBehaviour
+    public class DialogueManager : MonoBehaviour, ISaveLoad
     {
         [Header("Params")]
         [SerializeField] private float typingSpeed = 0.04f;
@@ -84,6 +84,37 @@ namespace DonBosco.Dialogue
             currentAudioInfo = defaultAudioInfo;
         }
 
+        void OnEnable()
+        {
+            SaveSystem.SaveManager.Instance.Subscribe(this);
+        }
+
+        void OnDisable()
+        {
+            SaveSystem.SaveManager.Instance.Unsubscribe(this);
+        }
+
+        #region ISaveLoad
+        public Task Save(SaveData saveData)
+        {
+            saveData.dialogueVariables = dialogueVariables.SaveVariableString();
+            return Task.CompletedTask;
+        }
+
+        public Task Load(SaveData saveData)
+        {
+            if(saveData == null)
+            {
+                return Task.CompletedTask;
+            }
+            if(!string.IsNullOrEmpty(saveData.dialogueVariables))
+            {
+                dialogueVariables.LoadVariableString(saveData.dialogueVariables);
+            }
+            return Task.CompletedTask;
+        }
+        #endregion
+
         public static DialogueManager GetInstance() 
         {
             return instance;
@@ -145,7 +176,7 @@ namespace DonBosco.Dialogue
             // NOTE: The 'currentStory.currentChoiecs.Count == 0' part was to fix a bug after the Youtube video was made
             if (canContinueToNextLine 
                 && currentStory.currentChoices.Count == 0 
-                && DonBosco.InputManager.Instance.GetSubmitPressed())
+                && (DonBosco.InputManager.Instance.GetSubmitPressed() || DonBosco.InputManager.Instance.GetLeftClickPressed()))
             {
                 ContinueStory();
             }
@@ -179,6 +210,49 @@ namespace DonBosco.Dialogue
             foreach(var externalFunction in externalFunctions)
             {
                 currentStory.BindExternalFunction(externalFunction.Key, externalFunction.Value);
+            }
+
+            // reset portrait, layout, and speaker as default
+            displayNameText.text = "???";
+            //portraitAnimator.Play("default");
+            portraitAnimator.transform.parent.gameObject.SetActive(true);
+
+            layoutAnimator.Play("default");
+            
+            OnDialogueStarted?.Invoke();
+
+            ContinueStory();
+
+            return instance;
+        }
+
+        public DialogueManager EnterDialogueMode(TextAsset inkJSON, string knotPath, Animator emoteAnimator = null) 
+        {
+            if(dialogueIsPlaying || inkJSON == null)
+            {
+                Debug.LogWarning("Dialogue is already playing or inkJSON is null");
+                return null;
+            }
+            // Prepare for dialogue (Punyaku, bisa dihapus kalau gak pake)
+            PrepareForDialogue(true);
+            
+            currentStory = new Story(inkJSON.text);
+            dialogueIsPlaying = true;
+            dialoguePanel.SetActive(true);
+
+            dialogueVariables.StartListening(currentStory);
+            if(emoteAnimator != null)
+            {
+                inkExternalFunctions.Bind(currentStory, emoteAnimator);
+            }
+            foreach(var externalFunction in externalFunctions)
+            {
+                currentStory.BindExternalFunction(externalFunction.Key, externalFunction.Value);
+            }
+
+            if(!string.IsNullOrEmpty(knotPath))
+            {
+                currentStory.ChoosePathString(knotPath);
             }
 
             // reset portrait, layout, and speaker as default
@@ -300,7 +374,6 @@ namespace DonBosco.Dialogue
             dialoguePanel.SetActive(false);
             dialogueText.text = "";
 
-            OnDialogueEnded?.Invoke();
 
             if(isTimelineControlled)
             {
@@ -314,6 +387,7 @@ namespace DonBosco.Dialogue
 
             // go back to default audio
             SetCurrentAudioInfo(defaultAudioInfo.id);
+            OnDialogueEnded?.Invoke();
         }
 
         private void ContinueStory() 
@@ -341,6 +415,7 @@ namespace DonBosco.Dialogue
             }
             else 
             {
+                canContinueToNextLine = false;
                 StartCoroutine(ExitDialogueMode());
             }
         }
@@ -363,7 +438,7 @@ namespace DonBosco.Dialogue
             foreach (char letter in line.ToCharArray())
             {
                 // if the submit button is pressed, finish up displaying the line right away
-                if (DonBosco.InputManager.Instance.GetSubmitPressed()) 
+                if (DonBosco.InputManager.Instance.GetSubmitPressed() || DonBosco.InputManager.Instance.GetLeftClickPressed()) 
                 {
                     if(hasChosenChoice)
                     {
@@ -453,6 +528,12 @@ namespace DonBosco.Dialogue
                     // sound clip
                     // convert alphabet order (from a-z) to index (from 0-25)
                     int index = char.ToUpper(currentCharacter) - 65;
+                    if(index < 0 || index >= dialogueTypingSoundClips.Length)
+                    {
+                        Debug.LogWarning("Index out of range for alphabet typing sound clips: " + index +" for character: " + currentCharacter);
+                        return;
+                    }
+                    
                     soundClip = dialogueTypingSoundClips[index];
                 }
                 // otherwise, randomize the audio
@@ -685,10 +766,10 @@ namespace DonBosco.Dialogue
 
         // This method will get called anytime the application exits.
         // Depending on your game, you may want to save variable state in other places.
-        public void OnApplicationQuit() 
-        {
-            dialogueVariables.SaveVariables();
-        }
+        // public void OnApplicationQuit() 
+        // {
+        //     dialogueVariables.SaveVariables();
+        // }
 
 
 

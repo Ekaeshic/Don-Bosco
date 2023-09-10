@@ -43,8 +43,8 @@ namespace DonBosco
         {
             //Show loading screen
             Transition.FadeOut(() => {
+                ProcessAction?.Invoke();
                 LoadingScreen.ShowLoadingScreen(true,asyncLoad, () => {
-                    ProcessAction?.Invoke();
                     if(transitionOutOnLoadDone)
                     {
                         Transition.FadeIn(() => {
@@ -54,9 +54,12 @@ namespace DonBosco
                             return;
                         });
                     }
-                    OnLoadDone?.Invoke();
-                    asyncLoad.Clear();
-                    OnDone?.Invoke();
+                    else
+                    {
+                        OnLoadDone?.Invoke();
+                        asyncLoad.Clear();
+                        OnDone?.Invoke();
+                    }
                 });
             });
         }
@@ -76,6 +79,7 @@ namespace DonBosco
             {
                 if(SceneManager.GetSceneAt(i).name == sceneName)
                 {
+                    GameplayPlayer.Instance.ResetConfiner();
                     asyncLoad.Add(SceneManager.UnloadSceneAsync(sceneName));
                     sceneFound = true;
                 }
