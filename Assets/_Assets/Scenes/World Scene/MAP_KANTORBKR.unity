@@ -1006,8 +1006,8 @@ MonoBehaviour:
   dialogueQuestConversations:
   - conditions:
     - questInfo: {fileID: 11400000, guid: 981f21d3f680ad14bb25e65e487ca8b2, type: 2}
-      questState: 2
-      questStepIndex: 2
+      questState: 1
+      questStepIndex: 3
     knotPath: GiveSelebaran
     requiredItems:
     - {fileID: 11400000, guid: a99c62a0a594a0b418b62dcde493fd93, type: 2}
@@ -3916,7 +3916,7 @@ GameObject:
   - component: {fileID: 1310737315}
   - component: {fileID: 1310737314}
   m_Layer: 7
-  m_Name: PrajuritGelisah
+  m_Name: PrajuritMalas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3937,15 +3937,10 @@ MonoBehaviour:
   dialogue: {fileID: 4900000, guid: bd3a78e35e50159408ae78e82f471bb9, type: 3}
   conversationStates:
   - questConditions:
-    - questInfo: {fileID: 11400000, guid: 981f21d3f680ad14bb25e65e487ca8b2, type: 2}
+    - questInfo: {fileID: 11400000, guid: 229a64cd2680ca8438a6ad4dd89fbaef, type: 2}
       questState: 1
-      questStepIndex: 1
-    knotPath: selebaran
-  - questConditions:
-    - questInfo: {fileID: 11400000, guid: 981f21d3f680ad14bb25e65e487ca8b2, type: 2}
-      questState: 1
-      questStepIndex: 2
-    knotPath: selebaran
+      questStepIndex: 0
+    knotPath: AntarBekal
 --- !u!61 &1310737315
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10681,7 +10676,7 @@ GameObject:
   - component: {fileID: 2135746702}
   - component: {fileID: 2135746701}
   m_Layer: 7
-  m_Name: PrajuritMalas
+  m_Name: PrajuritGelisah
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10700,7 +10695,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue: {fileID: 4900000, guid: b60d41f545c290a4dae61d7da36b96cb, type: 3}
-  conversationStates: []
+  conversationStates:
+  - questConditions:
+    - questInfo: {fileID: 11400000, guid: 229a64cd2680ca8438a6ad4dd89fbaef, type: 2}
+      questState: 1
+      questStepIndex: 0
+    knotPath: AntarBekal
 --- !u!61 &2135746702
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10834,6 +10834,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &3738328661302344020
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1589567350928346472, guid: 8da20c4dacbda6b49ba30c3a46bf1078, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1589567350928346472, guid: 8da20c4dacbda6b49ba30c3a46bf1078, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1589567350928346472, guid: 8da20c4dacbda6b49ba30c3a46bf1078, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1589567350928346472, guid: 8da20c4dacbda6b49ba30c3a46bf1078, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1589567350928346472, guid: 8da20c4dacbda6b49ba30c3a46bf1078, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1589567350928346472, guid: 8da20c4dacbda6b49ba30c3a46bf1078, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1589567350928346472, guid: 8da20c4dacbda6b49ba30c3a46bf1078, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5289274073282824880, guid: 8da20c4dacbda6b49ba30c3a46bf1078, type: 3}
+      propertyPath: m_Name
+      value: Dono
+      objectReference: {fileID: 0}
+    - target: {fileID: 5289274073282824880, guid: 8da20c4dacbda6b49ba30c3a46bf1078, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8da20c4dacbda6b49ba30c3a46bf1078, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -10844,4 +10893,5 @@ SceneRoots:
   - {fileID: 430636184}
   - {fileID: 2135746705}
   - {fileID: 1310737318}
+  - {fileID: 3738328661302344020}
   - {fileID: 568257809}

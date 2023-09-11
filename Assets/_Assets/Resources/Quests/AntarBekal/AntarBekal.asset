@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24448c2fc36e1f145b23ca5cf8fe5c18, type: 3}
+  m_Name: AntarBekal
+  m_EditorClassIdentifier: 
+  <id>k__BackingField: AntarBekal
+  questName: Jasa Antar
+  questDescription: 
+  initialState: 0
+  questSteps:
+  - {fileID: 2946352562278310537, guid: 8da20c4dacbda6b49ba30c3a46bf1078, type: 3}
+  prequisiteQuests: []
+  itemRewards: []

@@ -138,7 +138,7 @@ namespace DonBosco.Quests
             {
                 QuestCondition questCondition = dqc.conditions[i];
                 Quest quest = QuestManager.Instance.GetQuestById(questCondition.questInfo.id);
-                if(quest.state == questCondition.questState || quest.currentStepIndex == questCondition.questStepIndex)
+                if(quest.state == questCondition.questState && quest.currentStepIndex == questCondition.questStepIndex)
                 {
                     if(dqc.requiredItems != null)
                     {

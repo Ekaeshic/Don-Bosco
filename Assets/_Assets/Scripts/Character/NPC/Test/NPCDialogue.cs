@@ -78,7 +78,7 @@ namespace DonBosco.Character.NPC.Test
             {
                 QuestCondition questCondition = conversationState.questConditions[i];
                 Quest quest = QuestManager.Instance.GetQuestById(questCondition.questInfo.id);
-                if(quest.state != questCondition.questState)
+                if(quest.state != questCondition.questState || quest.currentStepIndex != questCondition.questStepIndex)
                 {
                     requirementsMet = false;
                     break;

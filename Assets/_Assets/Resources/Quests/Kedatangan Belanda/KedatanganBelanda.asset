@@ -20,5 +20,6 @@ MonoBehaviour:
   - {fileID: 3595192053681542951, guid: 7cbec1eac2c301a40af637c7ed5d34b2, type: 3}
   - {fileID: 1967840160665085129, guid: 8f29253b7c1e6ef4abeb56c36e5db685, type: 3}
   - {fileID: 3595192053681542951, guid: 3b376b2433b474b459d3017d7aeef71e, type: 3}
+  - {fileID: 1967840160665085129, guid: 4662b4e18749a1b47b5f2e4f2194369b, type: 3}
   prequisiteQuests: []
   itemRewards: []

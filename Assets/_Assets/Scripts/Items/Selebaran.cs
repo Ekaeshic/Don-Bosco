@@ -22,9 +22,13 @@ namespace DonBosco.ItemSystem
         {
             GameEventsManager.Instance.questEvents.onQuestStateChange += OnQuestStateChange;
 
-            if(DialogueManager.Instance.GetVariableState("readSelebaranOnce").ToString() == "true")
+            if(questInfoSO != null)
             {
-                gameObject.SetActive(false);
+                Quest quest = QuestManager.Instance.GetQuestById(questInfoSO.id);
+                if(quest.currentStepIndex != 1)
+                {
+                    gameObject.SetActive(false);
+                }
             }
         }
 
@@ -64,6 +68,10 @@ namespace DonBosco.ItemSystem
             if(quest.info == questInfoSO)
             {
                 questState = quest.state;
+                if(quest.currentStepIndex != 1)
+                {
+                    gameObject.SetActive(false);
+                }
             }
         }
     }

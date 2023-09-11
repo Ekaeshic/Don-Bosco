@@ -40,12 +40,14 @@ namespace DonBosco.Character
         void OnEnable()
         {
             InputManager.Instance.OnAimPressed += OnAimPressed;
+            GameEventsManager.Instance.playerEvents.onChangeScene += OnSceneChange;
             SaveManager.Instance.Subscribe(this);
         }
 
         void OnDisable()
         {
             InputManager.Instance.OnAimPressed -= OnAimPressed;
+            GameEventsManager.Instance.playerEvents.onChangeScene -= OnSceneChange;
             SaveManager.Instance.Unsubscribe(this);
         }
 
@@ -106,6 +108,23 @@ namespace DonBosco.Character
             //Hide the cursor when pressed, show it when released
             Cursor.visible = !value;
             previousAimPressed = value;
+        }
+
+        
+
+        private void OnSceneChange(string sceneName)
+        {
+            drawLine.RemoveLine();
+
+            //Reset cursor to center
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.None;
+
+            movementState = MovementState.Walking;
+            
+            //Hide the cursor when pressed, show it when released
+            Cursor.visible = true;
+            previousAimPressed = false;
         }
         #endregion
 
