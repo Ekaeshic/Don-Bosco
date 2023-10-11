@@ -87,7 +87,6 @@ namespace DonBosco.UI
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            Debug.Log("OnEndDrag draggedItem: " + draggedItem);
             Destroy(draggedItemGO);
             itemImage.color = new Color(itemImage.color.r, itemImage.color.g, itemImage.color.b, 1f);
         }

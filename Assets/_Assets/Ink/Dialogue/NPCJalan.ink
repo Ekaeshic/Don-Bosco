@@ -6,9 +6,10 @@ Akhirnya para penjajah itu pulang. Kukira mereka akan menyerang lagi sewaktu-wak
 === AntarBekal ===
 #speaker:Bu Siti #portrait:null #audio:animal_crossing_low
 Ah, bung!
-Kudengar bung mau mendaftar menjadi anggota BKR ya?
-Hehehe.. aku dengar BKR mengajak para pemuda untuk bergabung.
-Anakku juga anggota BKR dan sudah ditugaskan untuk mengajak para pemuda lainnya.
+Apa bung dengar? BKR sedang mengajak para pemuda untuk bergabung.
+Pasti banyak mantan polisi Jepang disini akan bergabung ke sana.
+Omong-omong, anakku juga ikut bergabung.
+Dia sudah ditugaskan untuk mengajak para pemuda lainnya.
 Ohh... Ia belum pulang sudah dua hari lamanya. Pekerjaannya pasti sangat sibuk.
 Saya hanya dapat mendoakan dan mendukungnya dari sini.
 #speaker: null #portrait:null #audio:null

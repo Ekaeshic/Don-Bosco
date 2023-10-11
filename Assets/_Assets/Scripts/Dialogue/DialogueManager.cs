@@ -80,7 +80,7 @@ namespace DonBosco.Dialogue
             dialogueVariables = new DialogueVariables(loadGlobalsJSON);
             inkExternalFunctions = new InkExternalFunctions();
 
-            audioSource = this.gameObject.AddComponent<AudioSource>();
+            audioSource = this.gameObject.GetComponent<AudioSource>();
             currentAudioInfo = defaultAudioInfo;
         }
 
