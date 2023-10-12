@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -12,6 +13,7 @@ namespace DonBosco.Audio
         [SerializeField] private AudioMixerGroup soundEffectsMixerGroup;
         [SerializeField] private AudioMixerGroup dialogueMixerGroup;
         [SerializeField] private Sound[] sounds;
+        [SerializeField] private float fadeDuration = 1f;
 
         private void Awake()
         {
@@ -48,7 +50,23 @@ namespace DonBosco.Audio
                 Debug.LogError("Sound: " + clipname + " does NOT exist!");
                 return;
             }
-            s.source.Play();
+            StartCoroutine(FadeIn(s.source, fadeDuration));
+        }
+
+        private IEnumerator FadeIn(AudioSource audioSource, float fadeDuration)
+        {
+            float startVolume = 0.1f;
+
+            audioSource.volume = 0;
+            audioSource.Play();
+
+            while (audioSource.volume < startVolume)
+            {
+                audioSource.volume += startVolume * Time.deltaTime / fadeDuration;
+                yield return null;
+            }
+
+            audioSource.volume = startVolume;
         }
 
         public void Stop(string clipname)
@@ -59,7 +77,22 @@ namespace DonBosco.Audio
                 Debug.LogError("Sound: " + clipname + " does NOT exist!");
                 return;
             }
-            s.source.Stop();
+
+            StartCoroutine(FadeOut(s.source, fadeDuration));
+        }
+
+        private IEnumerator FadeOut(AudioSource audioSource, float fadeDuration)
+        {
+            float startVolume = audioSource.volume;
+
+            while (audioSource.volume > 0)
+            {
+                audioSource.volume -= startVolume * Time.deltaTime / fadeDuration;
+                yield return null;
+            }
+
+            audioSource.Stop();
+            audioSource.volume = startVolume;
         }
 
         public void UpdateMixerVolume()

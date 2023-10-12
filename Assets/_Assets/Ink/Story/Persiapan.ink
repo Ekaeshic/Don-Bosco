@@ -16,9 +16,4 @@ Beberapa hari berlalu, hasil dari pemantauan Soetomo mengonfirmasi akan adanya s
 M. Jasin berinisiatif untuk memaksa pasukan Jepang untuk menyerahkan gudang persenjataan tersebut.
 Hingga pada akhirnya para pejuang yang dipimpin oleh M. Jasin dan Soetomo pergi menyerbu Gudang Don Bosco.
 Para tentara Jepang yang berjaga tampak bersiaga memegang sebuah senapan dan siap bertempur.
-#speaker:null #audio:null #portrait:null
-(Berikut adalah panduan untuk bertarung.)
-Klik dan tahan tombol kanan MOUSE untuk membidik senapan.
-Setelah membidik, Klik tombol kiri MOUSE untuk menembak.
-Usahakan untuk mengarahkan senapan tepat pada musuh.
 -> END

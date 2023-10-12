@@ -27,6 +27,12 @@ namespace DonBosco
         public QuestData[] questData;
         #endregion
 
+        
+
+        #region Analytics
+        public float timeSpentInGame;
+        #endregion
+
 
         #region Progression Data
         #endregion

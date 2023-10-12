@@ -367,7 +367,7 @@ Transform:
   m_GameObject: {fileID: 45158542}
   serializedVersion: 2
   m_LocalRotation: {x: 1e-45, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.400001, y: 5.8000007, z: -10}
+  m_LocalPosition: {x: 5.63, y: -15.83, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1059,7 +1059,43 @@ MonoBehaviour:
   musicMixerGroup: {fileID: -8054118449607903114, guid: df49572d58189fa4dafbaac277b01ae0, type: 2}
   soundEffectsMixerGroup: {fileID: -4156077342022842992, guid: df49572d58189fa4dafbaac277b01ae0, type: 2}
   dialogueMixerGroup: {fileID: 3148436754198134048, guid: df49572d58189fa4dafbaac277b01ae0, type: 2}
-  sounds: []
+  sounds:
+  - audioType: 0
+    source: {fileID: 0}
+    clipName: click
+    audioClip: {fileID: 8300000, guid: 1c35c588ef5cd334aaf6355e56e7afed, type: 3}
+    isLoop: 0
+    playOnAwake: 0
+    volume: 0.744
+  - audioType: 0
+    source: {fileID: 0}
+    clipName: planeby
+    audioClip: {fileID: 8300000, guid: 3c8c8676aeb82ae4c83426a87d6ab017, type: 3}
+    isLoop: 0
+    playOnAwake: 0
+    volume: 1
+  - audioType: 1
+    source: {fileID: 0}
+    clipName: boutique
+    audioClip: {fileID: 8300000, guid: 1797d7a81dbd9af44b1d8c5afe5e7b0a, type: 3}
+    isLoop: 1
+    playOnAwake: 0
+    volume: 0.744
+  - audioType: 1
+    source: {fileID: 0}
+    clipName: dangerzone
+    audioClip: {fileID: 8300000, guid: 591e13abc0c3c4c47a49e2d6937695ea, type: 3}
+    isLoop: 1
+    playOnAwake: 0
+    volume: 0.744
+  - audioType: 1
+    source: {fileID: 0}
+    clipName: gentlemoment
+    audioClip: {fileID: 8300000, guid: dd9165256e07f4c44aeed999b1974242, type: 3}
+    isLoop: 1
+    playOnAwake: 0
+    volume: 0.744
+  fadeDuration: 1
 --- !u!4 &1485057706
 Transform:
   m_ObjectHideFlags: 0

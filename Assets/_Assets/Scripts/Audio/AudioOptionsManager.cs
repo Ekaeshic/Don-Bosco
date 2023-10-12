@@ -34,6 +34,11 @@ namespace DonBosco.Audio
             dialogueSlider.value = dialogueVolume;
         }
 
+        void Start()
+        {
+            AudioManager.Instance.UpdateMixerVolume();
+        }
+
 
         void OnDisable()
         {

@@ -8,9 +8,9 @@ Hm? Saya Dono. Ada apa bung?
     Kamu menyerahkan bekal ke Dono.
     #speaker:Dono #portrait:null #audio:pak_karto
     Bekal dari Ibu?
-    Ah, saya lupa untuk memberitahunya kalau masih belum bisa pulang.
-    Terima kasih banyak bung, nanti saya akan pulang untuk menemuinya.
-    Untuk sekarang Saya akan menikmati bekal ini dahulu, sayang kalau tidak dimakan.
+    Ah, saya lupa untuk memberitahunya kalau saya masih belum bisa pulang.
+    Terima kasih banyak bung. Saya akan pulang nanti untuk menemuinya.
+    Untuk sekarang Saya akan menikmati bekal ini terlebih dahulu, sayang kalau tidak dimakan.
     Terima kasih sekali lagi.
     #speaker:Karman #portrait:null #audio:alphabet
     Sama-sama bung.
