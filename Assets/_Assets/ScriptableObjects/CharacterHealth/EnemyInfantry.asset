@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed06ffd15f60e4244b8ed6745d833d5e, type: 3}
   m_Name: EnemyInfantry
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 100
+  maxHealth: 40
+  currentHealth: 40
   damageMultiplier: 1

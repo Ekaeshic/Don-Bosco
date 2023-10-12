@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
+using DG.Tweening;
 
 namespace DonBosco.Audio
 {
@@ -42,6 +43,11 @@ namespace DonBosco.Audio
             }
         }
 
+        void OnDisable()
+        {
+            DOTween.KillAll();
+        }
+
         public void Play(string clipname)
         {
             Sound s = Array.Find(sounds, dummySound => dummySound.clipName == clipname);
@@ -50,7 +56,11 @@ namespace DonBosco.Audio
                 Debug.LogError("Sound: " + clipname + " does NOT exist!");
                 return;
             }
-            StartCoroutine(FadeIn(s.source, fadeDuration));
+
+            //Tween audio volume fade in
+            s.source.DOKill();
+            s.source.Play();
+            s.source.DOFade(s.volume, fadeDuration);
         }
 
         private IEnumerator FadeIn(AudioSource audioSource, float fadeDuration)
@@ -78,7 +88,8 @@ namespace DonBosco.Audio
                 return;
             }
 
-            StartCoroutine(FadeOut(s.source, fadeDuration));
+            //Tween audio volume fade out
+            s.source.DOFade(0, fadeDuration);
         }
 
         private IEnumerator FadeOut(AudioSource audioSource, float fadeDuration)

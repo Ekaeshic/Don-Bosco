@@ -1015,6 +1015,27 @@ MonoBehaviour:
     dialogueQuestBehaviour: 2
     onDialogueDone:
       m_PersistentCalls:
+        m_Calls: []
+  conversationStates:
+  - questConditions:
+    - questInfo: {fileID: 11400000, guid: 981f21d3f680ad14bb25e65e487ca8b2, type: 2}
+      questState: 1
+      questStepIndex: 1
+    knotPath: PesawatSelebaran
+  - questConditions:
+    - questInfo: {fileID: 11400000, guid: 981f21d3f680ad14bb25e65e487ca8b2, type: 2}
+      questState: 2
+      questStepIndex: 2
+    knotPath: PesawatSelebaran
+  - questConditions:
+    - questInfo: {fileID: 11400000, guid: 981f21d3f680ad14bb25e65e487ca8b2, type: 2}
+      questState: 3
+      questStepIndex: 3
+    knotPath: StartRapat
+  externalFunctions:
+  - functionName: ChangeScene
+    onFunctionCalled:
+      m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2062847692}
           m_TargetAssemblyTypeName: DonBosco.SceneLoaderAgent, Assembly-CSharp
@@ -1028,17 +1049,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  conversationStates:
-  - questConditions:
-    - questInfo: {fileID: 11400000, guid: 981f21d3f680ad14bb25e65e487ca8b2, type: 2}
-      questState: 1
-      questStepIndex: 1
-    knotPath: PesawatSelebaran
-  - questConditions:
-    - questInfo: {fileID: 11400000, guid: 981f21d3f680ad14bb25e65e487ca8b2, type: 2}
-      questState: 2
-      questStepIndex: 2
-    knotPath: PesawatSelebaran
 --- !u!1 &689683906
 GameObject:
   m_ObjectHideFlags: 0

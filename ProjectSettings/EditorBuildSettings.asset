@@ -44,5 +44,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Assets/Scenes/World Scene/MAP_KANTORBKR.unity
     guid: 03d4065ab487ce044b347a9e332dcfcc
+  - enabled: 1
+    path: Assets/_Assets/Scenes/CREDIT.unity
+    guid: 33727b4f03397114496b268544bce57a
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 2ea68e328b9896345b249167d5c7c22b, type: 2}

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DonBosco.SaveSystem;
 using DonBosco.UI;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +15,7 @@ namespace DonBosco
         public static PauseManager Instance { get { return instance; } }
 
         [SerializeField] private GameObject pauseMenu;
+        [SerializeField] private SceneAsset mainMenuScene;
         
 
 
@@ -50,7 +52,14 @@ namespace DonBosco
         {
             await Transition.FadeIn();
             await SaveManager.Instance.SaveGame();
-            SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("GAMEPLAY"));
+            for(int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                //Check if GAMEPLAY scene is already loaded
+                if(SceneManager.GetSceneAt(i).name == "GAMEPLAY")
+                {
+                    SceneManager.UnloadSceneAsync("GAMEPLAY");
+                }
+            }
             SceneLoader.Instance.UnloadCurrentSceneInstantly();
             MainMenuManager.Instance.InitMainMenu();
         }

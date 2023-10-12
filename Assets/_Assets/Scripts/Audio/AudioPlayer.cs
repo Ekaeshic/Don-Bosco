@@ -11,7 +11,7 @@ namespace DonBosco.Audio
         [SerializeField] private bool stopOnDisable;
 
 
-        private void Awake()
+        private void OnEnable()
         {
             if (playOnAwake)
                 Play();

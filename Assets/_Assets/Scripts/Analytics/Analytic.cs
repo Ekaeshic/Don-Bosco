@@ -7,26 +7,41 @@ namespace DonBosco.Analytics
 {
     public class Analytic : MonoBehaviour, ISaveLoad
     {
-        float timeSpentInGame = 0f;
+        private static Analytic instance;
+        public static Analytic Instance;
+
+        public float timeSpentInGame{get; private set;} = 0f;
+
+        private void Awake()
+        {
+            if(instance == null)
+            {
+                instance = this;
+                Instance = instance;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
 
 
 
         private void Update()
         {
             timeSpentInGame += Time.deltaTime;
-            Debug.Log("Time spent in game: " + timeSpentInGame);
         }
         
-        public Task Save(SaveData saveData)
+        public async Task Save(SaveData saveData)
         {
             saveData.timeSpentInGame = timeSpentInGame;
-            return Task.CompletedTask;
+            await Task.CompletedTask;
         }
 
-        public Task Load(SaveData saveData)
+        public async Task Load(SaveData saveData)
         {
             timeSpentInGame = saveData.timeSpentInGame;
-            return Task.CompletedTask;
+            await Task.CompletedTask;
         }
     }
 }

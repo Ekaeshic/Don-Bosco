@@ -85,7 +85,6 @@ namespace DonBosco
 
         public string GetCurrentScene()
         {
-            Debug.Log("Current Scene: " + currentScene);
             return currentScene;
         }
 

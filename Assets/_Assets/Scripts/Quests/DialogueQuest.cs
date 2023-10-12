@@ -16,6 +16,7 @@ namespace DonBosco.Quests
         [SerializeField] protected TextAsset dialogue;
         [SerializeField] protected DialogueQuestConversation[] dialogueQuestConversations;
         [SerializeField] protected ConversationState[] conversationStates;
+        [SerializeField] protected ExternalFunction[] externalFunctions;
 
         private DialogueQuestConversation currentDialogueQuestConversation;
         private ConversationState currentState;
@@ -42,6 +43,16 @@ namespace DonBosco.Quests
             else
             {
                 GetCurrentState();
+
+                // Bind external functions
+                if(externalFunctions != null)
+                {
+                    for(int i = 0; i < externalFunctions.Length; i++)
+                    {
+                        ExternalFunction externalFunction = externalFunctions[i];
+                        DialogueManager.GetInstance().BindExternalFunction(externalFunction.functionName, (param) => externalFunction.onFunctionCalled?.Invoke(param));
+                    }
+                }
                 
                 if(currentDialogueQuestConversation != null)
                 {
@@ -201,5 +212,12 @@ namespace DonBosco.Quests
         StartQuest,
         AdvanceQuest,
         FinishQuest,
+    }
+
+    [System.Serializable]
+    public class ExternalFunction
+    {
+        public string functionName;
+        public UnityEvent<string> onFunctionCalled;
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace DonBosco
@@ -16,6 +17,8 @@ namespace DonBosco
         [SerializeField] private GameObject confirmationOverwriteSaveData;
         [SerializeField] private Button newGameButton;
         [SerializeField] private Button continueGameButton;
+
+        [SerializeField] UnityEvent onBackToMainMenu;
 
         void Awake()
         {
@@ -62,6 +65,7 @@ namespace DonBosco
         {
             CheckProgress();
             mainMenuCanvas.SetActive(true);
+            onBackToMainMenu?.Invoke();
         }
 
         private void CheckProgress()
