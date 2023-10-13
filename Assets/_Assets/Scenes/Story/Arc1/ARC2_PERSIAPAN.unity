@@ -502,7 +502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scenesToLoad:
-  - MAP_DB_INTERIOR
+  - MAP_DB_EXTERIOR
   scenesToUnload:
   - ARC2_PERSIAPAN
   resumeGameOnLoadDone: 1
@@ -533,7 +533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6cf0738c0919dd4493e35ffa1087566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportPosition: {x: -1, y: -15, z: 0}
+  teleportPosition: {x: -40, y: -43, z: 0}
 --- !u!1 &1519403118
 GameObject:
   m_ObjectHideFlags: 0

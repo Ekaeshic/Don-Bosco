@@ -36,6 +36,9 @@ EditorBuildSettings:
     path: Assets/_Assets/Scenes/Story/Arc1/ARC2_PERSIAPAN.unity
     guid: 343bf795a91d6834991240492b68aeca
   - enabled: 1
+    path: Assets/_Assets/Scenes/World Scene/MAP_DB_EXTERIOR.unity
+    guid: dd4adfd8ab5fd224c83037fd539f68db
+  - enabled: 1
     path: Assets/_Assets/Scenes/World Scene/MAP_DB_INTERIOR.unity
     guid: 9bf500020ebc4ea43a49f97134cf8cd5
   - enabled: 1

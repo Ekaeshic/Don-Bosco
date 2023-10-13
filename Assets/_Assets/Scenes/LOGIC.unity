@@ -1095,6 +1095,13 @@ MonoBehaviour:
     isLoop: 1
     playOnAwake: 0
     volume: 0.744
+  - audioType: 1
+    source: {fileID: 0}
+    clipName: xylophon
+    audioClip: {fileID: 8300000, guid: 7ef749ce932a07446a967e32768b9471, type: 3}
+    isLoop: 1
+    playOnAwake: 0
+    volume: 0.744
   fadeDuration: 1
 --- !u!4 &1485057706
 Transform:
