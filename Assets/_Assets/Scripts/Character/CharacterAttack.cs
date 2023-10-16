@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DonBosco.Audio;
 using UnityEngine;
 
 namespace DonBosco.Character
@@ -7,6 +8,7 @@ namespace DonBosco.Character
     public class CharacterAttack : MonoBehaviour
     {
         [SerializeField] private LayerMask enemyLayer;
+        [SerializeField] private bool weaponSoundEffect = false;
         [Header("Settings")]
         [SerializeField] public float fireDelay = 0.5f;
         [SerializeField] private float bulletDamage = 1f;
@@ -29,6 +31,18 @@ namespace DonBosco.Character
 
             // Start the fireTimer
             readyToFire = false;
+
+            if(weaponSoundEffect)
+            {
+                AudioManager.Instance.Play("22calgun");
+                StartCoroutine(PlayReloadSFx());
+            }
+        }
+
+        private IEnumerator PlayReloadSFx()
+        {
+            yield return new WaitForSeconds(1.25f);
+            AudioManager.Instance.Play("reload");
         }
 
         void Update()

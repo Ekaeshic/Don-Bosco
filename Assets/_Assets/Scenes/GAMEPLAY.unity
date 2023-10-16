@@ -1093,6 +1093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 1864713391}
+  mainMenuScene: {fileID: 0}
 --- !u!1 &198014133
 GameObject:
   m_ObjectHideFlags: 0
@@ -2091,6 +2092,7 @@ Transform:
   - {fileID: 1541236037}
   - {fileID: 1537117115}
   - {fileID: 1494484756}
+  - {fileID: 637910682}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &268251665
@@ -4224,6 +4226,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
+  weaponSoundEffect: 1
   fireDelay: 2
   bulletDamage: 20
 --- !u!114 &625617731
@@ -4317,6 +4320,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 1
+--- !u!1 &637910681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 637910682}
+  - component: {fileID: 637910683}
+  m_Layer: 0
+  m_Name: PauseAudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &637910682
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637910681}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 256599366}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &637910683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637910681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93257f439356ce54a85add333b3315f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicSliderText: {fileID: 1477774499}
+  soundEffectsSliderText: {fileID: 1954582961}
+  dialogueSliderText: {fileID: 1771273491}
+  musicSlider: {fileID: 1804657441}
+  soundEffectsSlider: {fileID: 1968915186}
+  dialogueSlider: {fileID: 760586550}
 --- !u!1 &645047407
 GameObject:
   m_ObjectHideFlags: 0
@@ -4438,7 +4491,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 706830093}
-  - component: {fileID: 706830094}
   m_Layer: 5
   m_Name: Options
   m_TagString: Untagged
@@ -4467,24 +4519,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &706830094
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 706830092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93257f439356ce54a85add333b3315f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  musicSliderText: {fileID: 1477774499}
-  soundEffectsSliderText: {fileID: 1954582961}
-  dialogueSliderText: {fileID: 1771273491}
-  musicSlider: {fileID: 1804657441}
-  soundEffectsSlider: {fileID: 1968915186}
-  dialogueSlider: {fileID: 760586550}
 --- !u!1 &729670246
 GameObject:
   m_ObjectHideFlags: 0
@@ -4730,7 +4764,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 706830094}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DonBosco.Audio.AudioOptionsManager, Assembly-CSharp
         m_MethodName: OnDialogueSliderValueChange
         m_Mode: 0
@@ -9100,7 +9134,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1494484755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 118d3df871738134cb5de82c9794d008, type: 3}
+  m_Script: {fileID: 11500000, guid: 081230470212219498fb36e0b5aa8801, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1499587191
@@ -10694,7 +10728,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 706830094}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DonBosco.Audio.AudioOptionsManager, Assembly-CSharp
         m_MethodName: OnMusicSliderValueChange
         m_Mode: 0
@@ -11688,7 +11722,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 706830094}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DonBosco.Audio.AudioOptionsManager, Assembly-CSharp
         m_MethodName: OnSoundEffectsSliderValueChange
         m_Mode: 0

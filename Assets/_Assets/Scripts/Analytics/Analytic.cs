@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DonBosco.SaveSystem;
 using UnityEngine;
 
 namespace DonBosco.Analytics
@@ -10,7 +11,7 @@ namespace DonBosco.Analytics
         private static Analytic instance;
         public static Analytic Instance;
 
-        public float timeSpentInGame{get; private set;} = 0f;
+        public float timeSpentInGame = 0f;
 
         private void Awake()
         {
@@ -25,12 +26,17 @@ namespace DonBosco.Analytics
             }
         }
 
-
-
-        private void Update()
+        void OnEnable()
         {
-            timeSpentInGame += Time.deltaTime;
+            SaveManager.Instance.Subscribe(this);
         }
+
+        void OnDisable()
+        {
+            SaveManager.Instance.Unsubscribe(this);
+        }
+
+
         
         public async Task Save(SaveData saveData)
         {

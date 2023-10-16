@@ -160,7 +160,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 264
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -249,7 +249,9 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 1032
+  weaponSoundEffect: 0
   fireDelay: 1
+  bulletDamage: 1
 --- !u!114 &2716345598712063782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,3 +291,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingDirection: 0
+  followPlayerOnStart: 0
