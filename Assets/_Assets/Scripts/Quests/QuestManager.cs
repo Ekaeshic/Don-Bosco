@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DonBosco.SaveSystem;
 using UnityEngine;
+using DonBosco.API;
 
 namespace DonBosco.Quests
 {
@@ -249,6 +250,45 @@ namespace DonBosco.Quests
             
             questMap = CreateQuestMap();
             await Task.CompletedTask;
+        }
+        #endregion
+        
+
+
+        #region API
+        /// <summary>
+        /// Convert the quest map to an array of EventLog to be sent to the API
+        /// </summary>
+        /// <returns>An array of EventLog of current quest states</returns>
+        public EventLog[] GetQuestEventsLog()
+        {
+            EventLog[] eventLogs = new EventLog[questMap.Count];
+            int i = 0;
+            foreach(Quest quest in questMap.Values)
+            {
+                EventStatus s;
+                switch(quest.state)
+                {
+                    case QuestState.Inactive:
+                        s = EventStatus.belum;
+                        break;
+                    case QuestState.Active:
+                        s = EventStatus.sedang;
+                        break;
+                    case QuestState.CanFinish:
+                        s = EventStatus.sedang;
+                        break;
+                    case QuestState.Completed:
+                        s = EventStatus.selesai;
+                        break;
+                    default:
+                        s = EventStatus.belum;
+                        break;
+                }
+                int thisGameId = APIManager.ID_GAME;
+                eventLogs[i] = new EventLog(thisGameId, quest.info.event_no, s);
+            }
+            return eventLogs;
         }
         #endregion
     }

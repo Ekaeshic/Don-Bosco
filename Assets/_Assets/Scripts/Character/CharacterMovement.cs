@@ -27,7 +27,7 @@ namespace DonBosco.Character
         private Vector2 facingDirection; 
         float facingAngle;
         private bool isAiming = false;
-
+        private bool lockMovementAnim = false;
         private const string IDLE = "Idle";
         private const string SIDE = "side";
         private const string UP = "up";
@@ -41,9 +41,19 @@ namespace DonBosco.Character
             rb = GetComponent<Rigidbody2D>();
         }
 
+        void OnEnable()
+        {
+            GetComponent<PlayerItem>().OnPickup += PickupAnim;
+        }
+
+        void OnDisable()
+        {
+            GetComponent<PlayerItem>().OnPickup -= PickupAnim;
+        }
+
         void Update()
         {
-            if(!isAiming)
+            if(!isAiming && !lockMovementAnim)
             {
                 AnimateMovement();
             }
@@ -148,12 +158,16 @@ namespace DonBosco.Character
                 state = SIDE;
                 transform.localScale = new Vector3(1, 1, 1);
             }
-            else if(!isMoving && !string.IsNullOrEmpty(state))
+            
+            
+            if(characterAnimator.currentState != state && isMoving)
+            {
+                characterAnimator.ChangeState(state);
+            }
+            else if(characterAnimator.currentState != state+IDLE && !isMoving)
             {
                 characterAnimator.ChangeState(state+IDLE);
-                return;
             }
-            characterAnimator.ChangeState(state);
         }
 
         public void AnimateFacingDirection(Vector2 direction)
@@ -189,6 +203,21 @@ namespace DonBosco.Character
                 return;
             }
             characterAnimator.ChangeState(state);
+        }
+
+        private void PickupAnim()
+        {
+            string previousState = characterAnimator.currentState;
+            characterAnimator.ChangeState("pickup");
+            StartCoroutine(ResetState(previousState));
+            lockMovementAnim = true;
+
+            IEnumerator ResetState(string state)
+            {
+                yield return new WaitForSeconds(1f);
+                characterAnimator.ChangeState(state);
+                lockMovementAnim = false;
+            }
         }
         #endregion
     }

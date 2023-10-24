@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using DonBosco.API;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -21,6 +22,7 @@ namespace DonBosco.SaveSystem
         private List<ISaveLoad> listeners = new List<ISaveLoad>();
         private SaveData saveData;
         const string FILENAME = "/playerdata.dat";
+        public string currentAccountID;
 
         public bool HasSaveData { get; private set; }
         private bool isDispatching = false;
@@ -30,7 +32,7 @@ namespace DonBosco.SaveSystem
             instance = this;
 
             //Try to load the game in the beginning
-            HasSaveData = ReadSaveDataLocal();
+            // HasSaveData = ReadSaveDataLocal();
 
             #if UNITY_EDITOR
             for(int i = 0; i < SceneManager.sceneCount; i++)
@@ -65,7 +67,7 @@ namespace DonBosco.SaveSystem
         /// </summary>
         /// <returns>True if the save file exists</returns>
         public async Task<bool> LoadGame()
-        {   
+        {
             try
             {
                 for(int i = 0; i < listeners.Count; i++)
@@ -81,10 +83,25 @@ namespace DonBosco.SaveSystem
             }
         }
 
-
+        
+        /// <summary>
+        /// Delete the save data from the local file when new game is started
+        /// </summary>
         public void DeleteSaveData()
         {
-            string path = Application.persistentDataPath + FILENAME;
+            string path;
+            if(string.IsNullOrEmpty(currentAccountID))
+            {
+                // If the player is not logged in, delete the data from the default file
+                path = Application.persistentDataPath + FILENAME;
+            }
+            else
+            {
+                // If the player is logged in, delete the data from the file based on the account id
+                path = Application.persistentDataPath + currentAccountID + ".dat";
+            }
+
+            // Then delete the file
             if(System.IO.File.Exists(path))
             {
                 System.IO.File.Delete(path);
@@ -94,10 +111,24 @@ namespace DonBosco.SaveSystem
         }
 
 
-        
+        /// <summary>
+        /// Write the save data to the local file
+        /// </summary>
+        /// <param name="json"></param>
         private void WriteSaveDataLocal(string json)
         {
-            string path = Application.persistentDataPath + FILENAME;
+            string path;
+            if(string.IsNullOrEmpty(currentAccountID))
+            {
+                // If the player is not logged in, save the data to the default file
+                path = Application.persistentDataPath + FILENAME;
+            }
+            else
+            {
+                // If the player is logged in, save the data to the file based on the account id
+                path = Application.persistentDataPath + currentAccountID + ".dat";
+            }
+            
             //Create a binary formatter which can read binary files
             BinaryFormatter formatter = new BinaryFormatter();
             
@@ -112,8 +143,14 @@ namespace DonBosco.SaveSystem
             HasSaveData = true;
         }
 
-        private bool ReadSaveDataLocal()
+        /// <summary>
+        /// Read the save data from the local file, this is used when the player is not logged in
+        /// </summary>
+        /// <returns></returns>
+        public bool ReadSaveDataLocal()
         {
+            saveData = null;
+
             string path = Application.persistentDataPath + FILENAME;
             if(System.IO.File.Exists(path))
             {
@@ -124,6 +161,7 @@ namespace DonBosco.SaveSystem
                     string jsonState = (string)formatter.Deserialize(file);
                     file.Close();
                     saveData = JsonUtility.FromJson<SaveData>(jsonState);
+                    HasSaveData = true;
                     return true;
                 }
                 catch (System.Exception e)
@@ -131,6 +169,39 @@ namespace DonBosco.SaveSystem
                     Debug.LogError(e);
                 }
             }
+            HasSaveData = false;
+            return false;
+        }
+
+
+        /// <summary>
+        /// Read the save data from the local file based on the account id, this is used when the player is logged in
+        /// </summary>
+        /// <param name="id"></param>
+        public bool ReadSaveDataAccount(string id)
+        {
+            saveData = null;
+
+            string fileName = id + ".dat";
+            string path = Application.persistentDataPath + fileName;
+            if(System.IO.File.Exists(path))
+            {
+                try
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    System.IO.FileStream file = System.IO.File.Open(path, System.IO.FileMode.Open);
+                    string jsonState = (string)formatter.Deserialize(file);
+                    file.Close();
+                    saveData = JsonUtility.FromJson<SaveData>(jsonState);
+                    HasSaveData = true;
+                    return true;
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError(e);
+                }
+            }
+            HasSaveData = false;
             return false;
         }
 

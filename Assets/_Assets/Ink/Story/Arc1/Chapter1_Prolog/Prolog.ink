@@ -18,6 +18,9 @@ Memotivasi seluruh rakyat Indonesia untuk berjuang bersama demi kemerdekaan yang
 Bersama, kita akan mengatasi segala rintangan dan mengejar impian bersama untuk Indonesia yang merdeka dan berdaulat.
 Terima kasih, dan semoga kita semua terus bersatu dalam perjuangan kita.
 ...
+-> END
+
+=== part2 ===
 #speaker: #portrait:null #audio:null
 (Terdapat transisi alunan musik tradisional Indonesia yang menghantarkan ke pembukaan siaran.)
 #speaker:??? #portrait:null #audio:adit
@@ -34,4 +37,18 @@ Yang pernah menjadi anggota kepolisian, para bekas anggota PETA, Heiho dan lainn
 Marilah, dengan tekad bulat, kita jadikan Indonesia yang merdeka semakin kuat!
 #speaker: #portrait:null #audio:null
 Bzzzzzt.
+-> END
+
+=== yamato ===
+#speaker:??? #portrait:null #audio:adit
+Kemudian dilanjutkan dengan kabar dari kota Surabaya.
+Seorang pemuda bernama Hariyono telah membantu warga Surabaya untuk merealisasikan perintah Bung Karno.
+-> END
+
+=== yamato_bg ===
+#speaker:??? #portrait:null #audio:adit
+Bung Karno mengeluarkan maklumat pada tanggal 31 Agustus 1945.
+Yang menetapkan bahwa mulai 1 September 1945 bendera nasional Merah Putih dikibarkan diseluruh wilayah Indonesia.
+Gerakan pengibaran bendera tersebut makin meluas ke segenap pelosok Kota Surabaya, salah satunya berkat Bung Hariyono.
+Semoga Kemerdekaan ini berlangsung selama ada sosok patriotik seperti Bung Hariyono!
 -> END

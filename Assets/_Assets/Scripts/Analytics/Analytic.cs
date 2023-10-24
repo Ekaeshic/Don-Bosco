@@ -46,6 +46,10 @@ namespace DonBosco.Analytics
 
         public async Task Load(SaveData saveData)
         {
+            if(saveData == null)
+            {
+                return;
+            }
             timeSpentInGame = saveData.timeSpentInGame;
             await Task.CompletedTask;
         }

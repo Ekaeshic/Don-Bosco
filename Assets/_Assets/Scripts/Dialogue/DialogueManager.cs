@@ -530,7 +530,7 @@ namespace DonBosco.Dialogue
                     int index = char.ToUpper(currentCharacter) - 65;
                     if(index < 0 || index >= dialogueTypingSoundClips.Length)
                     {
-                        Debug.LogWarning("Index out of range for alphabet typing sound clips: " + index +" for character: " + currentCharacter);
+                        Debug.Log("Index out of range for alphabet typing sound clips: " + index +" for character: " + currentCharacter);
                         return;
                     }
                     

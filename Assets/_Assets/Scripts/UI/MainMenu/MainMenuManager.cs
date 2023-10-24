@@ -68,7 +68,7 @@ namespace DonBosco
             onBackToMainMenu?.Invoke();
         }
 
-        private void CheckProgress()
+        public void CheckProgress()
         {
             bool hasSaveData = SaveSystem.SaveManager.Instance.HasSaveData;
             continueGameButton.interactable = hasSaveData;

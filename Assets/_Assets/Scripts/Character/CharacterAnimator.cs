@@ -8,7 +8,7 @@ namespace DonBosco
     public class CharacterAnimator : MonoBehaviour
     {
         private Animator animator;
-        private string currentState;
+        public string currentState;
 
 
         public void ChangeState(string state)

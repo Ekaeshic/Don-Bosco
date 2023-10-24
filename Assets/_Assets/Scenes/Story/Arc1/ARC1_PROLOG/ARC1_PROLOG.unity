@@ -441,6 +441,260 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 284859774}
   m_CullTransparentMesh: 1
+--- !u!1 &408278352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 408278355}
+  - component: {fileID: 408278354}
+  - component: {fileID: 408278353}
+  - component: {fileID: 408278356}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &408278353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408278352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.7735849, g: 0.5405995, b: 0.1788003, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 3a9c46630b1e0e44a95a8f90c877ee69, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &408278354
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408278352}
+  m_CullTransparentMesh: 1
+--- !u!224 &408278355
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408278352}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1519403122}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 358, y: 192}
+  m_SizeDelta: {x: 2789.688, y: 1569.1995}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &408278356
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408278352}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &625060650
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 625060654}
+  - component: {fileID: 625060653}
+  - component: {fileID: 625060652}
+  - component: {fileID: 625060651}
+  m_Layer: 0
+  m_Name: Timeline Yamato
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &625060651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625060650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec978e26528c8941be7f158cbbfb45e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredEvents:
+  - id_game: 1
+    id_log: 1
+    no_event: 1
+    status: 2
+  onRequirementFulfilled:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 625060653}
+        m_TargetAssemblyTypeName: UnityEngine.Playables.PlayableDirector, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onRequirementNotFulfilled:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1304683947}
+        m_TargetAssemblyTypeName: DonBosco.SceneLoaderAgent, Assembly-CSharp
+        m_MethodName: ExecuteLoadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &625060652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625060650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b305de0eed57ae439e22755e99b9d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPlayableDirector: {fileID: 0}
+  startTimelineOnStart: 0
+  needPlayerAnimator: 0
+  needCinemachineBrain: 0
+  needTransitionOut: 0
+  onDialogueEnded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1304683947}
+        m_TargetAssemblyTypeName: DonBosco.SceneLoaderAgent, Assembly-CSharp
+        m_MethodName: ExecuteLoadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!320 &625060653
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625060650}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 3c880b2f4cc8fd340826ca663ad0f9ba, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 2751533743176042052, guid: 3c880b2f4cc8fd340826ca663ad0f9ba, type: 2}
+    value: {fileID: 625060652}
+  - key: {fileID: -8990245808249593432, guid: 3c880b2f4cc8fd340826ca663ad0f9ba, type: 2}
+    value: {fileID: 408278356}
+  - key: {fileID: -1477975217057947634, guid: 985f7928bbcb69347b15ae793a3a76d0, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -2875889132707271709, guid: 985f7928bbcb69347b15ae793a3a76d0, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -6001191654690802068, guid: 985f7928bbcb69347b15ae793a3a76d0, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 3916308167030208386, guid: 985f7928bbcb69347b15ae793a3a76d0, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -2254829198083461776, guid: 985f7928bbcb69347b15ae793a3a76d0, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -8146802425040347424, guid: 985f7928bbcb69347b15ae793a3a76d0, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -1400954687897888498, guid: 985f7928bbcb69347b15ae793a3a76d0, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 2710335801428567566, guid: 985f7928bbcb69347b15ae793a3a76d0, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -2402550772846570739, guid: 985f7928bbcb69347b15ae793a3a76d0, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 2751533743176042052, guid: 5ebc39763a191bd4591999d77b54ced4, type: 2}
+    value: {fileID: 0}
+  m_ExposedReferences:
+    m_References:
+    - db36999372836f1479a3b87d9c548c98: {fileID: 408278352}
+    - f0741f3c52b2a6240884e1d38cad9a75: {fileID: 408278352}
+    - caeb496990dd413408d9c852635f091b: {fileID: 408278352}
+--- !u!4 &625060654
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625060650}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1232442977
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,9 +733,9 @@ MonoBehaviour:
   onDialogueEnded:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1304683947}
-        m_TargetAssemblyTypeName: DonBosco.SceneLoaderAgent, Assembly-CSharp
-        m_MethodName: ExecuteLoadScene
+      - m_Target: {fileID: 625060651}
+        m_TargetAssemblyTypeName: DonBosco.API.SequelEventRequirement, Assembly-CSharp
+        m_MethodName: ExecuteRequirement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -500,7 +754,7 @@ PlayableDirector:
   m_GameObject: {fileID: 1232442977}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 3c880b2f4cc8fd340826ca663ad0f9ba, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 5ebc39763a191bd4591999d77b54ced4, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -508,6 +762,10 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: 2751533743176042052, guid: 3c880b2f4cc8fd340826ca663ad0f9ba, type: 2}
     value: {fileID: 1232442978}
+  - key: {fileID: 2751533743176042052, guid: 5ebc39763a191bd4591999d77b54ced4, type: 2}
+    value: {fileID: 1232442978}
+  - key: {fileID: -8990245808249593432, guid: 3c880b2f4cc8fd340826ca663ad0f9ba, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1232442980
@@ -669,6 +927,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 284859775}
+  - {fileID: 408278355}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -816,6 +1075,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1519403122}
   - {fileID: 1232442980}
+  - {fileID: 625060654}
   - {fileID: 1304683948}
   - {fileID: 174942678}
   - {fileID: 164447975}

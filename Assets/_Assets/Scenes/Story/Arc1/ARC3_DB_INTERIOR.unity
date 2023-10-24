@@ -472,7 +472,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 735274626, guid: aa59b208536a8ac4e88ebee209f5b582, type: 3}
+  m_Sprite: {fileID: -1503751243, guid: 95973e92d4217984887418c06a3e281d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -493,7 +493,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -21.8, y: 9.58, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -508,7 +508,7 @@ Animator:
   m_GameObject: {fileID: 169929774}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 26de65523e45ac449993b6d6322b1334, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -36222,6 +36222,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 191080996874192543, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 50987117156973648ab5c7816622482b, type: 2}
+    - target: {fileID: 3889936734499895232, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -159450903, guid: e04afc3dfc22ab6438c2e693ead6896c, type: 3}
     - target: {fileID: 5602865564561664213, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20.105835
@@ -36271,11 +36279,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
---- !u!95 &386642942 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 191080996874192543, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
-  m_PrefabInstance: {fileID: 386642941}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &399081332
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36284,6 +36287,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 191080996874192543, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 50987117156973648ab5c7816622482b, type: 2}
+    - target: {fileID: 3889936734499895232, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -159450903, guid: e04afc3dfc22ab6438c2e693ead6896c, type: 3}
     - target: {fileID: 5602865564561664213, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -22.92
@@ -36333,11 +36344,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
---- !u!95 &399081333 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 191080996874192543, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
-  m_PrefabInstance: {fileID: 399081332}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &488686454
 GameObject:
   m_ObjectHideFlags: 0
@@ -38166,7 +38172,7 @@ Animator:
   m_GameObject: {fileID: 901296900}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 22af8a251b91833458ace3a8d20645b7, type: 2}
+  m_Controller: {fileID: 9100000, guid: ef8453dd581324140ba7f51aa2da8c0e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -38777,14 +38783,6 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: -3560226335326644120, guid: a4e610d4e83dc76449ac14604f46405f, type: 2}
     value: {fileID: 0}
-  - key: {fileID: -2923338743979111293, guid: a4e610d4e83dc76449ac14604f46405f, type: 2}
-    value: {fileID: 901296901}
-  - key: {fileID: -2388858763873522675, guid: a4e610d4e83dc76449ac14604f46405f, type: 2}
-    value: {fileID: 169929777}
-  - key: {fileID: 8976679266407089946, guid: a4e610d4e83dc76449ac14604f46405f, type: 2}
-    value: {fileID: 386642942}
-  - key: {fileID: 7276065150352672815, guid: a4e610d4e83dc76449ac14604f46405f, type: 2}
-    value: {fileID: 399081333}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1078375568

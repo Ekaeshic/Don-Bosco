@@ -12,6 +12,7 @@ namespace DonBosco.Quests
         public string questName;
         public string questDescription;
         public QuestState initialState;
+        public int event_no; //event no is the event number in the event log (from API)
         [Header("Steps")]
         public QuestStep[] questSteps;
 
