@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using DonBosco.SaveSystem;
+using DonBosco.Quests;
 
 namespace DonBosco.API
 {
@@ -17,6 +18,7 @@ namespace DonBosco.API
         [SerializeField] private GameObject loginButton;
         [SerializeField] private GameObject logoutButton;
         [SerializeField] private TMP_Text usernameText;
+        [SerializeField] private TMP_Text validationAlertText;
         [Header("Status")]
         [SerializeField] private Image statusBG;
         [SerializeField] private TMP_Text statusText;
@@ -65,9 +67,26 @@ namespace DonBosco.API
         /// </summary>
         public void OnLoginButtonClicked()
         {
-            statusText.text = "Logging in...";
-            statusBG.raycastTarget = false;
-            StartCoroutine(PostLoginRequest(LoginRequest()));
+            if(LoginFormValidation())
+            {
+                statusText.text = "Logging in...";
+                statusBG.raycastTarget = false;
+                StartCoroutine(PostLoginRequest(LoginRequest()));
+            }
+        }
+
+        private bool LoginFormValidation()
+        {
+            if(usernameInput.text == "" || passwordInput.text == "")
+            {
+                validationAlertText.text = "Username and password cannot be empty!";
+                return false;
+            }
+            else
+            {
+                validationAlertText.text = "";
+                return true;
+            }
         }
 
         private UnityWebRequest LoginRequest()
@@ -210,7 +229,7 @@ namespace DonBosco.API
             //     GameLog gameLog = JsonUtility.FromJson<GameLog>(json);
 
             //     // Post the game event log to the server
-            //     StartCoroutine(GameEventLogRequest(SaveManager.Instance.eventLogs, gameLog.id_log));
+            //     StartCoroutine(GameEventLogRequest(QuestManager.Instance.GetQuestEventsLog(), gameLog.id_log));
             // }
             // else
             // {

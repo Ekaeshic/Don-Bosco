@@ -700,7 +700,7 @@ namespace DonBosco.Dialogue
                 choices[index].gameObject.SetActive(true);
                 choicesText[index].text = choice.text;
                 // Rescale width to fit the text
-                choices[index].GetComponent<RectTransform>().sizeDelta = new Vector2(choicesText[index].preferredWidth + 100, choices[index].GetComponent<RectTransform>().sizeDelta.y);
+                choices[index].GetComponent<RectTransform>().sizeDelta = new Vector2(choicesText[index].preferredWidth + 20, choices[index].GetComponent<RectTransform>().sizeDelta.y);
 
                 index++;
             }

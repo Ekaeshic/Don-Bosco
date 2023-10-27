@@ -126,7 +126,7 @@ namespace DonBosco.SaveSystem
             else
             {
                 // If the player is logged in, save the data to the file based on the account id
-                path = Application.persistentDataPath + currentAccountID + ".dat";
+                path = Application.persistentDataPath + "/" + currentAccountID + ".dat";
             }
             
             //Create a binary formatter which can read binary files
@@ -182,7 +182,7 @@ namespace DonBosco.SaveSystem
         {
             saveData = null;
 
-            string fileName = id + ".dat";
+            string fileName = "/" + id + ".dat";
             string path = Application.persistentDataPath + fileName;
             if(System.IO.File.Exists(path))
             {

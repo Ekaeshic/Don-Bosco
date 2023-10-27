@@ -16,7 +16,7 @@ MonoBehaviour:
   questName: Kedatangan Belanda
   questDescription: Belanda menginjakkan kaki di tanah Indonesia untuk sekali lagi
   initialState: 1
-  event_no: 0
+  event_no: 1
   questSteps:
   - {fileID: 3595192053681542951, guid: 7cbec1eac2c301a40af637c7ed5d34b2, type: 3}
   - {fileID: 1967840160665085129, guid: 8f29253b7c1e6ef4abeb56c36e5db685, type: 3}

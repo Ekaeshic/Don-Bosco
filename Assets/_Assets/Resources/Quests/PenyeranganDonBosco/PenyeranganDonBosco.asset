@@ -16,7 +16,7 @@ MonoBehaviour:
   questName: Penyerangan Gudang Don Bosco
   questDescription: 
   initialState: 0
-  event_no: 0
+  event_no: 2
   questSteps:
   - {fileID: 8304865787626901350, guid: 9e9212f3dd5b9b04f8da38cf01e16224, type: 3}
   prequisiteQuests: []
