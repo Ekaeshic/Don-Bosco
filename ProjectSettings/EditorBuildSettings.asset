@@ -42,7 +42,7 @@ EditorBuildSettings:
     path: Assets/_Assets/Scenes/World Scene/MAP_DB_INTERIOR.unity
     guid: 9bf500020ebc4ea43a49f97134cf8cd5
   - enabled: 1
-    path: Assets/_Assets/Scenes/Story/Arc1/ARC3_DB_INTERIOR.unity
+    path: Assets/_Assets/Scenes/Story/Arc1/Ending/ARC3_DB_INTERIOR.unity
     guid: fd07de36a5658eb4c9d43623cab180ee
   - enabled: 1
     path: Assets/_Assets/Scenes/World Scene/MAP_KANTORBKR.unity

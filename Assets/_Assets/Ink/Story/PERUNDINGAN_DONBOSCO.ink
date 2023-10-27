@@ -55,6 +55,32 @@ Atas keberhasilan dalam perebutan gudang persenjataan Don Bosco.
 -> DONE
 
 === part4 ===
-#speaker:Pejuang 1 #audio:null #portrait:null
-Merdeka!!!
+#speaker:null #audio:null #portrait:null
+Pasukan BKR beserta para pemuda pun mengambil alih gudang tersebut dan persenjataannya dibagikan.
+Sebagian besar diambil alih oleh BKR untuk persediaan militer.
+Perebutan senjata terus dilakukan mulai dari markas Kempeitai Surabaya, Tobu Jawa Butai, dan markas lainnya.
 -> DONE
+
+
+
+=== sequelYamato ===
+#speaker:null #audio:null #portrait:null
+Tidak lama setelah perebutan Don Bosco, tibalah pasukan Sekutu di Kota Surabaya pada tanggal 18 September 1945.
+Mereka singgah di Hotel Yamato yang kemudian dijadikan markas sementara untuk tawanan Jepang dan interniran.
+Para pemuda yang melihat adanya bendera Belanda pun marah karena telah menghina kemerdekaan Indonesia.
+Mereka pun mulai menyerbu Hotel Yamato untuk menurunkan bendera tersebut dengan perlawanan dari Belanda.
+Untungnya, pemuda Surabaya telah dipersenjatai berkat perebutan gudang senjata Jepang.
+Namun apakah para pejuang dapat berhasil melawan pasukan Sekutu?
+-> END
+
+=== sequel3Hari ===
+#speaker:null #audio:null #portrait:null
+Hasil nyata dari perebutan ini dapat terlihat dari peristiwa perobekan bendera Belanda di Hotel Yamato.
+Sifat keras kepala warga Surabaya saat perundingan bersama WVC Ploegman menimbulkan pertempuran yang tak terelakkan.
+Tidak sedikit korban jiwa atas pertempuran tersebut, baik dari pihak Belanda maupun pihak warga Surabaya.
+Namun, hal itu tidak membuat pasukan Sekutu gentar karena mereka benar-benar serius akan hal ini.
+Pada tanggal 25 Oktober 1945, pasukan Sekutu mendaratkan 3 buah kapal laut yang dipimpin oleh A.W.S Mallaby.
+Mereka ingin berunding bersama pemimpin yang ada di Kota Surabaya.
+Pihak Indonesia pun mendatangkan Moestopo yang telah diangkat sebagai Menteri Pertahanan atas jasanya.
+Akankah pihak Sekutu datang secara damai? Atau mereka memang siap untuk pertempuran melawan Indonesia?
+-> END

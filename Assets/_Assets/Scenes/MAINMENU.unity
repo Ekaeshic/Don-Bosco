@@ -361,30 +361,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1577105883}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 434837072}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 1817228804}
         m_TargetAssemblyTypeName: DonBosco.API.Login, Assembly-CSharp
         m_MethodName: OnLoginButtonClicked
@@ -9344,6 +9320,8 @@ MonoBehaviour:
   logoutButton: {fileID: 592622427}
   usernameText: {fileID: 983811969}
   validationAlertText: {fileID: 1850053188}
+  statusModal: {fileID: 434837072}
+  loginModal: {fileID: 1577105883}
   statusBG: {fileID: 1122430792}
   statusText: {fileID: 1605519098}
 --- !u!4 &1817228805

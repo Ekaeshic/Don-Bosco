@@ -19,6 +19,8 @@ namespace DonBosco.API
         [SerializeField] private GameObject logoutButton;
         [SerializeField] private TMP_Text usernameText;
         [SerializeField] private TMP_Text validationAlertText;
+        [SerializeField] private GameObject statusModal;
+        [SerializeField] private GameObject loginModal;
         [Header("Status")]
         [SerializeField] private Image statusBG;
         [SerializeField] private TMP_Text statusText;
@@ -72,6 +74,8 @@ namespace DonBosco.API
                 statusText.text = "Logging in...";
                 statusBG.raycastTarget = false;
                 StartCoroutine(PostLoginRequest(LoginRequest()));
+                statusModal.SetActive(true);
+                loginModal.SetActive(false);
             }
         }
 

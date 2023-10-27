@@ -123,6 +123,90 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &37659254
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 37659257}
+  - component: {fileID: 37659255}
+  - component: {fileID: 37659256}
+  m_Layer: 0
+  m_Name: Timeline Yamato
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!320 &37659255
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 37659254}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: d4c3533473e56fb46b7130564e111943, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 980010438586282048, guid: d4c3533473e56fb46b7130564e111943, type: 2}
+    value: {fileID: 37659256}
+  m_ExposedReferences:
+    m_References: []
+--- !u!114 &37659256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 37659254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b305de0eed57ae439e22755e99b9d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPlayableDirector: {fileID: 37659255}
+  startTimelineOnStart: 0
+  needPlayerAnimator: 0
+  needCinemachineBrain: 0
+  needTransitionOut: 0
+  onDialogueEnded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 675696467}
+        m_TargetAssemblyTypeName: UnityEngine.Playables.PlayableDirector, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!4 &37659257
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 37659254}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -15.844736, y: 7.4395885, z: 0.04117441}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &130196703
 GameObject:
   m_ObjectHideFlags: 0
@@ -37608,6 +37692,174 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &540677912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 540677915}
+  - component: {fileID: 540677913}
+  - component: {fileID: 540677914}
+  m_Layer: 0
+  m_Name: Timeline 3 Hari
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!320 &540677913
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540677912}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 89a1e84c760394c449012d8588125d78, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 1749129438175378126, guid: 89a1e84c760394c449012d8588125d78, type: 2}
+    value: {fileID: 540677914}
+  m_ExposedReferences:
+    m_References: []
+--- !u!114 &540677914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540677912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b305de0eed57ae439e22755e99b9d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPlayableDirector: {fileID: 540677913}
+  startTimelineOnStart: 0
+  needPlayerAnimator: 0
+  needCinemachineBrain: 0
+  needTransitionOut: 0
+  onDialogueEnded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 675696467}
+        m_TargetAssemblyTypeName: UnityEngine.Playables.PlayableDirector, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!4 &540677915
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540677912}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -15.844736, y: 7.4395885, z: 0.04117441}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &675696465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 675696468}
+  - component: {fileID: 675696467}
+  - component: {fileID: 675696466}
+  m_Layer: 0
+  m_Name: Timeline Bersambung
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &675696466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675696465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b305de0eed57ae439e22755e99b9d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPlayableDirector: {fileID: 675696467}
+  startTimelineOnStart: 0
+  needPlayerAnimator: 0
+  needCinemachineBrain: 0
+  needTransitionOut: 0
+  onDialogueEnded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1861108635}
+        m_TargetAssemblyTypeName: DonBosco.SceneLoaderAgent, Assembly-CSharp
+        m_MethodName: ExecuteLoadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!320 &675696467
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675696465}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 7b5917c7803ef644da7a0bcc946d9314, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 3129542740674736542, guid: 7b5917c7803ef644da7a0bcc946d9314, type: 2}
+    value: {fileID: 1965331789}
+  m_ExposedReferences:
+    m_References: []
+--- !u!4 &675696468
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675696465}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -15.844736, y: 7.4395885, z: 0.04117441}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &699825061
 GameObject:
   m_ObjectHideFlags: 0
@@ -38736,7 +38988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b305de0eed57ae439e22755e99b9d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPlayableDirector: {fileID: 0}
+  currentPlayableDirector: {fileID: 1078375567}
   startTimelineOnStart: 1
   needPlayerAnimator: 0
   needCinemachineBrain: 0
@@ -38744,9 +38996,9 @@ MonoBehaviour:
   onDialogueEnded:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1861108635}
-        m_TargetAssemblyTypeName: DonBosco.SceneLoaderAgent, Assembly-CSharp
-        m_MethodName: ExecuteLoadScene
+      - m_Target: {fileID: 1544536500}
+        m_TargetAssemblyTypeName: DonBosco.API.SequelEventRequirement, Assembly-CSharp
+        m_MethodName: ExecuteRequirement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -38775,8 +39027,6 @@ PlayableDirector:
     value: {fileID: 1078375566}
   - key: {fileID: -7314937031406435727, guid: a4e610d4e83dc76449ac14604f46405f, type: 2}
     value: {fileID: 699825062}
-  - key: {fileID: 2339412206686255730, guid: a4e610d4e83dc76449ac14604f46405f, type: 2}
-    value: {fileID: 1965331789}
   - key: {fileID: -146802949827371616, guid: a4e610d4e83dc76449ac14604f46405f, type: 2}
     value: {fileID: 1078375566}
   - key: {fileID: -7638673076785895695, guid: a4e610d4e83dc76449ac14604f46405f, type: 2}
@@ -39124,6 +39374,86 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1302194046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1302194048}
+  - component: {fileID: 1302194047}
+  m_Layer: 0
+  m_Name: PrequelCheck 3 Hari
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1302194047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302194046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec978e26528c8941be7f158cbbfb45e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeOnStart: 0
+  requiredEvents:
+  - id_game: 1
+    id_log: 1
+    no_event: 2
+    status: 2
+  onRequirementFulfilled:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 540677913}
+        m_TargetAssemblyTypeName: UnityEngine.Playables.PlayableDirector, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onRequirementNotFulfilled:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 675696467}
+        m_TargetAssemblyTypeName: UnityEngine.Playables.PlayableDirector, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!4 &1302194048
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302194046}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1039.1764, y: 488.17773, z: -6.1700816}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1399506799
 GameObject:
   m_ObjectHideFlags: 0
@@ -43530,6 +43860,86 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: -1
   m_TargetDisplay: 0
+--- !u!1 &1544536499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1544536501}
+  - component: {fileID: 1544536500}
+  m_Layer: 0
+  m_Name: PrequelCheck Yamato
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1544536500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544536499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec978e26528c8941be7f158cbbfb45e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeOnStart: 0
+  requiredEvents:
+  - id_game: 1
+    id_log: 1
+    no_event: 2
+    status: 0
+  onRequirementFulfilled:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 37659255}
+        m_TargetAssemblyTypeName: UnityEngine.Playables.PlayableDirector, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onRequirementNotFulfilled:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1302194047}
+        m_TargetAssemblyTypeName: DonBosco.API.SequelEventRequirement, Assembly-CSharp
+        m_MethodName: ExecuteRequirement
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!4 &1544536501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544536499}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1039.1764, y: 488.17773, z: -6.1700816}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1546252915
 GameObject:
   m_ObjectHideFlags: 0
@@ -49037,3 +49447,8 @@ SceneRoots:
   - {fileID: 386642941}
   - {fileID: 399081332}
   - {fileID: 1078375568}
+  - {fileID: 37659257}
+  - {fileID: 540677915}
+  - {fileID: 675696468}
+  - {fileID: 1544536501}
+  - {fileID: 1302194048}
