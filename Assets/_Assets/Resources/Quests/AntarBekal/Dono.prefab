@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questStepInfo: {fileID: 11400000, guid: c63d3bc9ca616e9438a1ade48a5bc375, type: 2}
-  scene: {fileID: 102900000, guid: 03d4065ab487ce044b347a9e332dcfcc, type: 3}
+  scene: MAP_KANTORBKR
   dialogue: {fileID: 4900000, guid: e3e8eaa32ce3b7f419e63377a9a37f11, type: 3}
   dialogueQuestConversations:
   - conditions:

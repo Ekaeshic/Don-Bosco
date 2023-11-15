@@ -31,20 +31,21 @@ namespace DonBosco.API
         const string continueText = "\n(Press To Continue...)";
         private bool isLogged = false;
         string loginTime;
+        bool isQuitting = false;
 
         private void Awake() 
         {
             //TryAutoLogin();
         }
 
-        void OnApplicationQuit()
-        {
-            if(isLogged)
-            {
-                // Post game log when the game is closed without logging out
-                StartCoroutine(PostGameLog());
-            }
-        }
+        // void OnApplicationQuit()
+        // {
+        //     if(isLogged)
+        //     {
+        //         // Post game log when the game is closed without logging out
+        //         StartCoroutine(PostGameLog());
+        //     }
+        // }
 
         private void TryAutoLogin()
         {
@@ -251,6 +252,9 @@ namespace DonBosco.API
             else
             {
                 Debug.Log(www.error);
+
+                // If the request is not successful, just quit the game if the player is trying to quit
+                TryToQuit();
             }
         }
 
@@ -292,6 +296,9 @@ namespace DonBosco.API
                     Debug.Log(json);
                 }
             }
+
+            // If the request is successful, just quit the game if the player is trying to quit
+            TryToQuit();
         }
         #endregion
 
@@ -303,6 +310,39 @@ namespace DonBosco.API
         {
             loginButton.SetActive(!isLogged);
             logoutButton.SetActive(isLogged);
+        }
+
+
+        /// <summary>
+        /// Handle quit game button, logout the player if they are logged in and post the game log
+        /// </summary>
+        /// <param name="base64String"></param>
+        /// <returns></returns>
+        public void OnQuitGameButtonClicked()
+        {
+            isQuitting = true;
+
+            if(isLogged)
+            {
+                statusModal.SetActive(true);
+                statusText.text = "Logging out...";
+                statusBG.raycastTarget = false;
+
+                StartCoroutine(PostGameLog());
+            }
+            else
+            {
+                TryToQuit();
+            }
+        }
+
+        private void TryToQuit()
+        {
+            if(isQuitting)
+            {
+                QuitPrevention.RunOnQuit();
+                Application.Quit();
+            }
         }
 
 

@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questStepInfo: {fileID: 11400000, guid: eaa00212a77df144aa6a967a763af8b4, type: 2}
-  scene: MAP_JALAN
+  scene: MAP_KANTORBKR
 --- !u!114 &8748744559792837675
 MonoBehaviour:
   m_ObjectHideFlags: 0
