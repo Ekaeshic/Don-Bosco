@@ -10,7 +10,7 @@ namespace DonBosco.API
     {
         private static APIManager instance;
         public static APIManager Instance { get { return instance; } }
-        public static string baseURL = "http://localhost:3000/api/";
+        public static string baseURL = "https://mtsnuhati.com/sigamingclub/api/inc/";
         public Account account { get; private set; }
         public string previousAccessToken { get; private set;} //Subject to change, whether the API should be able to read the previous access token or not
         const string FILENAME = "/meta.dat";
@@ -24,21 +24,22 @@ namespace DonBosco.API
                 instance = this;
             }
             else Destroy(gameObject);
-
-            ReadData();
+            
+            // AutoLogin
+            //ReadData();
         }
 
         public void SetAccount(Account account)
         {
             this.account = account;
-            if(account != null)
-            {
-                WriteData(account.accessToken);
-            }
-            else
-            {
-                WriteData("");
-            }
+            // if(account != null)
+            // {
+            //     WriteData(account.accessToken);
+            // }
+            // else
+            // {
+            //     WriteData("");
+            // }
         }
 
         /// <summary>

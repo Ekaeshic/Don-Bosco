@@ -162,6 +162,7 @@ namespace DonBosco.SaveSystem
                     file.Close();
                     saveData = JsonUtility.FromJson<SaveData>(jsonState);
                     HasSaveData = true;
+                    GameEventsManager.Instance.miscEvents.ChangeData(saveData);
                     return true;
                 }
                 catch (System.Exception e)
@@ -194,6 +195,7 @@ namespace DonBosco.SaveSystem
                     file.Close();
                     saveData = JsonUtility.FromJson<SaveData>(jsonState);
                     HasSaveData = true;
+                    GameEventsManager.Instance.miscEvents.ChangeData(saveData);
                     return true;
                 }
                 catch (System.Exception e)

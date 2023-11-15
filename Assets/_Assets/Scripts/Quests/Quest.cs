@@ -77,7 +77,7 @@ namespace DonBosco.Quests
             GameObject questStepPrefab = GetCurrentQuestStepPrefab();
             if (questStepPrefab != null)
             {
-                if(SceneLoader.Instance.CurrentScene == questStepPrefab.GetComponent<QuestStep>().scene.name)
+                if(SceneLoader.Instance.CurrentScene == questStepPrefab.GetComponent<QuestStep>().scene)
                 {
                     QuestStep questStep = GameObject.Instantiate<GameObject>(questStepPrefab)
                         .GetComponent<QuestStep>();

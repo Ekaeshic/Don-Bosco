@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace DonBosco.API
 {
     /// <summary>
@@ -10,7 +12,7 @@ namespace DonBosco.API
         public int id_game;
         public int id_log;
         public int no_event;
-        public EventStatus status;
+        [JsonProperty("status_event")] public EventStatus status;
 
 
         /// <summary>

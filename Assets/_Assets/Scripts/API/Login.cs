@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -8,6 +9,9 @@ using TMPro;
 using System;
 using DonBosco.SaveSystem;
 using DonBosco.Quests;
+using System.IO;
+using Unity.VisualScripting;
+using Newtonsoft.Json;
 
 namespace DonBosco.API
 {
@@ -30,7 +34,7 @@ namespace DonBosco.API
 
         private void Awake() 
         {
-            TryAutoLogin();
+            //TryAutoLogin();
         }
 
         void OnApplicationQuit()
@@ -71,7 +75,7 @@ namespace DonBosco.API
         {
             if(LoginFormValidation())
             {
-                statusText.text = "Logging in...";
+                statusText.text = "Connecting To Server...";
                 statusBG.raycastTarget = false;
                 StartCoroutine(PostLoginRequest(LoginRequest()));
                 statusModal.SetActive(true);
@@ -107,7 +111,7 @@ namespace DonBosco.API
 
             formData.Add(new MultipartFormDataSection("password", hash));
 
-            UnityWebRequest www = UnityWebRequest.Post(APIManager.baseURL + "login", formData);
+            UnityWebRequest www = UnityWebRequest.Post(APIManager.baseURL + "loginPlayer.php", formData);
 
             return www;
         }
@@ -117,7 +121,7 @@ namespace DonBosco.API
             List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
             formData.Add(new MultipartFormDataSection("accessToken", APIManager.Instance.previousAccessToken));
 
-            UnityWebRequest www = UnityWebRequest.Post(APIManager.baseURL + "login", formData);
+            UnityWebRequest www = UnityWebRequest.Post(APIManager.baseURL + "loginPlayer.php", formData);
 
             return www;
         }
@@ -132,33 +136,40 @@ namespace DonBosco.API
 
             if(www.result != UnityWebRequest.Result.Success)
             {
-                statusText.text = "<size=56>" + www.error;
+                // Error handling
+                string json = www.downloadHandler.text; //get the response as JSON string
+                LoginCallback loginCallback = JsonUtility.FromJson<LoginCallback>(json);
+
+
+                statusText.text = "<size=56>" + loginCallback.message;
                 statusText.text += continueText;
                 statusBG.raycastTarget = true;
+
+                
                 //dummy
-                Account account = new Account("dummy", "dummy", "dummy");
-                APIManager.Instance.SetAccount(account);
-
-                // Try to read save data specific to the account (locally)
-                SaveManager.Instance.ReadSaveDataAccount(account.id);
-                SaveManager.Instance.currentAccountID = account.id;
-                MainMenuManager.Instance.CheckProgress(); //Refresh Main menu continue progress button
-                isLogged = true;
-                SwitchButton();
-
-                // Show username in the game to indicate that the player has logged in
-                usernameText.text = "UserID: " + account.id;
-
-                // Track login time for 'waktu_mulai' in game_log
-                loginTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                throw new System.Exception(www.error);
+                // Account account = new Account("dummy", "dummy", "dummy");
+                // APIManager.Instance.SetAccount(account);
             }
             else
             {
+                statusText.text = "Logging in...";
                 string json = www.downloadHandler.text; //get the response as JSON string
+                Debug.Log(json);
 
-                //Convert JSON string to Account object
-                Account account = JsonUtility.FromJson<Account>(json);
+                //Convert JSON string to LoginCallback object
+                LoginCallback loginCallback = Newtonsoft.Json.JsonConvert.DeserializeObject<LoginCallback>(json);
+
+                //Convert JWT token to LoginPayload object
+                string header = loginCallback.token.Split('.')[0];
+                string payload = loginCallback.token.Split('.')[1];
+                string signature = loginCallback.token.Split('.')[2];
+                string stringPayload = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(Base64StringValidator(payload)));
+                LoginPayload loginPayload = JsonUtility.FromJson<LoginPayload>(stringPayload);
+
+
+                // //Convert JSON string to Account object
+                Account account = new Account(loginPayload.data.id_player, loginPayload.data.username, loginPayload.data.nama_player);
+                account.SetEventLog(loginCallback.playerprogression);
                 APIManager.Instance.SetAccount(account);
 
                 statusText.text = "Login success!";
@@ -166,14 +177,14 @@ namespace DonBosco.API
                 statusBG.raycastTarget = true;
 
                 // Try to read save data specific to the account (locally)
-                SaveManager.Instance.ReadSaveDataAccount(account.id);
-                SaveManager.Instance.currentAccountID = account.id;
+                SaveManager.Instance.ReadSaveDataAccount(account.id_player);
+                SaveManager.Instance.currentAccountID = account.id_player;
                 MainMenuManager.Instance.CheckProgress(); //Refresh Main menu continue progress button
                 isLogged = true;
                 SwitchButton();
 
                 // Show username in the game to indicate that the player has logged in
-                usernameText.text = "UserID: " + account.id;
+                usernameText.text = "Username: " + account.username;
 
                 // Track login time for 'waktu_mulai' in game_log
                 loginTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -212,33 +223,35 @@ namespace DonBosco.API
         /// <returns></returns>
         private IEnumerator PostGameLog()
         {
+            Debug.Log("Posting game log...");
             List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
             formData.Add(new MultipartFormDataSection("id_game", APIManager.ID_GAME.ToString()));
-            formData.Add(new MultipartFormDataSection("id_player", APIManager.Instance.account.id));
+            formData.Add(new MultipartFormDataSection("id_player", APIManager.Instance.account.id_player));
             formData.Add(new MultipartFormDataSection("waktu_mulai", loginTime));
             formData.Add(new MultipartFormDataSection("waktu_entry", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
 
-            UnityWebRequest www = UnityWebRequest.Post(APIManager.baseURL + "game_log", formData);
+            UnityWebRequest www = UnityWebRequest.Post(APIManager.baseURL + "create_loggame.php", formData);
 
             yield return www.SendWebRequest();
 
             // If the request is successful, read the response as JSON string
             // Here we assume that the server will return a log_id as a response that will be used to post the game event log
             // SUBJECT TO CHANGE, Sementara kurang lebih seperti ini
-            // if(www.result == UnityWebRequest.Result.Success)
-            // {
-            //     string json = www.downloadHandler.text; //get the response as JSON string
+            if(www.result == UnityWebRequest.Result.Success)
+            {
+                string json = www.downloadHandler.text; //get the response as JSON string
 
-            //     //Convert JSON string to GameLog object
-            //     GameLog gameLog = JsonUtility.FromJson<GameLog>(json);
+                //Convert JSON string to GameLog object
+                GameLogCallback gameLog = JsonUtility.FromJson<GameLogCallback>(json);
+                Debug.Log("Game log posted! ID: " + gameLog.id_log);
 
-            //     // Post the game event log to the server
-            //     StartCoroutine(GameEventLogRequest(QuestManager.Instance.GetQuestEventsLog(), gameLog.id_log));
-            // }
-            // else
-            // {
-            //     Debug.Log(www.error);
-            // }
+                // Post the game event log to the server
+                StartCoroutine(GameEventLogRequest(QuestManager.Instance.GetQuestEventsLog(), gameLog.id_log));
+            }
+            else
+            {
+                Debug.Log(www.error);
+            }
         }
 
         /// <summary>
@@ -248,23 +261,36 @@ namespace DonBosco.API
         /// <returns></returns>
         /// SUBJECT TO CHANGE, Sementara kurang lebih seperti ini
         /// Iki gk efisien dadi haruse diubah, tapi haruse gk digae tiap request dipost dewe-dewe koyok ngene. Iki meloki ferry
-        private IEnumerator GameEventLogRequest(List<EventLog> eventLogs, int id_log)
+        private IEnumerator GameEventLogRequest(EventLog[] eventLogs, int id_log)
         {
+            Debug.Log("Posting game event log...");
+            Debug.Log("Event log count: " + eventLogs.Length);
             List<UnityWebRequest> wwws = new List<UnityWebRequest>();
-            foreach(EventLog log in eventLogs)
+            for(int i=0; i<eventLogs.Length; i++)
             {
                 List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
-                formData.Add(new MultipartFormDataSection("id_game", APIManager.ID_GAME.ToString()));
+                // formData.Add(new MultipartFormDataSection("id_game", APIManager.ID_GAME.ToString()));
                 formData.Add(new MultipartFormDataSection("id_log", id_log.ToString()));
-                formData.Add(new MultipartFormDataSection("no_event", log.no_event.ToString()));
-                formData.Add(new MultipartFormDataSection("status_event", log.status.ToString()));
+                formData.Add(new MultipartFormDataSection("no_event", eventLogs[i].no_event.ToString()));
+                formData.Add(new MultipartFormDataSection("status_event", eventLogs[i].status.ToString()));
 
-                UnityWebRequest www = UnityWebRequest.Post(APIManager.baseURL + "game_event_log", formData);
+                UnityWebRequest www = UnityWebRequest.Post(APIManager.baseURL + "create_gameevent.php", formData);
+                wwws.Add(www);
             }
 
             foreach(UnityWebRequest www in wwws)
             {
                 yield return www.SendWebRequest();
+
+                if(www.result != UnityWebRequest.Result.Success)
+                {
+                    Debug.Log(www.error);
+                }
+                else
+                {
+                    string json = www.downloadHandler.text; //get the response as JSON string
+                    Debug.Log(json);
+                }
             }
         }
         #endregion
@@ -278,5 +304,102 @@ namespace DonBosco.API
             loginButton.SetActive(!isLogged);
             logoutButton.SetActive(isLogged);
         }
+
+
+        #region Utility
+        private string Base64StringValidator(string base64String)
+        {
+            while(base64String.Length % 4 != 0)
+            {
+                base64String += "=";
+            }
+            return base64String;
+        }
+        #endregion
     }
+
+
+    #region Logout
+    [Serializable]
+    public class GameLogCallback
+    {
+        public int status;
+        public string message;
+        public int id_log;
+
+        public GameLogCallback(int status, string message, int id_log)
+        {
+            this.status = status;
+            this.message = message;
+            this.id_log = id_log;
+        }
+
+        public GameLogCallback(int status, string message)
+        {
+            this.status = status;
+            this.message = message;
+        }
+    }
+    #endregion
+    
+
+
+    #region Login
+    [Serializable]
+    public class LoginCallback
+    {
+        [JsonProperty("status")] public string status;
+        [JsonProperty("message")] public string message;
+        [JsonProperty("token")] public string token;
+        [JsonProperty("playerprogression")] public List<List<EventLog>> playerprogression;
+
+        public LoginCallback(string status, string message, string jwtToken, List<List<EventLog>> playerprogression)
+        {
+            this.status = status;
+            this.message = message;
+            this.token = jwtToken;
+            this.playerprogression = playerprogression;
+        }
+
+        // public LoginCallback(int status, string message)
+        // {
+        //     this.status = status;
+        //     this.message = message;
+        // }
+    }
+
+    [Serializable]
+    public class LoginPayload
+    {
+        public string iss;
+        public int iat;
+        public int exp;
+        public LoginData data;
+
+        public LoginPayload(string iss, int iat, int exp, LoginData data)
+        {
+            this.iss = iss;
+            this.iat = iat;
+            this.exp = exp;
+            this.data = data;
+        }
+
+
+        [Serializable]
+        public class LoginData
+        {
+            public string id_player;
+            public string nama_player;
+            public string username;
+
+            public LoginData(string id_player, string nama_player, string username)
+            {
+                this.id_player = id_player;
+                this.nama_player = nama_player;
+                this.username = username;
+            }
+
+        }
+    }
+    #endregion
 }

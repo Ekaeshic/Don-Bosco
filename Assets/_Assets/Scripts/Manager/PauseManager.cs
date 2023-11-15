@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using DonBosco.SaveSystem;
 using DonBosco.UI;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,7 +14,6 @@ namespace DonBosco
         public static PauseManager Instance { get { return instance; } }
 
         [SerializeField] private GameObject pauseMenu;
-        [SerializeField] private SceneAsset mainMenuScene;
         
 
 

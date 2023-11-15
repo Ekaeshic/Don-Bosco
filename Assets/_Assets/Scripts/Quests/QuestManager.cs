@@ -42,6 +42,8 @@ namespace DonBosco.Quests
             GameEventsManager.Instance.questEvents.onQuestStepStateChange += QuestStepStateChange;
 
             GameEventsManager.Instance.playerEvents.onChangeScene += ChangeScene;
+
+            GameEventsManager.Instance.miscEvents.onChangeData += LoadQuestData;
         }
 
         void OnDisable()
@@ -54,6 +56,8 @@ namespace DonBosco.Quests
             GameEventsManager.Instance.questEvents.onQuestStepStateChange -= QuestStepStateChange;
 
             GameEventsManager.Instance.playerEvents.onChangeScene -= ChangeScene;
+
+            GameEventsManager.Instance.miscEvents.onChangeData -= LoadQuestData;
 
             foreach(GameObject questStep in spawnedQuestSteps)
             {
@@ -123,6 +127,15 @@ namespace DonBosco.Quests
                 }
                 // broadcast the initial state of all quests on startup
                 GameEventsManager.Instance.questEvents.QuestStateChange(quest);
+            }
+        }
+        
+
+        private async void LoadQuestData(SaveData data)
+        {
+            if(data.questData != null)
+            {
+                await Load(data);
             }
         }
         #endregion
@@ -240,6 +253,7 @@ namespace DonBosco.Quests
 
         public async Task Load(SaveData saveData)
         {
+            loadedQuests.Clear();
             if(saveData != null)
             {
                 for(int i = 0; i < saveData.questData.Length; i++)
@@ -266,27 +280,29 @@ namespace DonBosco.Quests
             int i = 0;
             foreach(Quest quest in questMap.Values)
             {
-                EventStatus s;
+                EventStatus status;
                 switch(quest.state)
                 {
                     case QuestState.Inactive:
-                        s = EventStatus.belum;
+                        status = EventStatus.belum;
                         break;
                     case QuestState.Active:
-                        s = EventStatus.sedang;
+                        status = EventStatus.sedang;
                         break;
                     case QuestState.CanFinish:
-                        s = EventStatus.sedang;
+                        status = EventStatus.sedang;
                         break;
                     case QuestState.Completed:
-                        s = EventStatus.selesai;
+                        status = EventStatus.selesai;
                         break;
                     default:
-                        s = EventStatus.belum;
+                        status = EventStatus.belum;
                         break;
                 }
                 int thisGameId = APIManager.ID_GAME;
-                eventLogs[i] = new EventLog(thisGameId, quest.info.event_no, s);
+                // Insert the event log to the array
+                eventLogs[i] = new EventLog(thisGameId, quest.info.event_no, status);
+                i++;
             }
             return eventLogs;
         }

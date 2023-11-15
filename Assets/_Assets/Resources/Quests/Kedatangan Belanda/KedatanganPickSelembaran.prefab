@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questStepInfo: {fileID: 11400000, guid: 63bf78b75f561754d94566f52c78c846, type: 2}
-  scene: {fileID: 102900000, guid: c200c152c10897241b976b8705e1c42d, type: 3}
+  scene: MAP_JALAN

@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questStepInfo: {fileID: 11400000, guid: 819bb997d6bfddf4dbf9ba106b8fbbf6, type: 2}
-  scene: {fileID: 102900000, guid: 03d4065ab487ce044b347a9e332dcfcc, type: 3}
+  scene: MAP_KANTOR_BKR

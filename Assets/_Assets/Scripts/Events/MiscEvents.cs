@@ -15,5 +15,14 @@ namespace DonBosco
                 onLogout(account);
             }
         }
+
+        public event Action<DonBosco.SaveData> onChangeData;
+        public void ChangeData(DonBosco.SaveData saveData)
+        {
+            if (onChangeData != null)
+            {
+                onChangeData(saveData);
+            }
+        }
     }
 }

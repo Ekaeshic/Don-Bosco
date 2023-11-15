@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questStepInfo: {fileID: 11400000, guid: 24bad2aec2a544946aeb36312a11e68b, type: 2}
-  scene: {fileID: 102900000, guid: 9bf500020ebc4ea43a49f97134cf8cd5, type: 3}
+  scene: MAP_DB_INTERIOR
   enemiesToKill: 5
   OnQuestComplete:
     m_PersistentCalls:

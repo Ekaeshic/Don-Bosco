@@ -1,17 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace DonBosco.Quests
 {
     public abstract class QuestStep : MonoBehaviour
     {
         public QuestStepInfoSO questStepInfo;
-        public SceneAsset scene;
+        public string scene;
         private bool isFinished = false;
         private string questId;
         private int stepIndex;
@@ -28,7 +22,7 @@ namespace DonBosco.Quests
 
         private void OnSceneChange(string sceneName)
         {
-            if(sceneName != scene.name)
+            if(sceneName != scene)
             {
                 Destroy(this.gameObject);
             }
