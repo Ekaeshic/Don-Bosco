@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Prevents the player from quitting the game
+/// </summary>
 public class QuitPrevention : MonoBehaviour
 {
     static bool WantsToQuit()

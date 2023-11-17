@@ -48,6 +48,7 @@ namespace DonBosco.Analytics
         {
             if(saveData == null)
             {
+                timeSpentInGame = 0f;
                 return;
             }
             timeSpentInGame = saveData.timeSpentInGame;

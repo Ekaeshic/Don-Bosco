@@ -118,6 +118,9 @@ namespace DonBosco.Quests
 
         private void ChangeScene(string sceneName)
         {
+            // destroy all quest steps
+            DestroyAllQuestSteps();
+            
             foreach (Quest quest in questMap.Values)
             {
                 // initialize any loaded quest steps
@@ -236,6 +239,18 @@ namespace DonBosco.Quests
         }
 
 
+        public void DestroyAllQuestSteps()
+        {
+            if(spawnedQuestSteps == null) return;
+
+            foreach(GameObject questStep in spawnedQuestSteps)
+            {
+                Destroy(questStep);
+            }
+            spawnedQuestSteps.Clear();
+        }
+
+
 
 
         #region SaveLoad
@@ -264,6 +279,7 @@ namespace DonBosco.Quests
             
             questMap = CreateQuestMap();
             await Task.CompletedTask;
+            GetQuestEventsLog();
         }
         #endregion
         

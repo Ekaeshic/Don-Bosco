@@ -5,9 +5,6 @@ namespace DonBosco.Audio
 {
     public class AudioOptionsManager : MonoBehaviour
     {
-        public static float musicVolume { get; private set; }
-        public static float soundEffectsVolume { get; private set; }
-        public static float dialogueVolume { get; private set; }
 
         [Header("Texts")]
         [SerializeField] private TextMeshProUGUI musicSliderText;
@@ -21,17 +18,13 @@ namespace DonBosco.Audio
 
         void OnEnable()
         {
-            musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
-            soundEffectsVolume = PlayerPrefs.GetFloat("SoundEffectsVolume", 1f);
-            dialogueVolume = PlayerPrefs.GetFloat("DialogueVolume", 1f);
+            OnMusicSliderValueChange(AudioManager.musicVolume);
+            OnSoundEffectsSliderValueChange(AudioManager.soundEffectsVolume);
+            OnDialogueSliderValueChange(AudioManager.dialogueVolume);
 
-            OnMusicSliderValueChange(musicVolume);
-            OnSoundEffectsSliderValueChange(soundEffectsVolume);
-            OnDialogueSliderValueChange(dialogueVolume);
-
-            musicSlider.value = musicVolume;
-            soundEffectsSlider.value = soundEffectsVolume;
-            dialogueSlider.value = dialogueVolume;
+            musicSlider.value = AudioManager.musicVolume;
+            soundEffectsSlider.value = AudioManager.soundEffectsVolume;
+            dialogueSlider.value = AudioManager.dialogueVolume;
         }
 
         void Start()
@@ -40,16 +33,20 @@ namespace DonBosco.Audio
         }
 
 
-        void OnDisable()
+        public void RefreshSliders()
         {
-            PlayerPrefs.SetFloat("MusicVolume", musicVolume);
-            PlayerPrefs.SetFloat("SoundEffectsVolume", soundEffectsVolume);
-            PlayerPrefs.SetFloat("DialogueVolume", dialogueVolume);
+            musicSlider.value = AudioManager.musicVolume;
+            soundEffectsSlider.value = AudioManager.soundEffectsVolume;
+            dialogueSlider.value = AudioManager.dialogueVolume;
+
+            musicSliderText.text = ((int)(AudioManager.musicVolume * 100)).ToString();
+            soundEffectsSliderText.text = ((int)(AudioManager.soundEffectsVolume * 100)).ToString();
+            dialogueSliderText.text = ((int)(AudioManager.dialogueVolume * 100)).ToString();
         }
 
         public void OnMusicSliderValueChange(float value)
         {
-            musicVolume = value;
+            AudioManager.musicVolume = value;
             
             musicSliderText.text = ((int)(value * 100)).ToString();
             AudioManager.Instance.UpdateMixerVolume();
@@ -57,7 +54,7 @@ namespace DonBosco.Audio
 
         public void OnSoundEffectsSliderValueChange(float value)
         {
-            soundEffectsVolume = value;
+            AudioManager.soundEffectsVolume = value;
 
             soundEffectsSliderText.text = ((int)(value * 100)).ToString();
             AudioManager.Instance.UpdateMixerVolume();
@@ -65,7 +62,7 @@ namespace DonBosco.Audio
 
         public void OnDialogueSliderValueChange(float value)
         {
-            dialogueVolume = value;
+            AudioManager.dialogueVolume = value;
 
             dialogueSliderText.text = ((int)(value * 100)).ToString();
             AudioManager.Instance.UpdateMixerVolume();

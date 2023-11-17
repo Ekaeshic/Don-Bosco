@@ -10,24 +10,6 @@ namespace DonBosco.Quests
         private string questId;
         private int stepIndex;
 
-        void OnEnable()
-        {
-            GameEventsManager.Instance.playerEvents.onChangeScene += OnSceneChange;
-        }
-
-        void OnDisable()
-        {
-            GameEventsManager.Instance.playerEvents.onChangeScene -= OnSceneChange;
-        }
-
-        private void OnSceneChange(string sceneName)
-        {
-            if(sceneName != scene)
-            {
-                Destroy(this.gameObject);
-            }
-        }
-
         public void InitializeQuestStep(string questId, int stepIndex, string questStepState)
         {
             this.questId = questId;

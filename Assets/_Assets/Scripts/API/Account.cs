@@ -46,11 +46,25 @@ namespace DonBosco.API
             {
                 foreach(EventLog log in logs)
                 {
+                    if(log.id_game == APIManager.ID_GAME)
+                    {
+                        continue;
+                    }
                     eventLogDict[new GameEvent(log.id_game, log.no_event)] = log;
-                    Debug.Log("Event log: " + log.id_game + " " + log.no_event + " " + log.status);
                 }
             }
-            Debug.Log("Event log count: " + eventLogDict.Count);
+        }
+
+        public bool CheckEventLog(GameEvent gameEvent, EventStatus status)
+        {
+            if(eventLogDict.ContainsKey(gameEvent))
+            {
+                return eventLogDict[gameEvent].status == status;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 

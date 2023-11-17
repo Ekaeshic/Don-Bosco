@@ -18,7 +18,7 @@ namespace DonBosco
         [SerializeField] private Button newGameButton;
         [SerializeField] private Button continueGameButton;
 
-        [SerializeField] UnityEvent onBackToMainMenu;
+        [SerializeField] public UnityEvent onBackToMainMenu;
 
         void Awake()
         {

@@ -31,11 +31,15 @@ namespace DonBosco
         private void OnEnable() 
         {
             SaveManager.Instance.Subscribe(this);
+
+            MainMenuManager.Instance.onBackToMainMenu.AddListener(FireChangeScene);
         }
 
         private void OnDisable() 
         {
             SaveManager.Instance.Unsubscribe(this);
+
+            MainMenuManager.Instance.onBackToMainMenu.RemoveListener(FireChangeScene);
         }
 
 
@@ -59,6 +63,12 @@ namespace DonBosco
         {
             loadScene.AddToLoad(sceneName);
             SetCurrentScene(sceneName);
+        }
+
+        public void BackToMainMenu()
+        {
+            currentScene = "";
+            FireChangeScene();
         }
 
         public void FireChangeScene()

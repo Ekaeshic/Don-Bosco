@@ -58,8 +58,8 @@ namespace DonBosco
                     SceneManager.UnloadSceneAsync("GAMEPLAY");
                 }
             }
-            SceneLoader.Instance.UnloadCurrentSceneInstantly();
             MainMenuManager.Instance.InitMainMenu();
+            SceneLoader.Instance.UnloadCurrentSceneInstantly();
         }
     }
 }

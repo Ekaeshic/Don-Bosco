@@ -32,7 +32,7 @@ namespace DonBosco.SaveSystem
             instance = this;
 
             //Try to load the game in the beginning
-            // HasSaveData = ReadSaveDataLocal();
+            HasSaveData = ReadSaveDataLocal();
 
             #if UNITY_EDITOR
             for(int i = 0; i < SceneManager.sceneCount; i++)
@@ -98,7 +98,7 @@ namespace DonBosco.SaveSystem
             else
             {
                 // If the player is logged in, delete the data from the file based on the account id
-                path = Application.persistentDataPath + currentAccountID + ".dat";
+                path = Application.persistentDataPath + "/" + currentAccountID + ".dat";
             }
 
             // Then delete the file
@@ -107,6 +107,10 @@ namespace DonBosco.SaveSystem
                 System.IO.File.Delete(path);
                 HasSaveData = false;
                 saveData = null;
+            }
+            else
+            {
+                Debug.LogError("Filesave to delete does not exist: "+ path);
             }
         }
 

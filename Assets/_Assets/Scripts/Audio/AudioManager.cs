@@ -16,6 +16,11 @@ namespace DonBosco.Audio
         [SerializeField] private Sound[] sounds;
         [SerializeField] private float fadeDuration = 1f;
 
+        
+        public static float musicVolume;
+        public static float soundEffectsVolume;
+        public static float dialogueVolume;
+
         private void Awake()
         {
             Instance = this;
@@ -41,11 +46,18 @@ namespace DonBosco.Audio
                 if (s.playOnAwake)
                     s.source.Play();
             }
+            musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
+            soundEffectsVolume = PlayerPrefs.GetFloat("SoundEffectsVolume", 1f);
+            dialogueVolume = PlayerPrefs.GetFloat("DialogueVolume", 1f);
         }
 
         void OnDisable()
         {
             DOTween.KillAll();
+
+            PlayerPrefs.SetFloat("MusicVolume", musicVolume);
+            PlayerPrefs.SetFloat("SoundEffectsVolume", soundEffectsVolume);
+            PlayerPrefs.SetFloat("DialogueVolume", dialogueVolume);
         }
 
         public void Play(string clipname)
@@ -108,9 +120,9 @@ namespace DonBosco.Audio
 
         public void UpdateMixerVolume()
         {
-            musicMixerGroup.audioMixer.SetFloat("Music Volume", Mathf.Log10(AudioOptionsManager.musicVolume) * 40);
-            soundEffectsMixerGroup.audioMixer.SetFloat("Sound Effects Volume", Mathf.Log10(AudioOptionsManager.soundEffectsVolume) * 40);
-            dialogueMixerGroup.audioMixer.SetFloat("Dialogue Volume", Mathf.Log10(AudioOptionsManager.dialogueVolume) * 40);
+            musicMixerGroup.audioMixer.SetFloat("Music Volume", Mathf.Log10(musicVolume) * 40);
+            soundEffectsMixerGroup.audioMixer.SetFloat("Sound Effects Volume", Mathf.Log10(soundEffectsVolume) * 40);
+            dialogueMixerGroup.audioMixer.SetFloat("Dialogue Volume", Mathf.Log10(dialogueVolume) * 40);
         }
     }    
 }

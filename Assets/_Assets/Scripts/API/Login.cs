@@ -139,12 +139,25 @@ namespace DonBosco.API
             {
                 // Error handling
                 string json = www.downloadHandler.text; //get the response as JSON string
-                LoginCallback loginCallback = JsonUtility.FromJson<LoginCallback>(json);
+
+                // Check connection error
+                if(string.IsNullOrEmpty(json))
+                {
+                    statusText.text = "Connection Error!";
+                    statusText.text += continueText;
+                    statusBG.raycastTarget = true;
+                    yield break;
+                }
+                else
+                {
+                    LoginCallback loginCallback = JsonUtility.FromJson<LoginCallback>(json);
 
 
-                statusText.text = "<size=56>" + loginCallback.message;
-                statusText.text += continueText;
-                statusBG.raycastTarget = true;
+                    statusText.text = "<size=56>" + loginCallback.message;
+                    statusText.text += continueText;
+                    statusBG.raycastTarget = true;
+                }
+                
 
                 
                 //dummy
@@ -155,7 +168,6 @@ namespace DonBosco.API
             {
                 statusText.text = "Logging in...";
                 string json = www.downloadHandler.text; //get the response as JSON string
-                Debug.Log(json);
 
                 //Convert JSON string to LoginCallback object
                 LoginCallback loginCallback = Newtonsoft.Json.JsonConvert.DeserializeObject<LoginCallback>(json);
@@ -224,6 +236,7 @@ namespace DonBosco.API
         /// <returns></returns>
         private IEnumerator PostGameLog()
         {
+            EventLog[] eventLogs = QuestManager.Instance.GetQuestEventsLog();
             Debug.Log("Posting game log...");
             List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
             formData.Add(new MultipartFormDataSection("id_game", APIManager.ID_GAME.ToString()));
@@ -247,7 +260,7 @@ namespace DonBosco.API
                 Debug.Log("Game log posted! ID: " + gameLog.id_log);
 
                 // Post the game event log to the server
-                StartCoroutine(GameEventLogRequest(QuestManager.Instance.GetQuestEventsLog(), gameLog.id_log));
+                StartCoroutine(GameEventLogRequest(eventLogs, gameLog.id_log));
             }
             else
             {
@@ -268,7 +281,6 @@ namespace DonBosco.API
         private IEnumerator GameEventLogRequest(EventLog[] eventLogs, int id_log)
         {
             Debug.Log("Posting game event log...");
-            Debug.Log("Event log count: " + eventLogs.Length);
             List<UnityWebRequest> wwws = new List<UnityWebRequest>();
             for(int i=0; i<eventLogs.Length; i++)
             {
