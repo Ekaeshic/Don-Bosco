@@ -65,6 +65,12 @@ namespace DonBosco
             SetCurrentScene(sceneName);
         }
 
+        public void ForceAddToLoad(string sceneName)
+        {
+            loadScene.ForceAddToLoad(sceneName);
+            SetCurrentScene(sceneName);
+        }
+
         public void BackToMainMenu()
         {
             currentScene = "";
@@ -84,6 +90,16 @@ namespace DonBosco
         public void ExecuteLoadScene(Action processAction = null, Action OnDone = null)
         {
             loadScene.ExecuteLoadScene(processAction, OnDone);
+        }
+
+        public void ReloadCurrentScene()
+        {
+            ExecuteLoadScene(() => 
+            {
+                UnloadCurrentSceneInstantly();
+                ForceAddToLoad(currentScene);
+            });
+            GameManager.ResumeGame();
         }
 
 

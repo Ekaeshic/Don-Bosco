@@ -49,7 +49,11 @@ namespace DonBosco
         public async void BackToMainMenu()
         {
             await Transition.FadeIn();
-            await SaveManager.Instance.SaveGame();
+            //Save game if in Explore mode, otherwise don't save
+            if(GameManager.GameMode == GameMode.Explore)
+            {
+                await SaveManager.Instance.SaveGame();
+            }
             for(int i = 0; i < SceneManager.sceneCount; i++)
             {
                 //Check if GAMEPLAY scene is already loaded
@@ -60,6 +64,14 @@ namespace DonBosco
             }
             MainMenuManager.Instance.InitMainMenu();
             SceneLoader.Instance.UnloadCurrentSceneInstantly();
+        }
+
+
+        public async void Retry()
+        {
+            await SaveManager.Instance.LoadGame();
+            GameManager.Retry();
+            SceneLoader.Instance.ReloadCurrentScene();
         }
     }
 }

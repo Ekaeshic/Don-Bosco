@@ -10,12 +10,19 @@ namespace DonBosco
     {
         private static GameState gameState = GameState.Pause;
         public static GameState GameState => gameState;
+        private static GameMode gameMode = GameMode.Explore;
+        public static GameMode GameMode => gameMode;
         
         #region Events
         public static event Action OnGamePause;
         public static event Action OnGamePlay;
         public static event Action OnEnterDialogue;
         public static event Action OnEnterCutscene;
+        public static event Action OnEnterGameOver;
+
+        public static event Action<GameMode> OnGameModeChange;
+
+        public static event Action OnRetry;
         #endregion
 
         
@@ -64,6 +71,29 @@ namespace DonBosco
             DonBosco.InputManager.Instance.SetUIActionMap(true);
             OnEnterCutscene?.Invoke();
         }
+
+        public static void SetGameOverState()
+        {
+            gameState = GameState.GameOver;
+            DonBosco.InputManager.Instance.SetMovementActionMap(false);
+            DonBosco.InputManager.Instance.SetUIActionMap(false);
+            OnEnterGameOver?.Invoke();
+        }
+
+
+
+        #region GameMode
+        public static void SetGameMode(GameMode mode)
+        {
+            gameMode = mode;
+            OnGameModeChange?.Invoke(mode);
+        }
+        #endregion
+
+        public static void Retry()
+        {
+            OnRetry?.Invoke();
+        }
     }
 
 
@@ -72,6 +102,13 @@ namespace DonBosco
         Play,
         Pause,
         Dialogue,
-        Cutscene
+        Cutscene,
+        GameOver
+    }
+
+    public enum GameMode
+    {
+        Explore,
+        Battle
     }
 }

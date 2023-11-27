@@ -42,6 +42,8 @@ namespace DonBosco.Character
             InputManager.Instance.OnAimPressed += OnAimPressed;
             GameEventsManager.Instance.playerEvents.onChangeScene += OnSceneChange;
             SaveManager.Instance.Subscribe(this);
+            GameManager.OnEnterGameOver += OnEnterGameOver;
+            GameManager.OnRetry += OnRetry;
         }
 
         void OnDisable()
@@ -49,6 +51,8 @@ namespace DonBosco.Character
             InputManager.Instance.OnAimPressed -= OnAimPressed;
             GameEventsManager.Instance.playerEvents.onChangeScene -= OnSceneChange;
             SaveManager.Instance.Unsubscribe(this);
+            GameManager.OnEnterGameOver -= OnEnterGameOver;
+            GameManager.OnRetry -= OnRetry;
         }
 
         void Update()
@@ -127,6 +131,32 @@ namespace DonBosco.Character
             previousAimPressed = false;
         }
         #endregion
+
+
+        private void OnEnterGameOver()
+        {
+            drawLine.RemoveLine();
+
+            //Reset cursor to center
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.None;
+
+            movementState = MovementState.Walking;
+            
+            //Hide the cursor when pressed, show it when released
+            Cursor.visible = true;
+            previousAimPressed = false;
+
+            //Player death
+            gameObject.GetComponent<Collider2D>().enabled = false;
+            gameObject.GetComponent<Rigidbody2D>().simulated = false;
+        }
+
+        private void OnRetry()
+        {
+            gameObject.GetComponent<Collider2D>().enabled = true;
+            gameObject.GetComponent<Rigidbody2D>().simulated = true;
+        }
 
 
 

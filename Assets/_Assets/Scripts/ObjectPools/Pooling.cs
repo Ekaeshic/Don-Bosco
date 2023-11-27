@@ -25,8 +25,33 @@ namespace DonBosco
             instance = this;
         }
 
+        void OnEnable()
+        {
+            GameManager.OnRetry += OnRetry;
+        }
+
+        void OnDisable()
+        {
+            GameManager.OnRetry -= OnRetry;
+            pool.Dispose();
+        }
+
 
         void Start()
+        {
+            InitializeBullet();
+        }
+
+
+
+        private void OnRetry()
+        {
+            pool.Dispose();
+            InitializeBullet();
+        }
+
+
+        private void InitializeBullet()
         {
             pool = new ObjectPool<Bullet>(() => {
                 return Instantiate(bulletPrefab);
@@ -50,13 +75,6 @@ namespace DonBosco
                 pool.Release(bullets[i]);
             }
         }
-
-        void OnDestroy()
-        {
-            pool.Dispose();
-        }
-
-
 
         public Bullet GetBullet(Action<Bullet> beforeGet = null)
         {

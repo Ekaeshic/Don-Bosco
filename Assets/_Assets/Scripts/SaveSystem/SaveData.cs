@@ -13,7 +13,7 @@ namespace DonBosco
         #region Player Data
         public Vector3 playerPosition;
         public string currentScene;
-        public int playerHealth;
+        public float playerHealth;
         public ItemData[] playerInventory;
         #endregion
 

@@ -126,6 +126,12 @@ namespace DonBosco.Character
 
         private void Engage()
         {
+            if(target == null)
+            {
+                isEngaging = false;
+                return;
+            }
+
             float distance = Vector2.Distance(startingPosition, target.position);
             if(distance >= fireRange)
             {

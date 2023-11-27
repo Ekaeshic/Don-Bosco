@@ -89,6 +89,14 @@ namespace DonBosco
                 Debug.LogWarning("Trying to unload a scene that is not loaded");
             }
         }
+
+        internal void ForceAddToLoad(string scene)
+        {
+            string sceneName = string.IsNullOrEmpty(scene) ? gameObject.name : scene;
+
+            //Load scene
+            asyncLoad.Add(SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive));
+        }
     }
 
 }
