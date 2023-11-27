@@ -28,12 +28,16 @@ namespace DonBosco.Character
         {
             SaveManager.Instance.Subscribe(this);
             GameManager.OnGameModeChange += OnGameModeChange;
+
+            GameEventsManager.Instance.playerEvents.onPlayerHeal += Heal;
         }
 
         void OnDisable()
         {
             SaveManager.Instance.Unsubscribe(this);
             GameManager.OnGameModeChange -= OnGameModeChange;
+
+            GameEventsManager.Instance.playerEvents.onPlayerHeal -= Heal;
         }
         #endregion
 
@@ -66,6 +70,16 @@ namespace DonBosco.Character
             currentHealth = health < 0 ? currentHealth = 0 : health > maxHealth ? maxHealth : health;
             healthSlider.value = currentHealth;
             healthSlider.maxValue = maxHealth;
+        }
+
+        private void Heal(float amount)
+        {
+            UpdateHealth(currentHealth + amount);
+
+            if(currentHealth <= 0)
+            {
+                Die();
+            }
         }
 
         private void Die()

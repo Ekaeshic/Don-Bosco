@@ -9,7 +9,6 @@ namespace DonBosco.UI
     {
         void OnEnable()
         {
-            Debug.Log("HealthUI enabled, game mode: " + GameManager.GameMode);
             if(GameManager.GameMode != GameMode.Battle)
             {
                 gameObject.SetActive(false);

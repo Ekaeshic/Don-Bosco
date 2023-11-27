@@ -11,6 +11,13 @@ namespace DonBosco.ItemSystem
         public Item prefab;
         public Sprite sprite;
 
+        [Header("Item Settings")]
+        public bool IsUsable = false;
+        public bool RemoveOnUse = false;
+        public float UseTime = 2f;
+        public string UseText = "Menggunakan ${itemName}...";
+        public string UseEffectText = "{itemName} digunakan!";
+
 
 
         private void OnValidate() {
@@ -18,6 +25,12 @@ namespace DonBosco.ItemSystem
             itemName = this.name;
             UnityEditor.EditorUtility.SetDirty(this);
             #endif
+        }
+
+        public virtual void Use()
+        {
+            // Remove item from inventory
+
         }
     }
 }

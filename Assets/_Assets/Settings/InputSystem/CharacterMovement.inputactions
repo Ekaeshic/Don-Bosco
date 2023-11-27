@@ -94,6 +94,15 @@
                     "processors": "NormalizeVector2",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "UseItem",
+                    "type": "Value",
+                    "id": "36b9a963-b34f-4294-972b-5527d26286e4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Hold",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -220,17 +229,6 @@
                 },
                 {
                     "name": "",
-                    "id": "23eaa3b2-30d4-4a90-a661-e6ac560d04c5",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "cec2c103-0ee4-43ba-a039-3820f4dbb28f",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -314,6 +312,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ScrollWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "23eaa3b2-30d4-4a90-a661-e6ac560d04c5",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

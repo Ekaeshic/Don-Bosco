@@ -20,6 +20,7 @@ namespace DonBosco.ItemSystem
 
         private ItemSlot selectedItem = null;
         private int selectedSlot = 0;
+        private Coroutine useItemCoroutine = null;
 
         private Dictionary<int, ItemSO> itemSODictionary = new Dictionary<int, ItemSO>();
 
@@ -27,6 +28,8 @@ namespace DonBosco.ItemSystem
         #region Events
         public event System.Action OnItemSlotChange;
         public event System.Action<int> OnSelectedItemSwitched;
+
+        public event System.Action<int, bool, bool> OnSelectedItemUsed;
         #endregion
         
 
@@ -60,6 +63,18 @@ namespace DonBosco.ItemSystem
             if(numKeysPressed > 0)
             {
                 SwitchSelectedItem(numKeysPressed-1);
+            }
+
+            //Use item
+            if(InputManager.Instance.GetUseItemPressed())
+            {
+                UseItem(selectedSlot);
+            }
+            else if(useItemCoroutine != null)
+            {
+                StopCoroutine(useItemCoroutine);
+                useItemCoroutine = null;
+                OnSelectedItemUsed?.Invoke(selectedSlot, false, false);
             }
 
             #if UNITY_EDITOR
@@ -153,7 +168,7 @@ namespace DonBosco.ItemSystem
             {
                 if(itemSlots[i] == null)
                 {
-                    ItemSlot itemSlot = new ItemSlot(item.ItemSO, 1);
+                    ItemSlot itemSlot = new ItemSlot(item.ItemSO);
                     itemSlots[i] = itemSlot;
                     item.transform.localPosition = Vector3.zero;
                     OnItemSlotChange?.Invoke();
@@ -247,6 +262,43 @@ namespace DonBosco.ItemSystem
             return count;
         }
 
+        #region Item Use
+        private void UseItem(int index)
+        {
+            if(itemSlots[index] == null)
+            {
+                return;
+            }
+            if(!itemSlots[index].itemSO.IsUsable)
+            {
+                return;
+            }
+            
+            if(useItemCoroutine == null)
+            {
+                useItemCoroutine = StartCoroutine(UseItemDelay(index, itemSlots[index].itemSO.UseTime));
+                OnSelectedItemUsed?.Invoke(index, true, false);
+            }
+            else
+            {
+                OnSelectedItemSwitched?.Invoke(selectedSlot);
+            }
+        }
+
+        private IEnumerator UseItemDelay(int index, float timer)
+        {
+            yield return new WaitForSeconds(timer);
+
+            itemSlots[index].itemSO.Use();
+            if(itemSlots[index].itemSO.RemoveOnUse)
+            {
+                itemSlots[index] = null;
+                OnItemSlotChange?.Invoke();
+            }
+            OnSelectedItemUsed?.Invoke(index, false, true);
+        }
+        #endregion
+
         #region Visuals
         [Header("Visuals")]
         [SerializeField] private Transform itemSelectedVisualPos;
@@ -324,7 +376,7 @@ namespace DonBosco.ItemSystem
                     if(saveData.playerInventory[i] != null && saveData.playerInventory[i].itemHash != 0)
                     {
                         ItemSO itemSO = itemSODictionary[saveData.playerInventory[i].itemHash];
-                        savedItems[i] = new ItemSlot(itemSO, saveData.playerInventory[i].amount);
+                        savedItems[i] = new ItemSlot(itemSO);
                     }
                 }
             }

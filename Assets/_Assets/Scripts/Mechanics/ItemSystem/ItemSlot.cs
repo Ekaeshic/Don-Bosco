@@ -4,17 +4,18 @@ using UnityEngine;
 
 namespace DonBosco.ItemSystem
 {
+    /// <summary>
+    /// ItemSlot is a serializable class that holds the item and the amount of the item
+    /// </summary>
     [System.Serializable]
     public class ItemSlot
     {
         // public Item item;
         public ItemSO itemSO;
-        public int amount;
         
-        public ItemSlot(ItemSO itemSO, int amount)
+        public ItemSlot(ItemSO itemSO)
         {
             this.itemSO = itemSO;
-            this.amount = amount;
         }
 
         public ItemData GetItemData()
@@ -23,28 +24,12 @@ namespace DonBosco.ItemSystem
             {
                 return null;
             }
-            return new ItemData(itemSO.name, amount);
+            return new ItemData(itemSO.name);
         }
 
         public void SetItemData(ItemData itemData)
         {
             itemSO = Resources.Load<ItemSO>(itemData.itemHash.ToString());
-            amount = itemData.amount;
-        }
-
-        public void AddAmount(int amount)
-        {
-            this.amount += amount;
-        }
-
-        public void RemoveAmount(int amount)
-        {
-            this.amount -= amount;
-        }
-
-        public void SetAmount(int amount)
-        {
-            this.amount = amount;
         }
     }
 }

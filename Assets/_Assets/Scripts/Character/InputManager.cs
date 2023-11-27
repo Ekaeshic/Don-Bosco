@@ -25,6 +25,7 @@ namespace DonBosco
         private bool pickupPressed = false;
         private bool dropPressed = false;
         private int numkeysPressed = 0;
+        private bool useItemPressed = false;
         private float scrollWheelValue = 0f;
 
         private bool submitPressed = false;
@@ -52,17 +53,6 @@ namespace DonBosco
             playerInput = GetComponent<PlayerInput>(); 
             movementActionMap = playerInput.actions.FindActionMap("Movement");
             UIactionMap = playerInput.actions.FindActionMap("UI");
-        }
-
-        public static async Task<InputManager> GetInstanceOnEnable()
-        {
-            int waitFrame = 10;
-            while(instance == null && waitFrame > 0)
-            {
-                await Task.Delay(100);
-                waitFrame--;
-            }
-            return instance;
         }
 
         #region Input
@@ -116,6 +106,11 @@ namespace DonBosco
             Vector2 temp = value.Get<Vector2>();
             scrollWheelValue = temp.y;
         }
+
+        public void OnUseItem(InputValue value)
+        {
+            useItemPressed = value.isPressed;
+        }
         #endregion
 
 
@@ -154,6 +149,11 @@ namespace DonBosco
         public float GetScrollWheelValue()
         {
             return scrollWheelValue;
+        }
+
+        public bool GetUseItemPressed()
+        {
+            return useItemPressed;
         }
 
 

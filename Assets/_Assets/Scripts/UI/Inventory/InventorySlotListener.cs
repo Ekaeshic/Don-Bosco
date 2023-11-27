@@ -5,6 +5,7 @@ using DG.Tweening;
 
 using DonBosco.ItemSystem;
 using System;
+using TMPro;
 
 namespace DonBosco.UI
 {
@@ -14,6 +15,8 @@ namespace DonBosco.UI
         [Header("UI Fade")]
         [SerializeField] private float visibleTime = 3f;
         [SerializeField] private float fadeTime = 1f;
+        [Header("References")]
+        [SerializeField] private TMP_Text usingText;
 
 
         private ItemSlot[] itemSlots;
@@ -21,11 +24,15 @@ namespace DonBosco.UI
         private int dropItemIndex = -1;
         private InventorySlotUI[] inventorySlotUIs;
         private CanvasGroup canvasGroup;
+        private ItemSO lastUsedItem;
 
         Tween fadeTween;
+        Coroutine showItemEffectTextCoroutine;
 
         private float visibleTimer = 0f;
 
+
+        #region MonoBehaviour
         private void Awake() 
         {
             inventorySlotUIs = GetComponentsInChildren<InventorySlotUI>();
@@ -42,22 +49,25 @@ namespace DonBosco.UI
             itemSlots = Inventory.Instance.ItemSlots;
             Inventory.Instance.OnItemSlotChange += ItemChanged;
             Inventory.Instance.OnSelectedItemSwitched += SelectedItemSwitch;
+            Inventory.Instance.OnSelectedItemUsed += SelectedItemUsed;
         }
 
         private void OnDisable() 
         {
             fadeTween?.Kill();
-            Inventory.Instance.OnItemSlotChange -= UpdateUI;
-            Inventory.Instance.OnSelectedItemSwitched -= UpdateSelectedUI;
+            Inventory.Instance.OnItemSlotChange -= ItemChanged;
+            Inventory.Instance.OnSelectedItemSwitched -= SelectedItemSwitch;
+            Inventory.Instance.OnSelectedItemUsed -= SelectedItemUsed;
         }
 
         void Update()
         {
             DeteroriateUI();
         }
+        #endregion
 
 
-
+        #region Subscribers
         private void ItemChanged()
         {
             UpdateUI();
@@ -68,6 +78,61 @@ namespace DonBosco.UI
         {
             UpdateSelectedUI(obj);
             WakeUI();
+        }
+        
+        private void SelectedItemUsed(int index, bool status, bool success)
+        {
+            ItemSlot[] itemSlots = Inventory.Instance.ItemSlots;
+            Debug.Log(lastUsedItem);
+            if(success)
+            {
+                inventorySlotUIs[index].UseDone();
+                if(showItemEffectTextCoroutine != null)
+                {
+                    StopCoroutine(showItemEffectTextCoroutine);
+                }
+                showItemEffectTextCoroutine = StartCoroutine(ShowItemEffectText(lastUsedItem.UseEffectText));
+            }
+            //Start or cancel use animation
+            if(status)
+            {
+                // Null check for itemSO
+                if(itemSlots[index] != null)
+                {
+                    lastUsedItem = itemSlots[index].itemSO;
+                }
+
+                //Play use animation
+                inventorySlotUIs[index].Use();
+
+                // Show using text
+                if(itemSlots[index].itemSO != null)
+                {
+                    usingText.gameObject.SetActive(true);
+                    usingText.text = itemSlots[index].itemSO.UseText;
+                }
+            }
+            else
+            {
+                //Cancel animation
+                inventorySlotUIs[index].UseDone();
+
+                // Hide using text
+                if(showItemEffectTextCoroutine == null)
+                {
+                    usingText.gameObject.SetActive(false);
+                }
+            }
+        }
+        #endregion
+
+        private IEnumerator ShowItemEffectText(string text)
+        {
+            usingText.gameObject.SetActive(true);
+            usingText.text = text;
+            yield return new WaitForSeconds(4f);
+            usingText.gameObject.SetActive(false);
+            showItemEffectTextCoroutine = null;
         }
 
         private void DeteroriateUI()
@@ -121,6 +186,8 @@ namespace DonBosco.UI
             }
         }
 
+
+        #region EventSystem
         public void OnBeginDrag(int index)
         {
             draggedItemIndex = index;
@@ -144,5 +211,6 @@ namespace DonBosco.UI
         {
             Inventory.Instance.SwapItemSlot(draggedItemIndex, dropItemIndex);
         }
+        #endregion
     }
 }

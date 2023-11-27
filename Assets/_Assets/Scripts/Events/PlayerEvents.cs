@@ -34,5 +34,14 @@ namespace DonBosco
                 onItemDrop(item);
             }
         }
+
+        public event Action<float> onPlayerHeal;
+        public void PlayerHeal(float healAmount)
+        {
+            if (onPlayerHeal != null)
+            {
+                onPlayerHeal(healAmount);
+            }
+        }
     }
 }

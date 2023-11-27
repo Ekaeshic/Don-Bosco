@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 using DG.Tweening;
 using DonBosco.ItemSystem;
+using System;
 
 namespace DonBosco.UI
 {
@@ -20,7 +21,10 @@ namespace DonBosco.UI
         private RectTransform draggedItem;
         private GameObject draggedItemGO;
         private bool isEmpty = true;
-    
+
+        //Dotween sequence
+        private Tween useTween;
+        
         private const string SELECTED_COLOR = "#3D3D3D";
         private const string UNSELECTED_COLOR = "#909090";
 
@@ -117,6 +121,20 @@ namespace DonBosco.UI
             //Tween the scale of the item
             if(itemImage != null)
                 itemImage.rectTransform.DOScale(1f, 0.2f);
+        }
+
+        internal void Use()
+        {
+            //Play use animation
+            // Declare Assign the tween to a variable so you can modify it or stop it.
+            useTween = itemImage.rectTransform.DOScale(1.2f, 0.2f);
+        }
+
+        internal void UseDone()
+        {
+            //Cancel animation
+            useTween?.Kill();
+            itemImage.rectTransform.DOScale(1f, 0.2f);
         }
         #endregion
     }

@@ -62,6 +62,7 @@ namespace DonBosco
                     SceneManager.UnloadSceneAsync("GAMEPLAY");
                 }
             }
+            GameManager.SetGameMode(GameMode.Explore);
             MainMenuManager.Instance.InitMainMenu();
             SceneLoader.Instance.UnloadCurrentSceneInstantly();
         }

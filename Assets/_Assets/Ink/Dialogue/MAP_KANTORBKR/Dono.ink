@@ -14,4 +14,9 @@ Hm? Saya Dono. Ada apa bung?
     Terima kasih sekali lagi.
     #speaker:Karman #portrait:null #audio:alphabet
     Sama-sama bung.
+    #speaker:Dono #portrait:null #audio:pak_karto
+    Eh, tunggu sebentar bung!
+    Seperti biasa, Ibu selalu memberikan bekal terlalu banyak.
+    Ini untuk bung, mohon diterima.
+    * * [Terima bekal dari Dono]
 -> END
