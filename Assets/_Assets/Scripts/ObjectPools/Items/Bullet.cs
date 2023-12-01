@@ -34,6 +34,12 @@ namespace DonBosco
             {
                 Pooling.Instance.ReturnBullet(this);
             }
+            
+            //Destroy the bullet if the owner is dead
+            if(owner == null)
+            {
+                Pooling.Instance.ReturnBullet(this);
+            }
         }
 
         void FixedUpdate()
@@ -54,7 +60,7 @@ namespace DonBosco
                 IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
                 if(damageable != null)
                 {
-                    damageable.TakeDamage(damage);
+                    damageable.TakeDamage(damage, owner);
                 }
             }
             Pooling.Instance.ReturnBullet(this);

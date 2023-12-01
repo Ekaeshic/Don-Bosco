@@ -458,11 +458,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5602865564561664213, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 38.53785
+      value: 39.48
       objectReference: {fileID: 0}
     - target: {fileID: 5602865564561664213, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.061358
+      value: 2.86
       objectReference: {fileID: 0}
     - target: {fileID: 5602865564561664213, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -38793,11 +38793,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5602865564561664213, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 27.190483
+      value: 19.98
       objectReference: {fileID: 0}
     - target: {fileID: 5602865564561664213, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2138538
+      value: 5.23
       objectReference: {fileID: 0}
     - target: {fileID: 5602865564561664213, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -39326,11 +39326,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5602865564561664213, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.866604
+      value: 21.81
       objectReference: {fileID: 0}
     - target: {fileID: 5602865564561664213, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.6854386
+      value: 0.56
       objectReference: {fileID: 0}
     - target: {fileID: 5602865564561664213, guid: 988a61ce54cbee34c9e84efe5bcd324d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -49573,8 +49573,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 955
   firePoint: {fileID: 9195448469853762348}
+  adjacentAlliesRange: 0.5
   scanRange: 13
   fireRange: 15
+  unpreferedRange: 0.5
   aimDelay: 1
 --- !u!1 &6967566630062529659
 GameObject:

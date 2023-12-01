@@ -55,7 +55,7 @@ namespace DonBosco.Character
             }
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, GameObject source = null)
         {
             UpdateHealth(currentHealth - damage);
 

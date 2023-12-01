@@ -89,10 +89,10 @@ namespace DonBosco.Character
             currentState = state;
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, GameObject source = null)
         {
             healthSO.TakeDamage(damage);
-            gameObject.GetComponent<NPCAttack>().GetAttacked();
+            gameObject.GetComponent<NPCAttack>().GetAttacked(source);
         }
     }
 

@@ -9,12 +9,17 @@ namespace DonBosco.Character
     [RequireComponent(typeof(NavMeshAgent))]
     public class NPCAttack : MonoBehaviour
     {
-        [SerializeField] private LayerMask attackLayer = ~0;
+        [Tooltip("The layer that the NPC will attack")]
+        [SerializeField] private LayerMask attackLayer = ~0; 
+        [Tooltip("The layer that the NPC will check if the target is clear")]
         [SerializeField] private LayerMask rayLayer = ~0;
         [SerializeField] private Transform firePoint = null;
+        [SerializeField] private float adjacentAlliesRange = 0.5f;
         [Header("Settings")]
         [SerializeField] private float scanRange = 1f;
         [SerializeField] private float fireRange = 2f;
+        [Tooltip("The range that the NPC will step back to if the target is too close")]
+        [SerializeField] private float unpreferedRange = 0.5f;
         [SerializeField] private float aimDelay = 1f;
 
         private NavMeshAgent agent;
@@ -22,7 +27,7 @@ namespace DonBosco.Character
         private bool isAlert = false;
         private bool isEngaging = false;
         private bool isAiming = false;
-        private Vector3 startingPosition;
+        private Vector3 bulletSpawnPos;
         private Collider2D[] hit = new Collider2D[10]; //You can change the size of this array if you need to
         private RaycastHit2D[] rayHit = new RaycastHit2D[10];
         private Transform target;
@@ -38,7 +43,7 @@ namespace DonBosco.Character
 
         private void Update() 
         {
-            startingPosition = firePoint.position;
+            bulletSpawnPos = firePoint.position;
             if(isAlert)
             {
                 Attack();
@@ -60,10 +65,16 @@ namespace DonBosco.Character
         #endregion
 
 
-        public void GetAttacked()
+        public void GetAttacked(GameObject source)
         {
             isAlert = true;
-            FindAttackable(fireRange);
+            //Check if the source is within scan range
+            float distance = Vector2.Distance(bulletSpawnPos, source.transform.position);
+            if(distance <= scanRange)
+            {
+                target = source.transform;
+                isEngaging = true;
+            }
         }
 
         public void SetAlert(bool alert)
@@ -75,6 +86,7 @@ namespace DonBosco.Character
         {
             if(!isEngaging)
             {
+                GetComponent<NPCNavMovement>()?.ReleaseControl();
                 FindAttackable(scanRange);
 
                 //Clear the overlap alloc (this is important)
@@ -105,7 +117,7 @@ namespace DonBosco.Character
 
             agent.isStopped = true;
             //Rotate towards the target
-            Vector2 direction = target.position - startingPosition;
+            Vector2 direction = target.position - bulletSpawnPos;
             float angle = Vector2.SignedAngle(Vector2.up, direction);
             GetComponent<NPCNavMovement>()?.ForceFaceIdle(direction.normalized);
             
@@ -113,10 +125,10 @@ namespace DonBosco.Character
             if(aimTimer >= aimDelay)
             {
                 //Check if the target is within fire range
-                float distance = Vector2.Distance(startingPosition, target.position);
+                float distance = Vector2.Distance(bulletSpawnPos, target.position);
                 if(distance <= fireRange)
                 {
-                    GetComponent<CharacterAttack>().Attack(angle, startingPosition);
+                    GetComponent<CharacterAttack>().Attack(angle, bulletSpawnPos);
                 }
                 aimTimer = 0f;
                 isAiming = false;
@@ -132,18 +144,24 @@ namespace DonBosco.Character
                 return;
             }
 
-            float distance = Vector2.Distance(startingPosition, target.position);
-            if(distance >= fireRange)
-            {
-                FollowTarget();
-                return;
-            }
-            
+            float distance = Vector2.Distance(bulletSpawnPos, target.position);
             bool isClear = IsRayToTargetClear();
-            if(isClear)
+            Transform adjacentAlly = IsNoAdjacentAllies(adjacentAlliesRange);
+            if(isClear && distance <= fireRange)
             {
-                isAiming = true;
-                aimTimer = 0f;
+                if(!IsPreferredRange())
+                {
+                    StepBackFrom(target.position, 1f);
+                }
+                else
+                {
+                    isAiming = true;
+                    aimTimer = 0f;
+                }
+            }
+            else if(adjacentAlly != null)
+            {
+                StepBackFrom(adjacentAlly.position, 0.6f);
             }
             else
             {
@@ -158,17 +176,38 @@ namespace DonBosco.Character
             agent.isStopped = false;
         }
 
+        private void StepBackFrom(Vector3 objectPos, float distanceMultiplier)
+        {
+            Vector3 direction = bulletSpawnPos - objectPos;
+            Vector2 destination = bulletSpawnPos + direction.normalized * unpreferedRange * distanceMultiplier;
+            //Check if the destination is within the navmesh
+            NavMeshHit hit;
+            if(NavMesh.SamplePosition(destination, out hit, 1f, NavMesh.AllAreas))
+            {
+                agent.SetDestination(hit.position);
+            }
+            else
+            {
+                agent.SetDestination(destination);
+            }
+            agent.isStopped = false;
+        }
+
+        /// <summary>
+        /// Find the nearest attackable target within the range
+        /// </summary>
+        /// <param name="range"></param>
         private void FindAttackable(float range)
         {
-            int numHits = Physics2D.OverlapCircleNonAlloc(startingPosition, range, hit, attackLayer);
+            int hits = Physics2D.OverlapCircleNonAlloc(bulletSpawnPos, range, hit, attackLayer);
             GameObject nearestObject = null;
             float nearestDistance = Mathf.Infinity;
 
-            if(numHits > 0)
+            if(hits > 0)
             {
-                for(int i = 0; i < numHits; i++)
+                for(int i = 0; i < hits; i++)
                 {
-                    float distance = Vector2.Distance(startingPosition, hit[i].transform.position);
+                    float distance = Vector2.Distance(bulletSpawnPos, hit[i].transform.position);
                     if(distance < nearestDistance)
                     {
                         nearestDistance = distance;
@@ -183,14 +222,22 @@ namespace DonBosco.Character
 
         private bool IsRayToTargetClear()
         {
-            float distance = Vector2.Distance(startingPosition, target.position);
-            Vector2 direction = target.position - startingPosition;
+            float distance = Vector2.Distance(bulletSpawnPos, target.position);
+            Vector2 direction = target.position - bulletSpawnPos;
             //Check if the target is clear from obstacles and visible to aim
-            int numHits = Physics2D.RaycastNonAlloc(startingPosition, direction, rayHit , distance, rayLayer);
+            int numHits = Physics2D.RaycastNonAlloc(bulletSpawnPos, direction, rayHit , distance, rayLayer);
+            // int numHits = Physics2D.CircleCastNonAlloc(bulletSpawnPos, circleCastRadius, direction, rayHit, distance, rayLayer);
             for(int i = 0; i < numHits; i++)
             {
+                //Check if the ray is hitting itself
+                if(rayHit[i].transform == transform || attackLayer == (attackLayer | (1 << rayHit[i].transform.gameObject.layer)))
+                {
+                    continue;
+                }
+
                 if(rayHit[i].transform != target)
                 {
+                    Debug.Log($"{gameObject.name} is blocked by {rayHit[i].transform.name}");
                     System.Array.Clear(rayHit, 0, rayHit.Length);
                     return false;
                 }
@@ -199,9 +246,45 @@ namespace DonBosco.Character
             return true;
         }
 
+        private Transform IsNoAdjacentAllies(float range)
+        {
+            int hits = Physics2D.OverlapCircleNonAlloc(bulletSpawnPos, range, hit, rayLayer);
+            if(hits > 0)
+            {
+                for(int i = 0; i < hits; i++)
+                {
+                    if(hit[i].transform == transform)
+                    {
+                        continue;
+                    }
+                    if(hit[i].transform.gameObject.layer == gameObject.layer)
+                    {
+                        return hit[i].transform;
+                    }
+                }
+            }
+            return null;
+        }
+        
+        /// <summary>
+        /// Check if the target is within the preferred range
+        /// </summary>
+        /// <returns></returns>
+        private bool IsPreferredRange()
+        {
+            float distance = Vector2.Distance(bulletSpawnPos, target.position);
+            if(distance <= unpreferedRange)
+            {
+                return false;
+            }
+            return true;
+        
+        }
+
 
         private void OnDrawGizmos() 
         {
+            //Draw scan range
             Gizmos.color = Color.red;
             if(isEngaging)
             {
@@ -210,6 +293,21 @@ namespace DonBosco.Character
             else
             {
                 Gizmos.DrawWireSphere(transform.position, scanRange);
+            }
+
+            //Draw fire line circle cast
+            if(target != null)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawLine(bulletSpawnPos, target.position);
+                Gizmos.DrawWireSphere(bulletSpawnPos, adjacentAlliesRange);
+            }
+
+            //Draw path
+            if(agent != null)
+            {
+                Gizmos.color = Color.blue;
+                Gizmos.DrawLine(transform.position, agent.destination);
             }
         }
     }

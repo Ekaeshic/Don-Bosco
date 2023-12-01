@@ -229,10 +229,12 @@ MonoBehaviour:
     m_Bits: 1032
   rayLayer:
     serializedVersion: 2
-    m_Bits: 1691
+    m_Bits: 1947
   firePoint: {fileID: 1965575353783641525}
-  scanRange: 13
+  adjacentAlliesRange: 1
+  scanRange: 45
   fireRange: 15
+  unpreferedRange: 8
   aimDelay: 1
 --- !u!114 &3736398635056730040
 MonoBehaviour:
