@@ -139,12 +139,14 @@ namespace DonBosco.Dialogue
 
         public void PauseTimeline()
         {
-            currentPlayableDirector.Pause();
+            // currentPlayableDirector.Pause();
+            currentPlayableDirector.playableGraph.GetRootPlayable(0).SetSpeed(0);
         }
 
         public void ResumeTimeline()
         {
-            currentPlayableDirector.Resume();
+            // currentPlayableDirector.Resume();
+            currentPlayableDirector.playableGraph.GetRootPlayable(0).SetSpeed(1);
         }
     }
 }
