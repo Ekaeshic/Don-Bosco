@@ -2798,7 +2798,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Perebutan Gudang Senjata
+  m_text: 'Penyerangan Gudang Senjata
 
     Don Bosco'
   m_isRightToLeft: 0

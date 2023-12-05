@@ -112,7 +112,7 @@ namespace DonBosco.Character
                 }
             }
 
-            if(nearestObject != null)
+            if(nearestObject != null && GameManager.GameState == GameState.Play)
             {
                 //Spawn the hint prefab above the object
                 if(spawnedHint == null || nearestObject != selectedObject && hintPrefab != null )
