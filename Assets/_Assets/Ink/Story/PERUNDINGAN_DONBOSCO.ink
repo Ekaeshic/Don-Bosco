@@ -21,7 +21,7 @@ Atau kami akan merebut gudang senjata Don Bosco ini, secara paksa dengan kekeras
 Bung Tomo mulai menerjemahkan ucapan Jasin kepada Mayor Hashimoto menggunakan bahasa Jepang.
 Ucapan Bung Tomo terdengar sangat keras, penuh dengan ambisi dan keseriusan.
 Semua orang yang mendengarnya merasakan semangat Bung Tomo dalam menyampaikan pesannya.
-#speaker:Mayor Hashimoto #audio:celeste_low #portrait:null
+#speaker:Mayor Hashimoto #audio:celeste_low #portrait:jepang
 ...
 Baiklah.
 Kami akan menyerahkan persediaan senjata kami.

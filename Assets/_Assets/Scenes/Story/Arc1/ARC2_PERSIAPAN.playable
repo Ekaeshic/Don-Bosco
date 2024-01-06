@@ -83,7 +83,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue: {fileID: 4900000, guid: 80710dd8ac647de4494ab850320a6f4b, type: 3}
   knotPath: part5
-  pauseOnEnd: 0
 --- !u!114 &-6328224736166215475
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -607,7 +606,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue: {fileID: 4900000, guid: 80710dd8ac647de4494ab850320a6f4b, type: 3}
   knotPath: part4
-  pauseOnEnd: 0
 --- !u!114 &-3419186370322408628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -622,7 +620,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue: {fileID: 4900000, guid: 80710dd8ac647de4494ab850320a6f4b, type: 3}
   knotPath: part1
-  pauseOnEnd: 0
 --- !u!114 &-3185461359279605259
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -675,7 +672,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue: {fileID: 4900000, guid: 80710dd8ac647de4494ab850320a6f4b, type: 3}
   knotPath: part6
-  pauseOnEnd: 0
 --- !u!114 &-2306305621618284807
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1920,7 +1916,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue: {fileID: 4900000, guid: 80710dd8ac647de4494ab850320a6f4b, type: 3}
   knotPath: part7
-  pauseOnEnd: 0
 --- !u!114 &2902454306917828445
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2324,7 +2319,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue: {fileID: 4900000, guid: 80710dd8ac647de4494ab850320a6f4b, type: 3}
   knotPath: part3
-  pauseOnEnd: 0
 --- !u!114 &5248341216656907603
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2883,7 +2877,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue: {fileID: 4900000, guid: 80710dd8ac647de4494ab850320a6f4b, type: 3}
   knotPath: part2
-  pauseOnEnd: 1
 --- !u!114 &6537425176355408800
 MonoBehaviour:
   m_ObjectHideFlags: 1

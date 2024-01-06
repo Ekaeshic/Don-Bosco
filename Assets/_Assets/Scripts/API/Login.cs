@@ -276,8 +276,6 @@ namespace DonBosco.API
         /// </summary>
         /// <param name="eventLogs"></param>
         /// <returns></returns>
-        /// SUBJECT TO CHANGE, Sementara kurang lebih seperti ini
-        /// Iki gk efisien dadi haruse diubah, tapi haruse gk digae tiap request dipost dewe-dewe koyok ngene. Iki meloki ferry
         private IEnumerator GameEventLogRequest(EventLog[] eventLogs, int id_log)
         {
             Debug.Log("Posting game event log...");
@@ -291,6 +289,44 @@ namespace DonBosco.API
                 formData.Add(new MultipartFormDataSection("status_event", eventLogs[i].status.ToString()));
 
                 UnityWebRequest www = UnityWebRequest.Post(APIManager.baseURL + "create_gameevent.php", formData);
+                wwws.Add(www);
+            }
+
+            foreach(UnityWebRequest www in wwws)
+            {
+                yield return www.SendWebRequest();
+
+                if(www.result != UnityWebRequest.Result.Success)
+                {
+                    Debug.Log(www.error);
+                }
+                else
+                {
+                    string json = www.downloadHandler.text; //get the response as JSON string
+                    Debug.Log(json);
+                }
+            }
+
+            // If the request is successful, just quit the game if the player is trying to quit
+            TryToQuit();
+        }
+
+
+
+        private IEnumerator PostQuizRequest()
+        {
+            QuizLog[] quizLogs = QuizManager.Instance.GetQuizLogs();
+            Debug.Log("Posting Quiz log...");
+            List<UnityWebRequest> wwws = new List<UnityWebRequest>();
+            for(int i=0; i<quizLogs.Length; i++)
+            {
+                List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+                formData.Add(new MultipartFormDataSection("id_game", APIManager.ID_GAME.ToString()));
+                formData.Add(new MultipartFormDataSection("id_player", APIManager.Instance.account.id_player));
+                formData.Add(new MultipartFormDataSection("no_quiz", quizLogs[i].no_quiz.ToString()));
+                formData.Add(new MultipartFormDataSection("score", quizLogs[i].score.ToString()));
+
+                UnityWebRequest www = UnityWebRequest.Post(APIManager.baseURL + "create_logquiz.php", formData);
                 wwws.Add(www);
             }
 

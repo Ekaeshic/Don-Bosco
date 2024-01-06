@@ -74,7 +74,7 @@ namespace DonBosco.UI
 
 
         #region Screen UI
-        private void HideScreenUI()
+        public void HideScreenUI()
         {
             for(int i = 0; i < uiScreen.Count; i++)
             {
@@ -82,7 +82,7 @@ namespace DonBosco.UI
             }
         }
 
-        private void ShowScreenUI()
+        public void ShowScreenUI()
         {
             for (int i = 0; i < uiScreen.Count; i++)
             {

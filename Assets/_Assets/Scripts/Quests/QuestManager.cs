@@ -171,6 +171,7 @@ namespace DonBosco.Quests
 
         private Dictionary<string, Quest> CreateQuestMap()
         {
+            Debug.Log("Creating Quest Map");
             // loads all QuestInfoSO Scriptable Objects under the Assets/Resources/Quests folder
             allQuests = Resources.LoadAll<QuestInfoSO>("Quests");
             // Create the quest map

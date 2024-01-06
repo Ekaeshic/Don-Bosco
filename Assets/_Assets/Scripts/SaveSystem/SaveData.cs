@@ -27,6 +27,11 @@ namespace DonBosco
         public QuestData[] questData;
         #endregion
 
+
+        #region Quiz
+        public int[] quizAnswers;
+        #endregion
+
         
 
         #region Analytics
