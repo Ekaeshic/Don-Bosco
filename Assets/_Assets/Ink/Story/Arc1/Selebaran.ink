@@ -10,7 +10,7 @@ Menghimbau bahwa akan datangnya pasukan sekutu di Kota Surabaya, dan menyarankan
 Pada kertas tersebut tertulis maksud kedatangan pasukan sekutu yaitu untuk membawa interniran Belanda pulang.
 Secara sekilas, terlihat bahwa pada pesan tersebut disampaikan dengan niat yang baik dan tidak ada skema terselubung.
 Tetap saja terasa ada yang janggal dan firasat yang buruk mengenai himbauan tersebut.
-#speaker:Karman #portrait:null #audio:alphabet
+#speaker:Karman #portrait:karman #audio:alphabet
 (Hmm... Aku harus melaporkan ini.)
 (Sepertinya Aku harus pergi ke kantor BKR.)
 ~ readSelebaranOnce = true

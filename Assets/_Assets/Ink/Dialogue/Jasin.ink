@@ -9,14 +9,14 @@ Selamat siang, ada yang bisa saya bantu bung?
 Selamat siang, ada yang bisa saya bantu bung?
 * [Ada pesawat Belanda membagikan selebaran]
 -
-#speaker:Karman #portrait:null #audio:alphabet
+#speaker:Karman #portrait:karman #audio:alphabet
 Selamat siang bung, Baru saja ada pesawat Belanda membagikan selebaran di langit Surabaya.
 #speaker:Moh. Jasin #audio:m_yasin #portrait:m_yasin
 Ya. Saya sudah mendengar kabar tersebut.
 Sepertinya pasukan sekutu akan datang ke Surabaya.
 Tapi Saya belum membacanya isi selebarannya.
 Apakah bung mempunyai kertas selebarannya?
-#speaker:Karman #portrait:null #audio:alphabet
+#speaker:Karman #portrait:karman #audio:alphabet
 Ya, saya membawanya.
 * [Berikan selebaran]
 -
@@ -28,7 +28,7 @@ Hmm, menjemput para interniran?
 Kita harus mengadakan rapat mengenai hal ini.
 Hei! panggil para atasan BKR untuk berkumpul sore ini.
 Oh, panggil juga Bung Tomo.
-#speaker:Prajurit Gelisah #portrait:null #audio:pak_karto
+#speaker:Prajurit Gelisah #portrait:pejuang #audio:pak_karto
 Baik pak!
 #speaker:Moh. Jasin #audio:m_yasin #portrait:m_yasin
 ...
@@ -66,7 +66,7 @@ Baiklah, bung Karman. Sepertinya bung kesini tidak hanya untuk memberikan seleba
 * [Saya kesini untuk bergabung]
     -> Gabung
 = Gabung
-#speaker:Karman #portrait:null #audio:alphabet
+#speaker:Karman #portrait:karman #audio:alphabet
 Saya adalah mantan anggota pasukan PETA di Blitar.
 Saya kesini untuk bergabung menjadi anggota BKR.
 #speaker:Moh. Jasin #audio:m_yasin #portrait:m_yasin
@@ -75,7 +75,7 @@ Hahaha! Baiklah. Dengan semangat itu, bagaimana mungkin saya menolakmu.
 Dengan ini, karena bung juga yang telah memberitahuku mengenai selebaran itu.
 Hari ini, bung telah menjadi anggota BKR secara resmi.
 Saya harap nanti bung siap untuk mengikuti rapat untuk membahas tindak lanjut atas selebaran ini.
-#speaker:Karman #portrait:null #audio:alphabet
+#speaker:Karman #portrait:karman #audio:alphabet
 Ya! Terima kasih atas pertimbangannya.
 #speaker:Moh. Jasin #audio:m_yasin #portrait:m_yasin
 Bicaralah padaku apabila bung telah siap untuk mengikuti rapat ini.
@@ -121,14 +121,14 @@ Bagaimana? Apakah bung telah siap untuk mengikuti rapat ini?
 === PesawatSelebaran ===
 #speaker:Moh. Jasin #audio:m_yasin #portrait:m_yasin
 Selamat siang, ada yang bisa saya bantu bung?
-#speaker:Karman #portrait:null #audio:alphabet
+#speaker:Karman #portrait:karman #audio:alphabet
 Selamat siang bung, Baru saja ada pesawat Belanda membagikan selebaran di langit Surabaya.
 #speaker:Moh. Jasin #audio:m_yasin #portrait:m_yasin
 Ya. Saya sudah mendengar kabar tersebut.
 Sepertinya pasukan sekutu akan datang ke Surabaya.
 Tapi Saya belum membacanya isi selebarannya.
 Apakah bung mempunyai kertas selebarannya?
-#speaker:Karman #portrait:null #audio:alphabet
+#speaker:Karman #portrait:karman #audio:alphabet
 Oh, maaf Saya tidak membawanya.
 Akan saya bawakan untuk bung.
 -> END

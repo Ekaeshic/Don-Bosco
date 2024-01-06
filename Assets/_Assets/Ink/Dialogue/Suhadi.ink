@@ -4,12 +4,12 @@ INCLUDE DialogueData.ink
 - suhadi == false: -> once
 }
 
-#speaker:Suhadi #portrait:null #audio:animal_crossing_low
+#speaker:Suhadi #portrait:pejuang #audio:animal_crossing_low
 Hmm... mungkin aku juga akan bergabung.
 -> END
 
 === once ===
-#speaker:Suhadi #portrait:null #audio:animal_crossing_low
+#speaker:Suhadi #portrait:pejuang #audio:animal_crossing_low
 Kau dengar itu Karman? mereka akan membentuk pasukan polisi baru!
 Kalau tidak salah, namanya Badan Keamanan Rakjat?
 * [Iya, benar]
@@ -23,9 +23,9 @@ Hebat sekali Ibu bisa menyelesaikan semua pesanan itu seorang diri selama ini.
 Aku ingin membantu meneruskan usaha Ibu dan hidup dengan santai.
 Namun sepertinya hal itu tidak memungkinkan untuk saat ini, hahaha...
 * [Menurutku ini adalah hal yang bagus]
-    #speaker:Karman #portrait:null #audio:alphabet
+    #speaker:Karman #portrait:karman #audio:alphabet
     Lambat laun, kita membutuhkan suatu aparat keamanan untuk menjaga kemerdekaan ini.
-    #speaker:Suhadi
+    #speaker:Suhadi #portrait:pejuang #audio:animal_crossing_low
     Hmmm... begitukah?
     Aku memang merasa senang bisa membantu Ibuku, 
     Tetapi sejujurnya, aku juga masih sangat ingin berkontribusi dalam menjaga kemerdekaan kita.
@@ -48,13 +48,13 @@ Kalau bung ingin bergabung, pergilah ke kantor BKR secara langsung.
 -> END
 
 === selebaran ===
-#speaker:Suhadi #portrait:null #audio:animal_crossing_low
+#speaker:Suhadi #portrait:pejuang #audio:animal_crossing_low
 Ada apa bung? kenapa kembali lagi?
-#speaker:Karman #portrait:null #audio:alphabet
+#speaker:Karman #portrait:karman #audio:alphabet
 Bung, baru saja ada pesawat Belanda mengirimkan selebaran.
-#speaker:Suhadi #portrait:null #audio:animal_crossing_low
+#speaker:Suhadi #portrait:pejuang #audio:animal_crossing_low
 Selebaran?! Sebentar, Aku akan keluar sebentar lagi untuk melihat-lihat.
 Aku mau ganti baju terlebih dahulu.
-#speaker:Karman #portrait:null #audio:alphabet
+#speaker:Karman #portrait:karman #audio:alphabet
 Baiklah, Kalau begitu Aku akan pergi ke kantor BKR untuk melaporkan hal ini.
 -> END
