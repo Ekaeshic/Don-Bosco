@@ -177,13 +177,16 @@ AnimatorStateMachine:
     m_Position: {x: 1280, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1489120375011629396}
-    m_Position: {x: 1490, y: 200, z: 0}
+    m_Position: {x: 1490, y: 270, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6538772962123797968}
     m_Position: {x: 1700, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6803497882330514099}
     m_Position: {x: 1910, y: 200, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -2585382175215912520}
+    m_Position: {x: 1490, y: 200, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -215,6 +218,32 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 82d425204c340cc47992938e73230507, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &-2585382175215912520
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: moestopo
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: fd120fbcff025844784262bcab3ddd3f, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -253,7 +282,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: moestopo
+  m_Name: moestopoOld
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

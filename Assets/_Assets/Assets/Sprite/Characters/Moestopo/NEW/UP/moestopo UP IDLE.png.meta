@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e90140865dd022349b20ac141b79ca9a
+guid: 7dae8792893d4da40a37e862df43524d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,421 +110,421 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: walking-side_0
+      name: moestopo UP IDLE_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e5f60d8483ae1d1408c14b49b48d798f
-      internalID: 731811173
+      spriteID: b09b9ba0470a8484f93e991b13019193
+      internalID: -1954630511
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_1
+      name: moestopo UP IDLE_1
       rect:
         serializedVersion: 2
-        x: 303
+        x: 155
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 761a489e6092a514ea8e6bb895f5f70b
-      internalID: 560737938
+      spriteID: 7465b6af49ff4474d999b63a888f374f
+      internalID: -618765746
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_2
+      name: moestopo UP IDLE_2
       rect:
         serializedVersion: 2
-        x: 606
+        x: 310
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 649dd55fb1a5be747bbd0a0f71be87aa
-      internalID: 1273627001
+      spriteID: a60019171c885224bbfd1edffa8128df
+      internalID: 1240523747
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_3
+      name: moestopo UP IDLE_3
       rect:
         serializedVersion: 2
-        x: 909
+        x: 465
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c835fa7c6ea42814eaa6bcf92fd7e6db
-      internalID: -333192290
+      spriteID: 44757147e161eab41ac6fed8468cd617
+      internalID: 412176387
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_4
+      name: moestopo UP IDLE_4
       rect:
         serializedVersion: 2
-        x: 1212
+        x: 620
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8634e7130a1d664469a6aedf27306867
-      internalID: -2136417100
+      spriteID: 220d7add70002f04c942eb5942ba040f
+      internalID: 2082589797
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_5
+      name: moestopo UP IDLE_5
       rect:
         serializedVersion: 2
-        x: 1515
+        x: 775
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 404106cff40731640a5ebc3e5f961db1
-      internalID: -130307866
+      spriteID: 8334c29f28beb9742b03110cc9706572
+      internalID: -1359597252
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_6
+      name: moestopo UP IDLE_6
       rect:
         serializedVersion: 2
-        x: 1818
+        x: 930
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc65cffe62088b64f993ecf33905fbde
-      internalID: -885922177
+      spriteID: e134f83151adb054bab6bd15392c6540
+      internalID: 362542399
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_7
+      name: moestopo UP IDLE_7
       rect:
         serializedVersion: 2
-        x: 2121
+        x: 1085
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7db85ab716cfca346b971b07feb19ce2
-      internalID: -1318439605
+      spriteID: 879d41cba02efb942b2aed9e38df2b1d
+      internalID: -1462273029
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_8
+      name: moestopo UP IDLE_8
       rect:
         serializedVersion: 2
-        x: 2424
+        x: 1240
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cad4cb84105717a418f82cbb145545e0
-      internalID: -164044039
+      spriteID: ca0184dc930a0a143bd6b18e6a12236c
+      internalID: -1456954900
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_9
+      name: moestopo UP IDLE_9
       rect:
         serializedVersion: 2
-        x: 2727
+        x: 1395
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 76c5ed3839b023b45ba5ae787ba2a772
-      internalID: 2053559214
+      spriteID: 5995811c1f9c5094d8d0a640a298b984
+      internalID: -1126341213
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_10
+      name: moestopo UP IDLE_10
       rect:
         serializedVersion: 2
-        x: 3030
+        x: 1550
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2c788ace59ff14c4fa5b9c7dc4d16b7b
-      internalID: 1207607920
+      spriteID: 3eddb5a26d909a649af2a50f847afc88
+      internalID: -1065275028
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_11
+      name: moestopo UP IDLE_11
       rect:
         serializedVersion: 2
-        x: 3333
+        x: 1705
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01ad1b727679d4c418aa4ac563fa8340
-      internalID: 808572916
+      spriteID: 126dc9a529b50214a86d78ea77f281d7
+      internalID: 1921123730
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_12
+      name: moestopo UP IDLE_12
       rect:
         serializedVersion: 2
-        x: 3636
+        x: 1860
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab9e071c2ccfedf419cdcdb162dfba18
-      internalID: -860854709
+      spriteID: 5f33d8bc04a7c554da63ac7e08ae4690
+      internalID: 401789968
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_13
+      name: moestopo UP IDLE_13
       rect:
         serializedVersion: 2
-        x: 3939
+        x: 2015
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d28b501a5be41144eb33c6b77c86cc75
-      internalID: -1479343219
+      spriteID: 5af061c696c68d74db1c760f97d18368
+      internalID: 569820584
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_14
+      name: moestopo UP IDLE_14
       rect:
         serializedVersion: 2
-        x: 4242
+        x: 2170
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c3e762d6a8780234fb1e1bcb095d7ba0
-      internalID: 1959673005
+      spriteID: 67b6a5cefb9629e43a95b0a9245bf31a
+      internalID: -972989740
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_15
+      name: moestopo UP IDLE_15
       rect:
         serializedVersion: 2
-        x: 4545
+        x: 2325
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b946b67ca75fd944ea45f36f9d5f226c
-      internalID: 865767130
+      spriteID: bde54c5ba57ea564aa89dedc5b7a676d
+      internalID: -628776422
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_16
+      name: moestopo UP IDLE_16
       rect:
         serializedVersion: 2
-        x: 4848
+        x: 2480
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99fa20f5f1cc8e24093f0666c70ee529
-      internalID: -1848223898
+      spriteID: 6986fe51f86adea4184f750f02cb8c75
+      internalID: 473599244
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_17
+      name: moestopo UP IDLE_17
       rect:
         serializedVersion: 2
-        x: 5151
+        x: 2635
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fa0b4cce5f8b0b147955810a8df3bcc6
-      internalID: -459910099
+      spriteID: 179abace007f4f54aab3555269b3d7fd
+      internalID: 1548975745
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_18
+      name: moestopo UP IDLE_18
       rect:
         serializedVersion: 2
-        x: 5454
+        x: 2790
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 85699a26b720ec74893fc212b9a6f71f
-      internalID: -1163036120
+      spriteID: c1414f12d7956984d8d0712bbeb1854d
+      internalID: 1160562811
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walking-side_19
+      name: moestopo UP IDLE_19
       rect:
         serializedVersion: 2
-        x: 5757
+        x: 2945
         y: 0
-        width: 303
-        height: 294
+        width: 155
+        height: 271
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b581b87739dc3c48a397d97a70ba8ca
-      internalID: 1711241812
+      spriteID: 82bba53f863c2ab4587253f5b08bbee5
+      internalID: -2031981142
       vertices: []
       indices: 
       edges: []
@@ -540,26 +540,26 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      walking-side_0: 731811173
-      walking-side_1: 560737938
-      walking-side_10: 1207607920
-      walking-side_11: 808572916
-      walking-side_12: -860854709
-      walking-side_13: -1479343219
-      walking-side_14: 1959673005
-      walking-side_15: 865767130
-      walking-side_16: -1848223898
-      walking-side_17: -459910099
-      walking-side_18: -1163036120
-      walking-side_19: 1711241812
-      walking-side_2: 1273627001
-      walking-side_3: -333192290
-      walking-side_4: -2136417100
-      walking-side_5: -130307866
-      walking-side_6: -885922177
-      walking-side_7: -1318439605
-      walking-side_8: -164044039
-      walking-side_9: 2053559214
+      moestopo UP IDLE_0: -1954630511
+      moestopo UP IDLE_1: -618765746
+      moestopo UP IDLE_10: -1065275028
+      moestopo UP IDLE_11: 1921123730
+      moestopo UP IDLE_12: 401789968
+      moestopo UP IDLE_13: 569820584
+      moestopo UP IDLE_14: -972989740
+      moestopo UP IDLE_15: -628776422
+      moestopo UP IDLE_16: 473599244
+      moestopo UP IDLE_17: 1548975745
+      moestopo UP IDLE_18: 1160562811
+      moestopo UP IDLE_19: -2031981142
+      moestopo UP IDLE_2: 1240523747
+      moestopo UP IDLE_3: 412176387
+      moestopo UP IDLE_4: 2082589797
+      moestopo UP IDLE_5: -1359597252
+      moestopo UP IDLE_6: 362542399
+      moestopo UP IDLE_7: -1462273029
+      moestopo UP IDLE_8: -1456954900
+      moestopo UP IDLE_9: -1126341213
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

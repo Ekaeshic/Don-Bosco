@@ -21,7 +21,7 @@ public class QuizUIQuestion : MonoBehaviour
         else
         {
             leftText.text += "\n<color=#841F2C>";
-            rightText.text = $"<color=#841F2C> +{quizSO.points}";
+            rightText.text = $"<color=#841F2C> 0";
         }
         leftText.text += quizSO.answers[playerAnswer-1];
     }
