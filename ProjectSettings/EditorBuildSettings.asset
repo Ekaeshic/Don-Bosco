@@ -6,7 +6,49 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Assets/Scenes/DEV/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/_Assets/Scenes/LOGIC.unity
+    guid: 70b06fd74e8bd8a47bda975c8c12c0b0
+  - enabled: 1
+    path: Assets/_Assets/Scenes/MAINMENU.unity
+    guid: baa30b1e36aac88409701215fbe4ec0f
+  - enabled: 1
+    path: Assets/_Assets/Scenes/GAMEPLAY.unity
+    guid: f0e86a41b2303314fb4e76873938396d
+  - enabled: 1
+    path: Assets/_Assets/Scenes/DEV/DIALOGUE_TEST_WORLD.unity
+    guid: 1b9ae665306dcd44da7a8ecbba8df10f
+  - enabled: 1
+    path: Assets/_Assets/Scenes/DEV/TEST_TIMELINE.unity
+    guid: ab92ab039815def4f9181feb7546c41e
+  - enabled: 1
+    path: Assets/_Assets/Scenes/Story/Arc1/ARC1_PROLOG/ARC1_PROLOG.unity
+    guid: fc9da24892a41b24e9a834d8d7cfb3b6
+  - enabled: 1
+    path: Assets/_Assets/Scenes/World Scene/MAP_RUMAHKARMAN.unity
+    guid: f0655026ac1d98f42840f7999ec226d8
+  - enabled: 1
+    path: Assets/_Assets/Scenes/Story/Arc1/ARC1_PESAWAT.unity
+    guid: ccba01701a4613540bf38196fa2e419e
+  - enabled: 1
+    path: Assets/_Assets/Scenes/World Scene/MAP_JALAN.unity
+    guid: c200c152c10897241b976b8705e1c42d
+  - enabled: 1
+    path: Assets/_Assets/Scenes/Story/Arc1/ARC2_PERSIAPAN.unity
+    guid: 343bf795a91d6834991240492b68aeca
+  - enabled: 1
+    path: Assets/_Assets/Scenes/World Scene/MAP_DB_EXTERIOR.unity
+    guid: dd4adfd8ab5fd224c83037fd539f68db
+  - enabled: 1
+    path: Assets/_Assets/Scenes/World Scene/MAP_DB_INTERIOR.unity
+    guid: 9bf500020ebc4ea43a49f97134cf8cd5
+  - enabled: 1
+    path: Assets/_Assets/Scenes/Story/Arc1/Ending/ARC3_DB_INTERIOR.unity
+    guid: fd07de36a5658eb4c9d43623cab180ee
+  - enabled: 1
+    path: Assets/_Assets/Scenes/World Scene/MAP_KANTORBKR.unity
+    guid: 03d4065ab487ce044b347a9e332dcfcc
+  - enabled: 1
+    path: Assets/_Assets/Scenes/CREDIT.unity
+    guid: 33727b4f03397114496b268544bce57a
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 2ea68e328b9896345b249167d5c7c22b, type: 2}

@@ -25,7 +25,8 @@ MonoBehaviour:
   frequencyLevel: 1
   minPitch: 2
   maxPitch: 2.25
-  stopAudioSource: 0
+  stopAudioSourceInstantly: 0
+  readWaitForAudioBefore: 0
   readPunctuation: 0
-  makePredictable: 1
+  hashcodeIndexing: 1
   predictPitch: 0

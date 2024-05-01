@@ -5,6 +5,7 @@ using TMPro;
 using Ink.Runtime;
 using UnityEngine.EventSystems;
 using System;
+using System.Threading.Tasks;
 
 namespace DonBosco.Dialogue
 {
@@ -13,7 +14,7 @@ namespace DonBosco.Dialogue
     /// </summary>
     /// NOTE: SCRIPT INI HASIL MODIFIKASI SCRIPT DARI Sample\Ink\YTSample\Scripts\Dialogue\DialogueManager.cs,
     /// Kalau mau comot, comot script yg ini aja tapi script2 yang lain pada folder Dialogue juga di comot
-    public class DialogueManager : MonoBehaviour
+    public class DialogueManager : MonoBehaviour, ISaveLoad
     {
         [Header("Params")]
         [SerializeField] private float typingSpeed = 0.04f;
@@ -52,6 +53,7 @@ namespace DonBosco.Dialogue
         private Coroutine displayLineCoroutine;
 
         private static DialogueManager instance;
+        public static DialogueManager Instance => instance;
 
         private const string SPEAKER_TAG = "speaker";
         private const string PORTRAIT_TAG = "portrait";
@@ -65,6 +67,8 @@ namespace DonBosco.Dialogue
         public event Action OnDialogueLineDisplay;
         public event Action OnDialogueEnded;
 
+        private Dictionary<string, Action<string>> externalFunctions = new Dictionary<string, Action<string>>();
+
         private void Awake() 
         {
             if (instance != null)
@@ -76,9 +80,40 @@ namespace DonBosco.Dialogue
             dialogueVariables = new DialogueVariables(loadGlobalsJSON);
             inkExternalFunctions = new InkExternalFunctions();
 
-            audioSource = this.gameObject.AddComponent<AudioSource>();
+            audioSource = this.gameObject.GetComponent<AudioSource>();
             currentAudioInfo = defaultAudioInfo;
         }
+
+        void OnEnable()
+        {
+            SaveSystem.SaveManager.Instance.Subscribe(this);
+        }
+
+        void OnDisable()
+        {
+            SaveSystem.SaveManager.Instance.Unsubscribe(this);
+        }
+
+        #region ISaveLoad
+        public Task Save(SaveData saveData)
+        {
+            saveData.dialogueVariables = dialogueVariables.SaveVariableString();
+            return Task.CompletedTask;
+        }
+
+        public Task Load(SaveData saveData)
+        {
+            if(saveData == null)
+            {
+                return Task.CompletedTask;
+            }
+            if(!string.IsNullOrEmpty(saveData.dialogueVariables))
+            {
+                dialogueVariables.LoadVariableString(saveData.dialogueVariables);
+            }
+            return Task.CompletedTask;
+        }
+        #endregion
 
         public static DialogueManager GetInstance() 
         {
@@ -141,18 +176,24 @@ namespace DonBosco.Dialogue
             // NOTE: The 'currentStory.currentChoiecs.Count == 0' part was to fix a bug after the Youtube video was made
             if (canContinueToNextLine 
                 && currentStory.currentChoices.Count == 0 
-                && Character.InputManager.Instance.GetSubmitPressed())
+                && (DonBosco.InputManager.Instance.GetSubmitPressed() || DonBosco.InputManager.Instance.GetLeftClickPressed()))
             {
                 ContinueStory();
             }
         }
-
-        public void EnterDialogueMode(TextAsset inkJSON, Animator emoteAnimator = null) 
+        
+        /// <summary>
+        /// Enter dialogue mode with the given inkJSON and start the dialogue immediately
+        /// </summary>
+        /// <param name="inkJSON"></param>
+        /// <param name="emoteAnimator"></param>
+        /// <returns></returns>
+        public DialogueManager EnterDialogueMode(TextAsset inkJSON, Animator emoteAnimator = null) 
         {
             if(dialogueIsPlaying || inkJSON == null)
             {
                 Debug.LogWarning("Dialogue is already playing or inkJSON is null");
-                return;
+                return null;
             }
             // Prepare for dialogue (Punyaku, bisa dihapus kalau gak pake)
             PrepareForDialogue(true);
@@ -166,6 +207,10 @@ namespace DonBosco.Dialogue
             {
                 inkExternalFunctions.Bind(currentStory, emoteAnimator);
             }
+            foreach(var externalFunction in externalFunctions)
+            {
+                currentStory.BindExternalFunction(externalFunction.Key, externalFunction.Value);
+            }
 
             // reset portrait, layout, and speaker as default
             displayNameText.text = "???";
@@ -177,6 +222,136 @@ namespace DonBosco.Dialogue
             OnDialogueStarted?.Invoke();
 
             ContinueStory();
+
+            return instance;
+        }
+
+        public DialogueManager EnterDialogueMode(TextAsset inkJSON, string knotPath, Animator emoteAnimator = null) 
+        {
+            if(dialogueIsPlaying || inkJSON == null)
+            {
+                Debug.LogWarning("Dialogue is already playing or inkJSON is null");
+                return null;
+            }
+            // Prepare for dialogue (Punyaku, bisa dihapus kalau gak pake)
+            PrepareForDialogue(true);
+            
+            currentStory = new Story(inkJSON.text);
+            dialogueIsPlaying = true;
+            dialoguePanel.SetActive(true);
+
+            dialogueVariables.StartListening(currentStory);
+            if(emoteAnimator != null)
+            {
+                inkExternalFunctions.Bind(currentStory, emoteAnimator);
+            }
+            foreach(var externalFunction in externalFunctions)
+            {
+                currentStory.BindExternalFunction(externalFunction.Key, externalFunction.Value);
+            }
+
+            if(!string.IsNullOrEmpty(knotPath))
+            {
+                currentStory.ChoosePathString(knotPath);
+            }
+
+            // reset portrait, layout, and speaker as default
+            displayNameText.text = "???";
+            //portraitAnimator.Play("default");
+            portraitAnimator.transform.parent.gameObject.SetActive(true);
+
+            layoutAnimator.Play("default");
+            
+            OnDialogueStarted?.Invoke();
+
+            ContinueStory();
+
+            return instance;
+        }
+
+        /// <summary>
+        /// Initialize dialogue mode with the given inkJSON but don't start the dialogue yet.<br />
+        /// Useful for when you want to control how the dialogue starts <br />
+        /// (e.g. when you want to check if the player brings an important item when interacting)<br /> <br />
+        /// Call StartDialogue to start the dialogue.
+        /// </summary>
+        /// <param name="inkJSON"></param>
+        /// <param name="emoteAnimator"></param>
+        /// <returns></returns>
+        public DialogueManager EnterDialogueModeManually(TextAsset inkJSON, Animator emoteAnimator = null)
+        {
+            if(dialogueIsPlaying || inkJSON == null)
+            {
+                Debug.LogWarning("Dialogue is already playing or inkJSON is null");
+                return null;
+            }
+            // Prepare for dialogue (Punyaku, bisa dihapus kalau gak pake)
+            PrepareForDialogue(true);
+            
+            currentStory = new Story(inkJSON.text);
+            dialogueIsPlaying = true;
+            dialoguePanel.SetActive(true);
+
+            dialogueVariables.StartListening(currentStory);
+            if(emoteAnimator != null)
+            {
+                inkExternalFunctions.Bind(currentStory, emoteAnimator);
+            }
+            foreach(var externalFunction in externalFunctions)
+            {
+                currentStory.BindExternalFunction(externalFunction.Key, externalFunction.Value);
+            }
+
+            // reset portrait, layout, and speaker as default
+            displayNameText.text = "???";
+            //portraitAnimator.Play("default");
+            portraitAnimator.transform.parent.gameObject.SetActive(true);
+
+            layoutAnimator.Play("default");
+            
+            OnDialogueStarted?.Invoke();
+
+            return instance;
+        }
+
+
+        /// <summary>
+        /// Explicitly call this function to start the dialogue after calling EnterDialogueModeManually<br />
+        /// (Example: DialogueManager.GetInstance().EnterDialogueModeManually(inkJSON).StartDialogue();<br />
+        /// </summary>
+        /// <returns></returns>
+        public DialogueManager StartDialogue()
+        {
+            if(currentStory == null)
+            {
+                Debug.LogWarning("Cannot start dialogue because currentStory is null");
+                return null;
+            }
+            ContinueStory();
+            return instance;
+        }
+
+        /// <summary>
+        /// Register external function to be used in ink
+        /// Call this function before calling EnterDialogueMode
+        /// </summary>
+        /// <returns>Chainable DialogueManager</returns>
+        public DialogueManager BindExternalFunction(string functionName, Action<string> function)
+        {
+            if(function != null)
+            {
+                externalFunctions.Add(functionName, function);
+            }
+            return instance;
+        }
+
+        public DialogueManager OnDialogueDone(Action<DialogueVariables> callback)
+        {
+            if(callback != null)
+            {
+                OnDialogueEnded += () => callback(dialogueVariables);
+            }
+            return instance;
         }
 
         private IEnumerator ExitDialogueMode() 
@@ -186,17 +361,33 @@ namespace DonBosco.Dialogue
             dialogueVariables.StopListening(currentStory);
             inkExternalFunctions.Unbind(currentStory);
 
+            foreach(var externalFunction in externalFunctions)
+            {
+                if(currentStory.TryGetExternalFunction(externalFunction.Key, out var ext))
+                {
+                    currentStory.UnbindExternalFunction(externalFunction.Key);
+                }
+            }
+            externalFunctions.Clear();
+
             dialogueIsPlaying = false;
             dialoguePanel.SetActive(false);
             dialogueText.text = "";
 
-            OnDialogueEnded?.Invoke();
+
+            if(isTimelineControlled)
+            {
+                isTimelineControlled = false;
+            }
+            else
+            {
+                // Reverse the changes made in EnterDialogueMode
+                PrepareForDialogue(false);
+            }
 
             // go back to default audio
             SetCurrentAudioInfo(defaultAudioInfo.id);
-
-            // Reverse the changes made in EnterDialogueMode
-            PrepareForDialogue(false);
+            OnDialogueEnded?.Invoke();
         }
 
         private void ContinueStory() 
@@ -224,6 +415,7 @@ namespace DonBosco.Dialogue
             }
             else 
             {
+                canContinueToNextLine = false;
                 StartCoroutine(ExitDialogueMode());
             }
         }
@@ -246,7 +438,7 @@ namespace DonBosco.Dialogue
             foreach (char letter in line.ToCharArray())
             {
                 // if the submit button is pressed, finish up displaying the line right away
-                if (Character.InputManager.Instance.GetSubmitPressed()) 
+                if (DonBosco.InputManager.Instance.GetSubmitPressed() || DonBosco.InputManager.Instance.GetLeftClickPressed()) 
                 {
                     if(hasChosenChoice)
                     {
@@ -336,6 +528,12 @@ namespace DonBosco.Dialogue
                     // sound clip
                     // convert alphabet order (from a-z) to index (from 0-25)
                     int index = char.ToUpper(currentCharacter) - 65;
+                    if(index < 0 || index >= dialogueTypingSoundClips.Length)
+                    {
+                        Debug.Log("Index out of range for alphabet typing sound clips: " + index +" for character: " + currentCharacter);
+                        return;
+                    }
+                    
                     soundClip = dialogueTypingSoundClips[index];
                 }
                 // otherwise, randomize the audio
@@ -490,6 +688,10 @@ namespace DonBosco.Dialogue
                 Debug.LogError("More choices were given than the UI can support. Number of choices given: " 
                     + currentChoices.Count);
             }
+            else if (currentChoices.Count > 0) 
+            {
+                continueIcon.SetActive(false);
+            }
 
             int index = 0;
             // enable and initialize the choices up to the amount of choices for this line of dialogue
@@ -497,6 +699,9 @@ namespace DonBosco.Dialogue
             {
                 choices[index].gameObject.SetActive(true);
                 choicesText[index].text = choice.text;
+                // Rescale width to fit the text
+                choices[index].GetComponent<RectTransform>().sizeDelta = new Vector2(choicesText[index].preferredWidth + 20, choices[index].GetComponent<RectTransform>().sizeDelta.y);
+
                 index++;
             }
             // go through the remaining choices the UI supports and make sure they're hidden
@@ -505,7 +710,8 @@ namespace DonBosco.Dialogue
                 choices[i].gameObject.SetActive(false);
             }
 
-            StartCoroutine(SelectFirstChoice());
+            EventSystem.current.SetSelectedGameObject(null);
+            //StartCoroutine(SelectFirstChoice());
         }
 
         private IEnumerator SelectFirstChoice() 
@@ -523,12 +729,20 @@ namespace DonBosco.Dialogue
             {
                 currentStory.ChooseChoiceIndex(choiceIndex);
                 // NOTE: The below two lines were added to fix a bug after the Youtube video was made
-                Character.InputManager.Instance.RegisterSubmitPressed(); // this is specific to my InputManager script
+                DonBosco.InputManager.Instance.RegisterSubmitPressed(); // this is specific to my InputManager script
                 hasChosenChoice = true;
                 ContinueStory();
             }
         }
 
+        /// <summary>
+        /// Get the current state of a variable in ink<br/>
+        /// Useful for checking a variable before preparing for dialogue
+        /// </summary>
+        /// <param name="variableName">The name of the variable to get</param>
+        /// <returns>A variable from ink story. <br/>
+        /// To compare the value, use ToInt(), ToFloat(), ToString(), or ToBool() <br/>
+        /// </returns>
         public Ink.Runtime.Object GetVariableState(string variableName) 
         {
             Ink.Runtime.Object variableValue = null;
@@ -540,12 +754,22 @@ namespace DonBosco.Dialogue
             return variableValue;
         }
 
+        /// <summary>
+        /// Set the a variable state of a variable in ink <br />
+        /// Usage: GetInstance().SetVariableState()["variableName"] = value;
+        /// </summary>
+        /// <returns>VariableState, This function cant be chained</returns>
+        public VariablesState SetVariableState() 
+        {
+            return currentStory.state.variablesState;
+        }
+
         // This method will get called anytime the application exits.
         // Depending on your game, you may want to save variable state in other places.
-        public void OnApplicationQuit() 
-        {
-            dialogueVariables.SaveVariables();
-        }
+        // public void OnApplicationQuit() 
+        // {
+        //     dialogueVariables.SaveVariables();
+        // }
 
 
 
@@ -553,18 +777,67 @@ namespace DonBosco.Dialogue
         {
             if(isStarting)
             {
-                GameManager.PauseGame();
-                Character.InputManager.Instance.SetMovementActionMap(false);
-                Character.InputManager.Instance.SetUIActionMap(true);
+                GameManager.SetDialogueState();
             }
             else
             {
                 GameManager.ResumeGame();
-                Character.InputManager.Instance.SetMovementActionMap(true);
-                Character.InputManager.Instance.SetUIActionMap(false);
             }
         }
 
+
+
+        #region Timeline Tracks
+        [HideInInspector] public bool isTimelineControlled = false;
+        //private bool isNeedInput = false;
+        #endregion
+        public void EnterDialogueModeFromTimeline(TextAsset inkJSON, string knotPath = null, Animator emoteAnimator = null)
+        {
+            isTimelineControlled = true;
+
+            if(dialogueIsPlaying || inkJSON == null)
+            {
+                Debug.LogWarning("Dialogue is already playing or inkJSON is null");
+                return;
+            }
+            // Prepare for dialogue (Punyaku, bisa dihapus kalau gak pake)
+            //PrepareForDialogue(true);
+            
+            currentStory = new Story(inkJSON.text);
+            dialogueIsPlaying = true;
+            dialoguePanel.SetActive(true);
+
+            dialogueVariables.StartListening(currentStory);
+            if(emoteAnimator != null)
+            {
+                inkExternalFunctions.Bind(currentStory, emoteAnimator);
+            }
+            foreach(var externalFunction in externalFunctions)
+            {
+                currentStory.BindExternalFunction(externalFunction.Key, externalFunction.Value);
+            }
+
+            // reset portrait, layout, and speaker as default
+            displayNameText.text = "???";
+            //portraitAnimator.Play("default");
+            portraitAnimator.transform.parent.gameObject.SetActive(true);
+
+            layoutAnimator.Play("default");
+            
+            OnDialogueStarted?.Invoke();
+
+            if(!string.IsNullOrEmpty(knotPath))
+            {
+                currentStory.ChoosePathString(knotPath);
+            }
+
+            ContinueStory();
+        }
+
+        internal void SetDialogueVisibleFromTimeline(bool value)
+        {
+            dialoguePanel.SetActive(value);
+        }
     }
 
 }

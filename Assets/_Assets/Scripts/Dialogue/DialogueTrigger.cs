@@ -28,7 +28,7 @@ namespace DonBosco.Dialogue
             if (playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying) 
             {
                 visualCue.SetActive(true);
-                if (InputManager.GetInstance().GetInteractPressed()) 
+                if (InputManager.Instance.GetInteractPressed()) 
                 {
                     DialogueManager.GetInstance().EnterDialogueMode(inkJSON, emoteAnimator);
                 }

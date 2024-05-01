@@ -21,6 +21,9 @@ namespace DonBosco.Dialogue
             //     string jsonState = PlayerPrefs.GetString(saveVariablesKey);
             //     globalVariablesStory.state.LoadJson(jsonState);
             // }
+            
+            /// Load using format of binary file
+            // LoadVariables();
 
             // initialize the dictionary
             variables = new Dictionary<string, Ink.Runtime.Object>();
@@ -28,8 +31,41 @@ namespace DonBosco.Dialogue
             {
                 Ink.Runtime.Object value = globalVariablesStory.variablesState.GetVariableWithName(name);
                 variables.Add(name, value);
-                //Debug.Log("Initialized global dialogue variable: " + name + " = " + value);
+                //Debug.Log("Initialized global dialogue variable: " + name + " = " + value +" type: "+value.GetType());
             }
+        }
+
+        public void LoadVariables()
+        {
+            string path = Application.persistentDataPath + "/save.dat";
+            if(System.IO.File.Exists(path))
+            {
+                System.Runtime.Serialization.Formatters.Binary.BinaryFormatter formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                System.IO.FileStream file = System.IO.File.Open(path, System.IO.FileMode.Open);
+                string jsonState = (string)formatter.Deserialize(file);
+                file.Close();
+                globalVariablesStory.state.LoadJson(jsonState);
+            }
+        }
+
+        public void LoadVariableString(string jsonState)
+        {
+            globalVariablesStory.state.LoadJson(jsonState);
+
+            // initialize the dictionary
+            variables = new Dictionary<string, Ink.Runtime.Object>();
+            foreach (string name in globalVariablesStory.variablesState)
+            {
+                Ink.Runtime.Object value = globalVariablesStory.variablesState.GetVariableWithName(name);
+                variables.Add(name, value);
+                //Debug.Log("Initialized global dialogue variable: " + name + " = " + value +" type: "+value.GetType());
+            }
+        }
+
+        public string SaveVariableString()
+        {
+            VariablesToStory(globalVariablesStory);
+            return globalVariablesStory.state.ToJson();
         }
 
         public void SaveVariables() 
@@ -40,7 +76,23 @@ namespace DonBosco.Dialogue
                 VariablesToStory(globalVariablesStory);
                 // NOTE: eventually, you'd want to replace this with an actual save/load method
                 // rather than using PlayerPrefs.
-                PlayerPrefs.SetString(saveVariablesKey, globalVariablesStory.state.ToJson());
+                //PlayerPrefs.SetString(saveVariablesKey, globalVariablesStory.state.ToJson());
+
+                /// Save using format of binary file
+                //Save to unity persistent data path
+                string path = Application.persistentDataPath + "/save.dat";
+
+                //Create a binary formatter which can read binary files
+                System.Runtime.Serialization.Formatters.Binary.BinaryFormatter formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                
+                //JSON String into binary
+                if(System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+                System.IO.FileStream file = System.IO.File.Create(path);
+                formatter.Serialize(file, globalVariablesStory.state.ToJson());
+                file.Close();
             }
         }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Threading.Tasks;
 
-namespace DonBosco.Character
+namespace DonBosco
 {
     /// <summary>
     /// Handles input
@@ -22,9 +22,15 @@ namespace DonBosco.Character
         private bool interactPressed = false;
         private bool pausePressed = false;
         private bool attackPressed = false;
+        private bool pickupPressed = false;
+        private bool dropPressed = false;
+        private int numkeysPressed = 0;
+        private bool useItemPressed = false;
+        private float scrollWheelValue = 0f;
 
         private bool submitPressed = false;
         private bool backPressed = false;
+        private bool leftClickPressed = false;
 
         private static InputManager instance;
         public static InputManager Instance => instance;
@@ -47,17 +53,6 @@ namespace DonBosco.Character
             playerInput = GetComponent<PlayerInput>(); 
             movementActionMap = playerInput.actions.FindActionMap("Movement");
             UIactionMap = playerInput.actions.FindActionMap("UI");
-        }
-
-        public static async Task<InputManager> GetInstance()
-        {
-            int waitFrame = 10;
-            while(instance == null && waitFrame > 0)
-            {
-                await Task.Delay(100);
-                waitFrame--;
-            }
-            return instance;
         }
 
         #region Input
@@ -90,6 +85,32 @@ namespace DonBosco.Character
             attackPressed = value.isPressed;
             OnAttackPressed?.Invoke();
         }
+
+        public void OnPickup(InputValue value)
+        {
+            pickupPressed = value.isPressed;
+        }
+
+        public void OnDrop(InputValue value)
+        {
+            dropPressed = value.isPressed;
+        }
+
+        public void OnNumKeys(InputValue value)
+        {
+            int.TryParse(value.Get().ToString(), out numkeysPressed);
+        }
+
+        public void OnScrollWheel(InputValue value)
+        {
+            Vector2 temp = value.Get<Vector2>();
+            scrollWheelValue = temp.y;
+        }
+
+        public void OnUseItem(InputValue value)
+        {
+            useItemPressed = value.isPressed;
+        }
         #endregion
 
 
@@ -103,6 +124,11 @@ namespace DonBosco.Character
         public void OnBack(InputValue value)
         {
             backPressed = value.isPressed;
+        }
+
+        public void OnLeftClick(InputValue value)
+        {
+            leftClickPressed = value.isPressed;
         }
         #endregion
         #endregion
@@ -118,6 +144,16 @@ namespace DonBosco.Character
         public bool GetAttackValue()
         {
             return attackPressed;
+        }
+
+        public float GetScrollWheelValue()
+        {
+            return scrollWheelValue;
+        }
+
+        public bool GetUseItemPressed()
+        {
+            return useItemPressed;
         }
 
 
@@ -145,6 +181,27 @@ namespace DonBosco.Character
             return temp;
         }
 
+        public bool GetPickupPressed()
+        {
+            bool temp = pickupPressed;
+            pickupPressed = false;
+            return temp;
+        }
+
+        public bool GetDropPressed()
+        {
+            bool temp = dropPressed;
+            dropPressed = false;
+            return temp;
+        }
+
+        public int GetNumKeysPressed()
+        {
+            int temp = numkeysPressed;
+            numkeysPressed = 0;
+            return temp;
+        }
+
 
 
         public bool GetSubmitPressed()
@@ -158,6 +215,13 @@ namespace DonBosco.Character
         {
             bool temp = backPressed;
             backPressed = false;
+            return temp;
+        }
+
+        public bool GetLeftClickPressed()
+        {
+            bool temp = leftClickPressed;
+            leftClickPressed = false;
             return temp;
         }
         #endregion

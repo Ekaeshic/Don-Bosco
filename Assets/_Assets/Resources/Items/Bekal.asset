@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29927b9677315d74aab65c2a64ee7839, type: 3}
+  m_Name: Bekal
+  m_EditorClassIdentifier: 
+  <itemName>k__BackingField: Bekal
+  prefab: {fileID: 1639461539522595264, guid: 6ca66bf69964b624c84e1320d75efbd1, type: 3}
+  sprite: {fileID: 21300000, guid: cf23c62eda067d548bd4a79dd0c44160, type: 3}
+  IsUsable: 1
+  RemoveOnUse: 1
+  UseTime: 3
+  UseText: Mengonsumsi Bekal...
+  UseEffectText: Memulihkan 80 darah
+  healAmount: 80
